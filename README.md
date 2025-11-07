@@ -9,24 +9,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 npm install
 ```
 
-2. **환경변수 설정 (선택사항)**
+2. **EmailJS 설정 (5분 소요)**
 
 Contact Form 이메일 전송 기능을 사용하려면 EmailJS 설정이 필요합니다.
 
-📖 **상세 설정 가이드**: [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) 참조
+📖 **간단 설정 가이드**: [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) (5분 완성!)
 
-**간단 요약**:
-1. [EmailJS](https://www.emailjs.com/) 계정 생성
-2. Email Service 및 Template 설정
-3. 프로젝트 루트에 `.env.local` 파일 생성:
+**빠른 요약**:
+1. https://www.emailjs.com/ 에서 무료 계정 생성
+2. Email Service 연결 → Service ID 복사
+3. Email Template 생성 → Template ID 복사  
+4. Account에서 Public Key 복사
+5. Vercel 대시보드에서 환경변수 3개 추가
+6. 재배포 완료!
 
-```bash
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
-NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
-```
-
-환경변수가 설정되지 않은 경우 개발 모드에서는 시뮬레이션만 실행됩니다.
+자세한 단계는 [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md)를 참조하세요.
 
 ### 개발 서버 실행
 
