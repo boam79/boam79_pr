@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import FadeInUp from '@/components/ui/FadeInUp';
@@ -18,36 +17,6 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-  const [isEmailJSReady, setIsEmailJSReady] = useState(false);
-  const hasInitialized = useRef(false); // React Strict Mode에서 중복 실행 방지
-
-  // EmailJS 초기화 및 설정 확인
-  useEffect(() => {
-    // 이미 초기화되었으면 실행하지 않음 (React Strict Mode 대응)
-    if (hasInitialized.current) return;
-    hasInitialized.current = true;
-
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    if (serviceId && templateId && publicKey) {
-      // EmailJS 초기화 (v4.x에서는 선택사항이지만 안정성을 위해 추가)
-      try {
-        emailjs.init(publicKey);
-        setIsEmailJSReady(true);
-      } catch (error) {
-        console.warn('EmailJS 초기화 실패:', error);
-        setIsEmailJSReady(false);
-      }
-    } else {
-      // 개발 모드에서만 콘솔 경고 표시 (프로덕션에서는 표시하지 않음)
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('EmailJS 환경변수가 설정되지 않았습니다. 개발 모드에서는 시뮬레이션만 실행됩니다.');
-      }
-      setIsEmailJSReady(false);
-    }
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,125 +49,13 @@ export default function ContactPage() {
       return;
     }
 
-    try {
-      // EmailJS 설정값 (환경변수)
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
-
-      // 환경변수가 설정되지 않은 경우 개발 모드에서는 시뮬레이션만 실행
-      if (!serviceId || !templateId || !publicKey || !isEmailJSReady) {
-        console.warn('EmailJS 환경변수가 설정되지 않았습니다. 개발 모드에서는 시뮬레이션만 실행됩니다.');
-        
-        // 개발 모드: 문의 내역만 저장하고 성공 시뮬레이션
-        try {
-          await fetch('/api/inquiries', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              name: formData.name.trim(),
-              email: formData.email.trim(),
-              company: formData.company.trim() || '',
-              type: formData.type || '',
-              message: formData.message.trim(),
-            }),
-          });
-        } catch (saveError) {
-          console.error('문의 내역 저장 실패:', saveError);
-        }
-
-        setTimeout(() => {
-          setIsSubmitting(false);
-          setSubmitStatus('success');
-          setFormData({ name: '', email: '', company: '', type: '', message: '' });
-          setTimeout(() => setSubmitStatus('idle'), 5000);
-        }, 1000);
-        return;
-      }
-
-      // EmailJS로 이메일 전송
-      const templateParams = {
-        from_name: formData.name.trim(),
-        from_email: formData.email.trim(),
-        company: formData.company.trim() || '없음',
-        inquiry_type: formData.type 
-          ? (formData.type === 'recruitment' ? '채용 문의' 
-            : formData.type === 'collaboration' ? '프로젝트 협업' 
-            : '기타')
-          : '미선택',
-        message: formData.message.trim(),
-        to_email: 'ckadltmfxhrxhrxhr@gmail.com', // 수신자 이메일
-      };
-
-      // EmailJS 전송 (타임아웃 설정)
-      const timeoutPromise = new Promise<never>((_, reject) => 
-        setTimeout(() => reject(new Error('요청 시간이 초과되었습니다.')), 10000)
-      );
-
-      const response = await Promise.race([
-        emailjs.send(serviceId, templateId, templateParams, publicKey),
-        timeoutPromise
-      ]);
-
-      // EmailJS 응답 확인
-      if (response && typeof response === 'object' && 'status' in response) {
-        const emailjsResponse = response as { status: number; text: string };
-        if (emailjsResponse.status === 200) {
-          // 문의 내역을 서버에 저장
-          try {
-            await fetch('/api/inquiries', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                name: formData.name.trim(),
-                email: formData.email.trim(),
-                company: formData.company.trim() || '',
-                type: formData.type || '',
-                message: formData.message.trim(),
-              }),
-            });
-          } catch (saveError) {
-            console.error('문의 내역 저장 실패:', saveError);
-            // 저장 실패해도 이메일 전송은 성공했으므로 계속 진행
-          }
-
-          setIsSubmitting(false);
-          setSubmitStatus('success');
-          setFormData({ name: '', email: '', company: '', type: '', message: '' });
-          setTimeout(() => setSubmitStatus('idle'), 5000);
-        } else {
-          throw new Error(`이메일 전송 실패: ${emailjsResponse.text || '알 수 없는 오류'}`);
-        }
-      } else {
-        throw new Error('이메일 전송 응답 형식이 올바르지 않습니다.');
-      }
-    } catch (error: unknown) {
-      console.error('이메일 전송 실패:', error);
+    // 간단한 성공 시뮬레이션
+    setTimeout(() => {
       setIsSubmitting(false);
-      setSubmitStatus('error');
-      
-      // 구체적인 에러 메시지 제공
-      if (error instanceof Error) {
-        if (error.message.includes('timeout') || error.message.includes('시간')) {
-          setErrorMessage('요청 시간이 초과되었습니다. 네트워크 연결을 확인하고 다시 시도해주세요.');
-        } else if (error.message.includes('Invalid') || error.message.includes('invalid')) {
-          setErrorMessage('이메일 설정이 올바르지 않습니다. 관리자에게 문의해주세요.');
-        } else {
-          setErrorMessage('이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
-        }
-      } else {
-        setErrorMessage('이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.');
-      }
-      
-      setTimeout(() => {
-        setSubmitStatus('idle');
-        setErrorMessage('');
-      }, 5000);
-    }
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', company: '', type: '', message: '' });
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }, 1000);
   };
 
   return (
@@ -281,7 +138,7 @@ export default function ContactPage() {
               )}
               {submitStatus === 'error' && (
                 <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-800 text-sm">{errorMessage || '이메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.'}</p>
+                  <p className="text-red-800 text-sm">{errorMessage}</p>
                 </div>
               )}
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -368,4 +225,3 @@ export default function ContactPage() {
     </div>
   );
 }
-

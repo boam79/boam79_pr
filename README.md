@@ -9,16 +9,6 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 npm install
 ```
 
-2. **이메일 전송 설정 (선택사항)**
-
-Contact Form 이메일 전송 기능을 사용하려면 이메일 서비스 설정이 필요합니다.
-
-**현재 사용 중**: EmailJS
-- 📖 [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) (5분 완성!)
-
-**더 간단한 방법이 필요하신가요?**
-- 🔄 [다른 방법 비교하기](./docs/EMAIL_ALTERNATIVES.md)
-- ⚡ [Formspree로 변경하기](./docs/FORMSPREE_SETUP.md) (2분, 가장 간단!)
 
 ### 개발 서버 실행
 
@@ -46,22 +36,6 @@ npm run start
 - ✅ 접근성 개선 (키보드 네비게이션, ARIA 레이블)
 - ✅ 이미지 최적화 (WebP, AVIF 지원)
 - ✅ 애니메이션 (Framer Motion)
-- ✅ 문의 내역 관리 페이지 (관리자)
-
-### 관리자 페이지 사용법
-
-문의 내역을 확인하려면 관리자 페이지를 사용하세요:
-
-1. **관리자 페이지 접속**: `/admin`
-2. **비밀번호 입력**: 환경변수 `ADMIN_PASSWORD`에 설정한 비밀번호 입력
-3. **문의 내역 확인**: 저장된 모든 문의 내역을 확인할 수 있습니다
-
-**환경변수 설정** (Vercel):
-```
-ADMIN_PASSWORD=your_secure_password
-```
-
-⚠️ **주의**: 관리자 페이지는 검색 엔진에 노출되지 않도록 설정되어 있습니다.
 
 ### 프로젝트 구조
 
@@ -86,10 +60,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-**배포 시 주의사항**: Vercel 대시보드에서 환경변수를 설정해야 합니다.
-
-📖 **Vercel 환경변수 설정 가이드**: [Vercel 환경변수 설정 가이드](./docs/VERCEL_ENV_SETUP.md) 참조
-
-Settings > Environment Variables에서 EmailJS 관련 변수를 추가하세요.
+**배포 시 주의사항**: Vercel에 배포하면 자동으로 최적화되어 배포됩니다.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

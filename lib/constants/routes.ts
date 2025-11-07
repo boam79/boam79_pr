@@ -5,6 +5,5 @@ export const routes = {
   skills: '/skills',
   projects: '/projects',
   contact: '/contact',
-  admin: '/admin',
 };
 
