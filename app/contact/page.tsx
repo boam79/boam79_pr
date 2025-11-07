@@ -2,7 +2,7 @@
 
 import Card from '@/components/ui/Card';
 import FadeInUp from '@/components/ui/FadeInUp';
-import { Mail, Github, MessageCircle } from 'lucide-react';
+import { Mail, Github, MessageCircle, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
@@ -53,6 +53,16 @@ export default function ContactPage() {
                     >
                       <Github size={24} />
                       <span className="text-sm font-medium text-gray-700">GitHub</span>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/jae-min-park-8b475720a/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors flex items-center gap-2"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin size={24} className="text-blue-600" />
+                      <span className="text-sm font-medium text-blue-700">LinkedIn</span>
                     </a>
                     <a
                       href="https://www.threads.net/@jijijijijjijijijijijijij300?hl=ko"

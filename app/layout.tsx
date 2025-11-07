@@ -68,6 +68,7 @@ export default function RootLayout({
     url: 'https://your-domain.com', // 실제 도메인으로 변경 필요
     sameAs: [
       'https://github.com/boam79',
+      'https://www.linkedin.com/in/jae-min-park-8b475720a/',
     ],
     knowsAbout: [
       '시설관리',
