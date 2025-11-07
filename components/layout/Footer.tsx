@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Mail, MessageCircle } from 'lucide-react';
 import { routes } from '@/lib/constants/routes';
 
 export default function Footer() {
@@ -41,13 +41,13 @@ export default function Footer() {
                 <Github size={24} />
               </a>
               <a
-                href="https://www.linkedin.com/in/jae-min-park-8b475720a/"
+                href="https://www.threads.net/@jijijijijjijijijijijijij300?hl=ko"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
-                aria-label="LinkedIn"
+                aria-label="Threads"
               >
-                <Linkedin size={24} />
+                <MessageCircle size={24} />
               </a>
               <Link
                 href={routes.contact}
