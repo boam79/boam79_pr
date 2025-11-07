@@ -9,21 +9,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 npm install
 ```
 
-2. **EmailJS 설정 (5분 소요)**
+2. **이메일 전송 설정 (선택사항)**
 
-Contact Form 이메일 전송 기능을 사용하려면 EmailJS 설정이 필요합니다.
+Contact Form 이메일 전송 기능을 사용하려면 이메일 서비스 설정이 필요합니다.
 
-📖 **간단 설정 가이드**: [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) (5분 완성!)
+**현재 사용 중**: EmailJS
+- 📖 [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) (5분 완성!)
 
-**빠른 요약**:
-1. https://www.emailjs.com/ 에서 무료 계정 생성
-2. Email Service 연결 → Service ID 복사
-3. Email Template 생성 → Template ID 복사  
-4. Account에서 Public Key 복사
-5. Vercel 대시보드에서 환경변수 3개 추가
-6. 재배포 완료!
-
-자세한 단계는 [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md)를 참조하세요.
+**더 간단한 방법이 필요하신가요?**
+- 🔄 [다른 방법 비교하기](./docs/EMAIL_ALTERNATIVES.md)
+- ⚡ [Formspree로 변경하기](./docs/FORMSPREE_SETUP.md) (2분, 가장 간단!)
 
 ### 개발 서버 실행
 
