@@ -9,7 +9,13 @@ export const developmentCareers: Career[] = [
     period: { start: "2024.08", end: "present" },
     position: "Full-stack Developer",
     status: "in-progress",
-    techStack: ["Next.js", "TypeScript", "Python", "Pandas", "PostgreSQL", "Chart.js"]
+    techStack: ["Next.js", "TypeScript", "Python", "Pandas", "PostgreSQL", "Chart.js"],
+    description: [
+      "병원 환자 데이터를 분석하고 시각화하는 웹 애플리케이션",
+      "Python Pandas를 활용한 데이터 처리 및 PostgreSQL 데이터베이스 연동",
+      "Chart.js를 이용한 인터랙티브 데이터 시각화",
+      "커서 AI 개발툴을 활용한 효율적인 개발"
+    ]
   },
   {
     id: "dev-002",
@@ -21,7 +27,12 @@ export const developmentCareers: Career[] = [
     status: "in-progress",
     techStack: ["TypeScript"],
     github: "https://github.com/boam79/medical_price_comparison",
-    demo: "https://medical-price-comparison.vercel.app"
+    demo: "https://medical-price-comparison.vercel.app",
+    description: [
+      "의료기관별 의료비를 비교하고 분석할 수 있는 웹 애플리케이션",
+      "사용자가 쉽게 의료비 정보를 확인하고 비교할 수 있는 인터페이스 제공",
+      "커서 AI 개발툴을 활용한 빠른 프로토타이핑 및 개발"
+    ]
   },
   {
     id: "dev-003",
@@ -33,7 +44,12 @@ export const developmentCareers: Career[] = [
     status: "in-progress",
     techStack: ["TypeScript"],
     github: "https://github.com/boam79/prom_hub",
-    demo: "https://prom-hub.vercel.app"
+    demo: "https://prom-hub.vercel.app",
+    description: [
+      "프로모션 정보를 중앙에서 관리하고 공유하는 플랫폼",
+      "다양한 프로모션 정보를 한 곳에서 확인할 수 있는 통합 서비스",
+      "커서 AI 개발툴을 활용한 현대적인 웹 애플리케이션 개발"
+    ]
   },
   {
     id: "dev-004",
@@ -45,7 +61,13 @@ export const developmentCareers: Career[] = [
     status: "in-progress",
     techStack: ["TypeScript"],
     github: "https://github.com/boam79/SunPath_Shadow_Simulator",
-    demo: "https://sunpathshadowsimulator.vercel.app"
+    demo: "https://sunpathshadowsimulator.vercel.app",
+    description: [
+      "태양의 경로와 그림자를 시뮬레이션하는 웹 애플리케이션",
+      "건축 및 설계 분야에서 일조량 분석에 활용 가능한 도구",
+      "실시간 태양 위치 계산 및 그림자 시각화 기능 제공",
+      "커서 AI 개발툴을 활용한 복잡한 수학 계산 로직 구현"
+    ]
   },
   {
     id: "dev-006",
@@ -57,7 +79,13 @@ export const developmentCareers: Career[] = [
     status: "in-progress",
     techStack: ["JavaScript"],
     github: "https://github.com/boam79/salary_cal",
-    demo: "https://salary-cal.vercel.app"
+    demo: "https://salary-cal.vercel.app",
+    description: [
+      "급여 계산을 간편하게 수행할 수 있는 웹 애플리케이션",
+      "세금, 공제액 등을 자동으로 계산하여 실수령액을 제공",
+      "사용자 친화적인 인터페이스로 빠른 급여 계산 가능",
+      "커서 AI 개발툴을 활용한 실용적인 유틸리티 개발"
+    ]
   },
   {
     id: "dev-008",
@@ -69,7 +97,13 @@ export const developmentCareers: Career[] = [
     status: "in-progress",
     techStack: ["TypeScript"],
     github: "https://github.com/boam79/ai_meet",
-    demo: "https://ai-meet-beige.vercel.app"
+    demo: "https://ai-meet-beige.vercel.app",
+    description: [
+      "AI 기반 온라인 미팅 및 협업 플랫폼",
+      "실시간 화상 회의 기능과 AI 어시스턴트 통합",
+      "효율적인 원격 협업을 위한 다양한 기능 제공",
+      "커서 AI 개발툴을 활용한 AI 통합 웹 애플리케이션 개발"
+    ]
   }
 ];
 
