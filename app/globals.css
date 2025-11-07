@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --primary-blue: #2563eb;
+  --primary-dark: #1e293b;
+  --secondary-teal: #0d9488;
+  --secondary-gray: #64748b;
+  --accent-orange: #f97316;
+  --accent-green: #10b981;
+  --bg-light: #f8fafc;
+  --bg-white: #ffffff;
+  --bg-dark: #0f172a;
+  --status-active: #10b981;
+  --status-in-progress: #3b82f6;
+  --status-completed: #64748b;
+}
+
+@theme inline {
+  --color-primary-blue: var(--primary-blue);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary-teal: var(--secondary-teal);
+  --color-secondary-gray: var(--secondary-gray);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-green: var(--accent-green);
+  --color-bg-light: var(--bg-light);
+  --color-bg-white: var(--bg-white);
+  --color-bg-dark: var(--bg-dark);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--bg-white);
+  color: var(--primary-dark);
+  font-family: var(--font-inter), 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+/* Apple 스타일 스크롤 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
