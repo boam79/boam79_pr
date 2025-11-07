@@ -11,12 +11,14 @@ npm install
 
 2. **환경변수 설정 (선택사항)**
 
-Contact Form 이메일 전송 기능을 사용하려면 EmailJS 설정이 필요합니다:
+Contact Form 이메일 전송 기능을 사용하려면 EmailJS 설정이 필요합니다.
 
+📖 **상세 설정 가이드**: [EmailJS 설정 가이드](./docs/EMAILJS_SETUP.md) 참조
+
+**간단 요약**:
 1. [EmailJS](https://www.emailjs.com/) 계정 생성
-2. Email Service 설정 (Gmail, Outlook 등)
-3. Email Template 생성
-4. 프로젝트 루트에 `.env.local` 파일 생성:
+2. Email Service 및 Template 설정
+3. 프로젝트 루트에 `.env.local` 파일 생성:
 
 ```bash
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id

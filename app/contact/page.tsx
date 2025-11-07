@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -19,9 +19,14 @@ export default function ContactPage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [isEmailJSReady, setIsEmailJSReady] = useState(false);
+  const hasInitialized = useRef(false); // React Strict Mode에서 중복 실행 방지
 
   // EmailJS 초기화 및 설정 확인
   useEffect(() => {
+    // 이미 초기화되었으면 실행하지 않음 (React Strict Mode 대응)
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
@@ -36,7 +41,10 @@ export default function ContactPage() {
         setIsEmailJSReady(false);
       }
     } else {
-      console.warn('EmailJS 환경변수가 설정되지 않았습니다. 개발 모드에서는 시뮬레이션만 실행됩니다.');
+      // 개발 모드에서만 콘솔 경고 표시 (프로덕션에서는 표시하지 않음)
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('EmailJS 환경변수가 설정되지 않았습니다. 개발 모드에서는 시뮬레이션만 실행됩니다.');
+      }
       setIsEmailJSReady(false);
     }
   }, []);
