@@ -89,7 +89,26 @@ export default function ContactPage() {
       // 환경변수가 설정되지 않은 경우 개발 모드에서는 시뮬레이션만 실행
       if (!serviceId || !templateId || !publicKey || !isEmailJSReady) {
         console.warn('EmailJS 환경변수가 설정되지 않았습니다. 개발 모드에서는 시뮬레이션만 실행됩니다.');
-        // 개발 모드: 실제 전송 없이 성공 시뮬레이션
+        
+        // 개발 모드: 문의 내역만 저장하고 성공 시뮬레이션
+        try {
+          await fetch('/api/inquiries', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: formData.name.trim(),
+              email: formData.email.trim(),
+              company: formData.company.trim() || '',
+              type: formData.type || '',
+              message: formData.message.trim(),
+            }),
+          });
+        } catch (saveError) {
+          console.error('문의 내역 저장 실패:', saveError);
+        }
+
         setTimeout(() => {
           setIsSubmitting(false);
           setSubmitStatus('success');
@@ -127,6 +146,26 @@ export default function ContactPage() {
       if (response && typeof response === 'object' && 'status' in response) {
         const emailjsResponse = response as { status: number; text: string };
         if (emailjsResponse.status === 200) {
+          // 문의 내역을 서버에 저장
+          try {
+            await fetch('/api/inquiries', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                company: formData.company.trim() || '',
+                type: formData.type || '',
+                message: formData.message.trim(),
+              }),
+            });
+          } catch (saveError) {
+            console.error('문의 내역 저장 실패:', saveError);
+            // 저장 실패해도 이메일 전송은 성공했으므로 계속 진행
+          }
+
           setIsSubmitting(false);
           setSubmitStatus('success');
           setFormData({ name: '', email: '', company: '', type: '', message: '' });
@@ -195,13 +234,13 @@ export default function ContactPage() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Mail className="text-blue-600" size={20} />
-                    <a 
-                      href="mailto:ckadltmfxhrxhrxhr@gmail.com"
-                      className="text-gray-700 hover:text-blue-600 transition-colors"
-                    >
+                    <span className="text-gray-700">
                       ckadltmfxhrxhrxhr@gmail.com
-                    </a>
+                    </span>
                   </div>
+                  <p className="text-sm text-gray-600 mt-2">
+                    문의사항이 있으시면 아래 폼을 작성해주세요.
+                  </p>
                 </div>
 
                 <div className="mt-8">

@@ -18,12 +18,12 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">이메일</h4>
             <div className="space-y-2 text-sm">
-              <a 
-                href="mailto:ckadltmfxhrxhrxhr@gmail.com"
+              <Link 
+                href={routes.contact}
                 className="hover:text-white transition-colors"
               >
                 ckadltmfxhrxhrxhr@gmail.com
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -48,13 +48,13 @@ export default function Footer() {
               >
                 <Linkedin size={24} />
               </a>
-              <a
-                href="mailto:ckadltmfxhrxhrxhr@gmail.com"
+              <Link
+                href={routes.contact}
                 className="hover:text-white transition-colors"
                 aria-label="이메일"
               >
                 <Mail size={24} />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
