@@ -78,6 +78,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-**배포 시 주의사항**: Vercel 대시보드에서 환경변수를 설정해야 합니다. Settings > Environment Variables에서 EmailJS 관련 변수를 추가하세요.
+**배포 시 주의사항**: Vercel 대시보드에서 환경변수를 설정해야 합니다.
+
+📖 **Vercel 환경변수 설정 가이드**: [Vercel 환경변수 설정 가이드](./docs/VERCEL_ENV_SETUP.md) 참조
+
+Settings > Environment Variables에서 EmailJS 관련 변수를 추가하세요.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
