@@ -40,7 +40,7 @@ export default function Footer() {
                 <Github size={24} />
               </a>
               <a
-                href="https://linkedin.com/in/jaemin-park"
+                href="https://www.linkedin.com/in/jae-min-park-8b475720a/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
