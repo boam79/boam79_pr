@@ -28,9 +28,9 @@ export default function CareerCard({ career }: CareerCardProps) {
   };
 
   return (
-    <Card 
-      hover 
-      className={`relative ${isClickable ? 'cursor-pointer' : ''}`}
+    <Card
+      hover
+      className={`relative ${isClickable ? 'cursor-pointer' : ''} h-full`}
       onClick={handleClick}
     >
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
