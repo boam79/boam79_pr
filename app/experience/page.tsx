@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { developmentCareers, facilityCareers } from '@/lib/data/careers';
 import CareerCard from '@/components/experience/CareerCard';
 import FadeInUp from '@/components/ui/FadeInUp';
@@ -8,13 +8,45 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ExperiencePage() {
   const [activeTab, setActiveTab] = useState<'development' | 'facility'>('development');
+  const [githubCareers, setGithubCareers] = useState<import('@/types/career').Career[]>([]);
 
-  const currentCareers = activeTab === 'development' ? developmentCareers : facilityCareers;
+  useEffect(() => {
+    const loadGithubRepos = async () => {
+      try {
+        // Replace 'boam79' with your actual GitHub username if different
+        const repos = await import('@/lib/github').then(m => m.fetchGitHubRepos('boam79'));
+        setGithubCareers(repos);
+      } catch (error) {
+        console.error('Failed to load GitHub repos', error);
+      }
+    };
+
+    if (activeTab === 'development') {
+      loadGithubRepos();
+    }
+  }, [activeTab]);
+
+  // Merge static and dynamic careers, avoiding duplicates based on GitHub URL
+  const mergedDevelopmentCareers = [
+    ...developmentCareers,
+    ...githubCareers.filter(repo =>
+      !developmentCareers.some(staticCareer =>
+        staticCareer.github === repo.github ||
+        (staticCareer.title && repo.title && staticCareer.title.toLowerCase() === repo.title.toLowerCase())
+      )
+    )
+  ].sort((a, b) => {
+    // Sort by end date (present first, then new to old)
+    const getEndDate = (dateStr: string) => dateStr === 'present' ? new Date() : new Date(dateStr);
+    return getEndDate(b.period.end).getTime() - getEndDate(a.period.end).getTime();
+  });
+
+  const currentCareers = activeTab === 'development' ? mergedDevelopmentCareers : facilityCareers;
 
   return (
     <div className="relative min-h-screen">
       {/* Background Image */}
-      <div 
+      <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
@@ -41,21 +73,19 @@ export default function ExperiencePage() {
             <div className="inline-flex bg-white/90 backdrop-blur-md rounded-xl p-1 shadow-lg">
               <button
                 onClick={() => setActiveTab('development')}
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${
-                  activeTab === 'development'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
+                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${activeTab === 'development'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-gray-600 hover:text-gray-900'
+                  }`}
               >
                 개발 경력
               </button>
               <button
                 onClick={() => setActiveTab('facility')}
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${
-                  activeTab === 'facility'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
+                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${activeTab === 'facility'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-gray-600 hover:text-gray-900'
+                  }`}
               >
                 시설관리 경력
               </button>
