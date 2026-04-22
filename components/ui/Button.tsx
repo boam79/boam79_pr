@@ -15,24 +15,24 @@ export default function Button({
   ...props 
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafafa] disabled:cursor-not-allowed';
   
   const variants = {
     primary: disabled 
-      ? 'bg-gray-300 text-gray-500 border border-transparent'
-      : 'bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 hover:border-blue-700 focus:ring-blue-500 shadow-sm hover:shadow-md',
+      ? 'bg-zinc-200 text-zinc-400'
+      : 'bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-950',
     secondary: disabled
-      ? 'bg-gray-100 text-gray-400 border border-gray-200'
-      : 'bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-500 shadow-sm',
+      ? 'bg-zinc-100 text-zinc-400'
+      : 'border border-zinc-300 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50',
     outline: disabled
-      ? 'border border-gray-300 text-gray-400 bg-white'
-      : 'border border-blue-300 text-blue-700 bg-blue-50/40 hover:bg-blue-50 hover:border-blue-500 focus:ring-blue-500',
+      ? 'border border-zinc-200 text-zinc-400'
+      : 'border border-zinc-300 bg-transparent text-zinc-800 hover:border-zinc-400 hover:bg-zinc-50',
   };
   
   const sizes = {
-    sm: 'px-3.5 py-2 text-sm',
-    md: 'px-5 py-2.5 text-sm md:text-base',
-    lg: 'px-7 py-3.5 text-base md:text-lg',
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-4 py-2.5',
+    lg: 'px-5 py-3 text-base',
   };
   
   return (

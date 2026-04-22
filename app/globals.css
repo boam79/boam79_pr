@@ -29,8 +29,8 @@
 }
 
 body {
-  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 36%, #f8fafc 100%);
-  color: var(--primary-dark);
+  background: #fafafa;
+  color: #18181b;
   font-family: var(--font-inter), 'Pretendard', 'Noto Sans KR', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

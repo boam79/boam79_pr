@@ -23,11 +23,11 @@ export default function Header() {
 
   const linkClassName = (href: string) =>
     [
-      'rounded-full px-3 py-2 text-sm font-medium transition-all duration-200',
-      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
+      'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2',
       pathname === href
-        ? 'bg-blue-50 text-blue-700 shadow-sm ring-1 ring-blue-100'
-        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+        ? 'bg-zinc-100 text-zinc-900'
+        : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900',
     ].join(' ');
 
   useEffect(() => {
@@ -69,12 +69,12 @@ export default function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/70 bg-white/75 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 backdrop-blur-sm">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link
             href={routes.home}
-            className="text-xl font-bold tracking-tight text-gray-900 transition-colors hover:text-blue-700"
+            className="text-lg font-semibold tracking-tight text-zinc-900 transition-colors hover:text-zinc-700"
           >
             Boam79
           </Link>
@@ -96,7 +96,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             ref={menuButtonRef}
-            className="rounded-lg p-2 text-gray-700 transition-colors hover:bg-gray-100 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 md:hidden"
+            className="rounded-md p-2 text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={isMenuOpen}
@@ -111,7 +111,7 @@ export default function Header() {
           <div
             id="mobile-menu"
             ref={mobileMenuRef}
-            className="border-t border-gray-100 pb-4 pt-3 md:hidden"
+            className="border-t border-zinc-200 pb-4 pt-3 md:hidden"
             role="menu"
           >
             <div className="flex flex-col gap-1">

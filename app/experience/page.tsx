@@ -7,7 +7,6 @@ import CareerCard from '@/components/experience/CareerCard';
 import FadeInUp from '@/components/ui/FadeInUp';
 import { motion, AnimatePresence } from 'framer-motion';
 import { compareCareerEndDates } from '@/lib/utils/date';
-import PageBackground from '@/components/ui/PageBackground';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
 type CareerTab = 'development' | 'facility';
@@ -82,79 +81,69 @@ function ExperienceContent() {
   const currentCareers = activeTab === 'development' ? mergedDevelopmentCareers : facilityCareers;
 
   return (
-    <div className="relative min-h-screen">
-      <PageBackground imageSrc="/window.svg" overlayClassName="bg-white/85" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div className="min-h-screen border-t border-zinc-200/80 bg-[#fafafa]">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-4xl lg:py-20">
         <FadeInUp>
-          <div className="text-center mb-20">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-lg">
-              경력사항
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-700 drop-shadow-md">
-              개발 경력과 시설관리 경력을 확인하세요
-            </p>
+          <div className="mb-12 text-left">
+            <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">경력</h1>
+            <p className="mt-2 text-sm text-zinc-600 md:text-base">개발 · 시설관리</p>
           </div>
         </FadeInUp>
 
         <FadeInUp delay={0.05}>
-          <div className="mx-auto mb-8 flex w-full max-w-4xl flex-wrap gap-2 rounded-2xl border border-blue-100 bg-blue-50/80 p-3 text-sm text-blue-900">
-            <span className="rounded-full bg-white px-3 py-1 font-semibold">최근 GitHub 활동 자동 반영</span>
-            <span className="rounded-full bg-white px-3 py-1 font-semibold">실제 배포 링크/리포 확인 가능</span>
-            <span className="rounded-full bg-white px-3 py-1 font-semibold">개발·시설관리 경력 분리 탐색</span>
-          </div>
+          <p className="mb-8 text-xs leading-relaxed text-zinc-500">
+            GitHub 기반 항목은 API로 불러옵니다. URL에 <code className="rounded bg-zinc-200/80 px-1.5 py-0.5 text-zinc-800">?tab=facility</code> 로
+            시설만 볼 수 있습니다.
+          </p>
         </FadeInUp>
 
-        {/* Tab Navigation */}
         <FadeInUp delay={0.1}>
-          <div className="flex justify-center mb-16">
-            <div className="inline-flex bg-white/90 backdrop-blur-md rounded-xl p-1 shadow-lg">
-              <button
-                onClick={() => handleTabChange('development')}
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${activeTab === 'development'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-gray-600 hover:text-gray-900'
-                  }`}
-              >
-                개발 경력
-              </button>
-              <button
-                onClick={() => handleTabChange('facility')}
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 ${activeTab === 'facility'
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-gray-600 hover:text-gray-900'
-                  }`}
-              >
-                시설관리 경력
-              </button>
-            </div>
+          <div className="mb-10 flex w-full max-w-md rounded-lg border border-zinc-200 bg-zinc-100/80 p-1">
+            <button
+              type="button"
+              onClick={() => handleTabChange('development')}
+              className={`flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === 'development'
+                  ? 'bg-white text-zinc-900 shadow-sm'
+                  : 'text-zinc-600 hover:text-zinc-900'
+              }`}
+            >
+              개발
+            </button>
+            <button
+              type="button"
+              onClick={() => handleTabChange('facility')}
+              className={`flex-1 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
+                activeTab === 'facility' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-600 hover:text-zinc-900'
+              }`}
+            >
+              시설관리
+            </button>
           </div>
         </FadeInUp>
 
         {activeTab === 'development' && (
           <FadeInUp delay={0.15}>
-            <div className="mx-auto mb-8 max-w-4xl">
+            <div className="mb-8">
               {isGithubLoading ? (
                 <div
-                  className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-600 shadow-sm"
+                  className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-600"
                   role="status"
                   aria-live="polite"
                 >
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  GitHub 경력을 동기화하는 중입니다...
+                  <Loader2 className="h-4 w-4 shrink-0 animate-spin text-zinc-500" />
+                  GitHub 동기화 중
                 </div>
               ) : githubError ? (
                 <div
-                  className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                  className="flex items-start gap-2 rounded-lg border border-amber-200/90 bg-amber-50/90 px-4 py-3 text-sm text-amber-950"
                   role="alert"
                 >
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <span>{githubError}</span>
                 </div>
               ) : (
-                <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-                  GitHub 기반 최신 프로젝트 경력이 자동으로 반영되었습니다.
-                </div>
+                <p className="text-sm text-zinc-500">GitHub 항목을 반영했습니다.</p>
               )}
             </div>
           </FadeInUp>
@@ -164,18 +153,18 @@ function ExperienceContent() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-8"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-6"
           >
             {currentCareers.map((career, index) => (
               <motion.div
                 key={career.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
+                transition={{ duration: 0.2, delay: Math.min(index * 0.05, 0.3) }}
               >
                 <CareerCard career={career} />
               </motion.div>
@@ -189,17 +178,14 @@ function ExperienceContent() {
 
 function ExperiencePageFallback() {
   return (
-    <div className="relative min-h-screen">
-      <PageBackground imageSrc="/window.svg" overlayClassName="bg-white/85" />
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div
-          className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-600 shadow-sm"
-          role="status"
-          aria-live="polite"
-        >
-          <Loader2 className="h-4 w-4 animate-spin" />
-          경력 페이지를 불러오는 중입니다...
-        </div>
+    <div className="flex min-h-screen items-center justify-center border-t border-zinc-200/80 bg-[#fafafa] px-4">
+      <div
+        className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-600"
+        role="status"
+        aria-live="polite"
+      >
+        <Loader2 className="h-4 w-4 animate-spin text-zinc-500" />
+        불러오는 중
       </div>
     </div>
   );

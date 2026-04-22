@@ -37,14 +37,12 @@ export default function CareerCard({ career }: CareerCardProps) {
         <div className="flex-1">
           <div className="flex items-start justify-between mb-3">
             <div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-1 flex items-center gap-2">
+              <h3 className="text-lg font-semibold text-zinc-900 flex items-center gap-2">
                 {career.title}
-                {isClickable && (
-                  <ExternalLink size={16} className="text-blue-600" />
-                )}
+                {isClickable && <ExternalLink size={16} className="text-zinc-400" aria-hidden />}
               </h3>
-              <p className="text-lg text-gray-700 mb-2">{career.company}</p>
-              <p className="text-base text-gray-600">{career.position}</p>
+              <p className="mt-1 text-sm text-zinc-600">{career.company}</p>
+              <p className="text-sm text-zinc-500">{career.position}</p>
             </div>
             {career.status && (
               <Badge variant={career.status}>
@@ -53,7 +51,7 @@ export default function CareerCard({ career }: CareerCardProps) {
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+          <div className="mb-4 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
             <div className="flex items-center gap-1">
               <Calendar size={16} />
               <span>
@@ -73,8 +71,8 @@ export default function CareerCard({ career }: CareerCardProps) {
             <div className="mb-4">
               <ul className="space-y-2">
                 {career.description.map((desc, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-700">
-                    <span className="text-blue-600 mt-1">•</span>
+                  <li key={index} className="flex items-start gap-2 text-sm text-zinc-700">
+                    <span className="mt-0.5 text-zinc-400">•</span>
                     <span>{desc}</span>
                   </li>
                 ))}
@@ -84,11 +82,11 @@ export default function CareerCard({ career }: CareerCardProps) {
 
           {career.responsibilities && career.responsibilities.length > 0 && (
             <div className="mb-4">
-              <h4 className="font-semibold text-gray-900 mb-2">주요 업무</h4>
+              <h4 className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">주요 업무</h4>
               <ul className="space-y-1">
                 {career.responsibilities.map((resp, index) => (
-                  <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
-                    <span className="text-gray-400 mt-1">-</span>
+                  <li key={index} className="flex items-start gap-2 text-sm text-zinc-600">
+                    <span className="mt-0.5 text-zinc-300">-</span>
                     <span>{resp}</span>
                   </li>
                 ))}
@@ -98,11 +96,11 @@ export default function CareerCard({ career }: CareerCardProps) {
 
           {career.achievements && career.achievements.length > 0 && (
             <div className="mb-4">
-              <h4 className="font-semibold text-green-700 mb-2">주요 성과</h4>
+              <h4 className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">성과</h4>
               <ul className="space-y-1">
                 {career.achievements.map((achievement, index) => (
-                  <li key={index} className="text-sm text-green-700 flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
+                  <li key={index} className="flex items-start gap-2 text-sm text-zinc-700">
+                    <span className="mt-0.5 text-zinc-400">✓</span>
                     <span>{achievement}</span>
                   </li>
                 ))}
@@ -115,7 +113,7 @@ export default function CareerCard({ career }: CareerCardProps) {
               {career.techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium"
+                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-700"
                 >
                   {tech}
                 </span>
@@ -130,7 +128,7 @@ export default function CareerCard({ career }: CareerCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 transition-colors font-medium"
+                className="inline-flex items-center gap-2 text-sm font-medium text-zinc-800 underline decoration-zinc-300 underline-offset-2 hover:decoration-zinc-500"
               >
                 <ExternalLink size={16} />
                 <span>사이트 보기</span>
@@ -142,7 +140,7 @@ export default function CareerCard({ career }: CareerCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900"
               >
                 <Github size={16} />
                 <span>GitHub 리포지토리</span>

@@ -8,14 +8,14 @@ interface BadgeProps {
 
 export default function Badge({ children, variant = 'default', className = '' }: BadgeProps) {
   const variants = {
-    active: 'bg-green-100 text-green-800',
-    completed: 'bg-gray-100 text-gray-800',
-    'in-progress': 'bg-blue-100 text-blue-800',
-    default: 'bg-gray-100 text-gray-800',
+    active: 'bg-zinc-200 text-zinc-900',
+    completed: 'bg-zinc-100 text-zinc-700',
+    'in-progress': 'bg-zinc-200 text-zinc-800',
+    default: 'bg-zinc-100 text-zinc-700',
   };
   
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${variants[variant]} ${className}`}>
+    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${variants[variant]} ${className}`}>
       {children}
     </span>
   );

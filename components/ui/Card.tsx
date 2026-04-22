@@ -5,17 +5,19 @@ interface CardProps {
   className?: string;
   hover?: boolean;
   onClick?: () => void;
+  id?: string;
 }
 
-export default function Card({ children, className = '', hover = false, onClick }: CardProps) {
+export default function Card({ children, className = '', hover = false, onClick, id }: CardProps) {
   const baseStyles =
-    'rounded-2xl border border-slate-200/80 bg-white/95 p-6 shadow-sm backdrop-blur-sm transition-all duration-300';
+    'rounded-lg border border-zinc-200/90 bg-white p-6 transition-[box-shadow,transform] duration-200';
   const hoverStyles = hover
-    ? 'cursor-pointer hover:-translate-y-1 hover:shadow-xl hover:border-blue-300 active:translate-y-0 active:shadow-lg'
+    ? 'cursor-pointer hover:border-zinc-300 hover:shadow-sm active:scale-[0.99]'
     : '';
   
   return (
     <div 
+      id={id}
       className={`${baseStyles} ${hoverStyles} ${className}`}
       onClick={onClick}
     >

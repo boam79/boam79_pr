@@ -4,150 +4,124 @@ import { featuredProject } from '@/lib/data/projects';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import FadeInUp from '@/components/ui/FadeInUp';
-import PageBackground from '@/components/ui/PageBackground';
 import Button from '@/components/ui/Button';
 import { ExternalLink, Github } from 'lucide-react';
 
 export default function ProjectsPage() {
   return (
-    <div className="relative min-h-screen">
-      <PageBackground imageSrc="/next.svg" overlayClassName="bg-white/85" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="min-h-screen border-t border-zinc-200/80 bg-[#fafafa]">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-2xl">
         <FadeInUp>
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-4 drop-shadow-lg">
-              프로젝트
-            </h1>
-            <p className="text-xl text-gray-700 drop-shadow-md">
-              주요 프로젝트와 성과를 확인하세요
-            </p>
-          </div>
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">프로젝트</h1>
+          <p className="mt-2 text-sm text-zinc-600">요약 · 세부</p>
         </FadeInUp>
 
-        <div className="max-w-4xl mx-auto">
-          <FadeInUp delay={0.1}>
-            <Card className="p-8 bg-white/90 backdrop-blur-md border-2 border-white/50 shadow-xl">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h2 className="text-3xl font-semibold text-gray-900 mb-2">
-                    {featuredProject.title}
-                  </h2>
-                  <Badge variant={featuredProject.status}>
-                    {featuredProject.status === 'in-progress' ? '진행중' : '완료'}
-                  </Badge>
-                </div>
-              </div>
+        <FadeInUp delay={0.08}>
+          <Card className="mt-10 p-6 md:p-8">
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-semibold text-zinc-900">{featuredProject.title}</h2>
+              <Badge variant={featuredProject.status}>
+                {featuredProject.status === 'in-progress' ? '진행' : '완료'}
+              </Badge>
+            </div>
+            <p className="text-sm text-zinc-500">{featuredProject.period}</p>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-700 md:text-base">{featuredProject.overview}</p>
 
-              <div className="mb-6">
-                <p className="text-gray-700 leading-relaxed">{featuredProject.overview}</p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4">
+                <p className="text-xs font-medium text-zinc-500">문제</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-800">{featuredProject.summary.problem}</p>
               </div>
-
-              <div className="grid gap-4 md:grid-cols-3 mb-8">
-                <div className="rounded-xl border border-rose-100 bg-rose-50/70 p-4">
-                  <p className="text-sm font-semibold text-rose-700 mb-2">문제</p>
-                  <p className="text-sm text-rose-900 leading-relaxed">{featuredProject.summary.problem}</p>
-                </div>
-                <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-4">
-                  <p className="text-sm font-semibold text-blue-700 mb-2">해결</p>
-                  <p className="text-sm text-blue-900 leading-relaxed">{featuredProject.summary.solution}</p>
-                </div>
-                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 p-4">
-                  <p className="text-sm font-semibold text-emerald-700 mb-2">성과</p>
-                  <p className="text-sm text-emerald-900 leading-relaxed">{featuredProject.summary.impact}</p>
-                </div>
+              <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4">
+                <p className="text-xs font-medium text-zinc-500">해결</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-800">{featuredProject.summary.solution}</p>
               </div>
-
-              <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-2">목표</h3>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
-                  {featuredProject.objectives.map((obj, index) => (
-                    <li key={index}>{obj}</li>
-                  ))}
-                </ul>
+              <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4 sm:col-span-1">
+                <p className="text-xs font-medium text-zinc-500">성과</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-800">{featuredProject.summary.impact}</p>
               </div>
+            </div>
 
-              <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-2">주요 기능</h3>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
-                  {featuredProject.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
+            <h3 className="mt-8 text-xs font-medium uppercase tracking-wide text-zinc-500">목표</h3>
+            <ul className="mt-2 list-inside list-disc space-y-1.5 text-sm text-zinc-700">
+              {featuredProject.objectives.map((obj, index) => (
+                <li key={index} className="pl-0.5">
+                  {obj}
+                </li>
+              ))}
+            </ul>
 
-              <div className="mb-6">
-                <h3 className="font-semibold text-gray-900 mb-2">기술 스택</h3>
-                <div className="space-y-2">
-                  {featuredProject.techStack.frontend && (
-                    <div>
-                      <span className="text-sm font-medium text-gray-600">Frontend: </span>
-                      <span className="text-sm text-gray-700">
-                        {featuredProject.techStack.frontend.join(', ')}
-                      </span>
-                    </div>
-                  )}
-                  {featuredProject.techStack.backend && (
-                    <div>
-                      <span className="text-sm font-medium text-gray-600">Backend: </span>
-                      <span className="text-sm text-gray-700">
-                        {featuredProject.techStack.backend.join(', ')}
-                      </span>
-                    </div>
-                  )}
-                  {featuredProject.techStack.dataAnalysis && (
-                    <div>
-                      <span className="text-sm font-medium text-gray-600">Data Analysis: </span>
-                      <span className="text-sm text-gray-700">
-                        {featuredProject.techStack.dataAnalysis.join(', ')}
-                      </span>
-                    </div>
-                  )}
-                  {featuredProject.techStack.visualization && (
-                    <div>
-                      <span className="text-sm font-medium text-gray-600">Visualization: </span>
-                      <span className="text-sm text-gray-700">
-                        {featuredProject.techStack.visualization.join(', ')}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
+            <h3 className="mt-8 text-xs font-medium uppercase tracking-wide text-zinc-500">기능</h3>
+            <ul className="mt-2 list-inside list-disc space-y-1.5 text-sm text-zinc-700">
+              {featuredProject.features.map((feature, index) => (
+                <li key={index} className="pl-0.5">
+                  {feature}
+                </li>
+              ))}
+            </ul>
 
-              {featuredProject.challenges && featuredProject.challenges.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-2">도전 과제</h3>
-                  <ul className="list-disc list-inside space-y-1 text-gray-700">
-                    {featuredProject.challenges.map((challenge, index) => (
-                      <li key={index}>{challenge}</li>
-                    ))}
-                  </ul>
-                </div>
+            <h3 className="mt-8 text-xs font-medium uppercase tracking-wide text-zinc-500">기술 스택</h3>
+            <div className="mt-3 space-y-1.5 text-sm text-zinc-700">
+              {featuredProject.techStack.frontend && (
+                <p>
+                  <span className="text-zinc-500">Frontend: </span>
+                  {featuredProject.techStack.frontend.join(', ')}
+                </p>
               )}
+              {featuredProject.techStack.backend && (
+                <p>
+                  <span className="text-zinc-500">Backend: </span>
+                  {featuredProject.techStack.backend.join(', ')}
+                </p>
+              )}
+              {featuredProject.techStack.dataAnalysis && (
+                <p>
+                  <span className="text-zinc-500">분석: </span>
+                  {featuredProject.techStack.dataAnalysis.join(', ')}
+                </p>
+              )}
+              {featuredProject.techStack.visualization && (
+                <p>
+                  <span className="text-zinc-500">시각화: </span>
+                  {featuredProject.techStack.visualization.join(', ')}
+                </p>
+              )}
+            </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                {featuredProject.demo && (
-                  <a href={featuredProject.demo} target="_blank" rel="noopener noreferrer">
-                    <Button variant="primary" className="inline-flex items-center gap-2">
-                      <ExternalLink size={16} />
-                      데모 보기
-                    </Button>
-                  </a>
-                )}
-                {featuredProject.github && (
-                  <a href={featuredProject.github} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" className="inline-flex items-center gap-2">
-                      <Github size={16} />
-                      GitHub 보기
-                    </Button>
-                  </a>
-                )}
-              </div>
-            </Card>
-          </FadeInUp>
-        </div>
+            {featuredProject.challenges && featuredProject.challenges.length > 0 && (
+              <>
+                <h3 className="mt-8 text-xs font-medium uppercase tracking-wide text-zinc-500">과제</h3>
+                <ul className="mt-2 list-inside list-disc space-y-1.5 text-sm text-zinc-700">
+                  {featuredProject.challenges.map((challenge, index) => (
+                    <li key={index} className="pl-0.5">
+                      {challenge}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              {featuredProject.demo && (
+                <a href={featuredProject.demo} target="_blank" rel="noopener noreferrer">
+                  <Button variant="primary" className="inline-flex items-center gap-2" size="md">
+                    <ExternalLink className="h-4 w-4" />
+                    데모
+                  </Button>
+                </a>
+              )}
+              {featuredProject.github && (
+                <a href={featuredProject.github} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" className="inline-flex items-center gap-2" size="md">
+                    <Github className="h-4 w-4" />
+                    GitHub
+                  </Button>
+                </a>
+              )}
+            </div>
+          </Card>
+        </FadeInUp>
       </div>
     </div>
   );
 }
-

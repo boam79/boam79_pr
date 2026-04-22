@@ -3,95 +3,63 @@
 import Link from 'next/link';
 import { routes } from '@/lib/constants/routes';
 import Button from '@/components/ui/Button';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-[88vh] items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-cyan-100">
-        <div className="absolute -top-28 -left-24 h-80 w-80 rounded-full bg-blue-300/35 blur-3xl" />
-        <div className="absolute -bottom-24 -right-20 h-72 w-72 rounded-full bg-cyan-300/30 blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/65 to-white/85" />
-      </div>
+    <section className="relative border-b border-zinc-200/80 bg-zinc-50">
+      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-24 md:px-8 lg:max-w-4xl lg:py-28">
+        <p className="mb-4 text-xs font-medium uppercase tracking-widest text-zinc-500">
+          의료 시설 · IT
+        </p>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="inline-flex items-center rounded-full border border-blue-200 bg-white/85 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-blue-700 mb-6 shadow-sm"
-          >
-            Healthcare Facility × Digital Transformation
-          </motion.p>
+        <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl md:text-6xl">
+          Boam79
+        </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
-          >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-slate-900 mb-5 leading-tight tracking-tight">
-              Boam79
-            </h1>
-            <h2 className="mb-8 text-2xl font-semibold text-slate-700 md:text-4xl lg:text-5xl">
-              시설·운영 경험을 바탕으로
-              <span className="block text-blue-700">IT 도입·개발을 실무에 맞게 정리합니다</span>
-            </h2>
-          </motion.div>
+        <h2 className="mt-6 text-lg font-medium leading-snug text-zinc-800 sm:text-xl md:text-2xl md:leading-relaxed">
+          시설·운영 경험을 바탕으로
+          <span className="mt-1 block text-zinc-700">
+            IT 도입·개발을 실무에 맞게 정리합니다
+          </span>
+        </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-2xl"
-          >
-            병원 현장에서의 운영·규정·리스크를 고려해 요구사항을 정리합니다.
-            <br />
-            화면·데이터·배포까지 실제 사용 가능한 수준으로 구현합니다.
-          </motion.p>
+        <p className="mt-8 max-w-2xl text-base leading-relaxed text-zinc-600 md:text-lg">
+          병원 현장에서의 운영·규정·리스크를 고려해 요구사항을 정리합니다.
+          화면·데이터·배포까지 실제 사용 가능한 수준으로 구현합니다.
+        </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto mb-14 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6"
-          >
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
-              <div className="mb-1 text-3xl font-extrabold text-slate-900">21년</div>
-              <div className="text-sm font-medium text-slate-600">시설관리 경력</div>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
-              <div className="mb-1 text-3xl font-extrabold text-slate-900">7개</div>
-              <div className="text-sm font-medium text-slate-600">자격·면허</div>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm">
-              <div className="mb-1 text-3xl font-extrabold text-slate-900">AI TOP100</div>
-              <div className="text-sm font-medium text-slate-600">카카오임팩트</div>
-            </div>
-          </motion.div>
+        <dl className="mt-10 grid max-w-xl grid-cols-1 gap-6 border-t border-zinc-200 pt-10 sm:grid-cols-3 sm:gap-8">
+          <div>
+            <dt className="text-xs font-medium text-zinc-500">시설관리</dt>
+            <dd className="mt-1 text-2xl font-semibold tabular-nums text-zinc-900">21년</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-medium text-zinc-500">자격·면허</dt>
+            <dd className="mt-1 text-2xl font-semibold tabular-nums text-zinc-900">7개</dd>
+          </div>
+          <div>
+            <dt className="text-xs font-medium text-zinc-500">참여</dt>
+            <dd className="mt-1 text-sm font-medium leading-tight text-zinc-800">
+              AI TOP100
+              <span className="mt-0.5 block text-xs font-normal text-zinc-500">카카오임팩트</span>
+            </dd>
+          </div>
+        </dl>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            <Link href={routes.experience}>
-              <Button size="lg" className="px-8 py-4 text-lg shadow-lg">
-                개발/시설관리 경력 보기
-              </Button>
-            </Link>
-            <Link href={`${routes.contact}#contact-primary`}>
-              <Button variant="secondary" size="lg" className="px-8 py-4 text-lg shadow-sm">
-                협업 문의 바로가기 <ArrowRight className="ml-2 inline" size={18} />
-              </Button>
-            </Link>
-          </motion.div>
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <Link href={routes.experience}>
+            <Button size="lg" className="w-full justify-center sm:w-auto">
+              경력 보기
+            </Button>
+          </Link>
+          <Link href={`${routes.contact}#contact-primary`}>
+            <Button variant="secondary" size="lg" className="w-full justify-center sm:w-auto">
+              문의 <ArrowRight className="h-4 w-4" aria-hidden />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-

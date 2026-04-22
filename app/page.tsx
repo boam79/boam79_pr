@@ -7,70 +7,63 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import FadeInUp from '@/components/ui/FadeInUp';
 import HeroSection from '@/components/home/HeroSection';
-import PageBackground from '@/components/ui/PageBackground';
 import { ArrowRight, Code, Mail, BarChart3, Building2 } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div>
+    <div className="bg-[#fafafa]">
       <HeroSection />
 
-      {/* Value Proposition */}
-      <section className="relative py-32 overflow-hidden">
-        <PageBackground imageSrc="/window.svg" overlayClassName="bg-white/85" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="border-b border-zinc-200/80 bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8 lg:max-w-5xl">
           <FadeInUp>
-            <div className="text-center mb-16">
-              <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700 ring-1 ring-blue-100 mb-6">
-                핵심 가치 제안
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-xl font-semibold tracking-tight text-zinc-900 md:text-2xl">
                 현장 문제를 디지털로 해결합니다
               </h2>
-              <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              <p className="mt-4 text-base leading-relaxed text-zinc-600 md:text-lg">
                 의료기관 운영의 병목을 업무 관점에서 이해하고,
                 데이터·개발·시설 운영 경험을 결합해 실행 가능한 개선안으로 연결합니다.
               </p>
             </div>
           </FadeInUp>
 
-          <FadeInUp delay={0.1}>
-            <div className="grid gap-6 md:grid-cols-3 mb-14">
-              <Card className="p-8 bg-white/90">
-                <Code className="w-10 h-10 text-blue-700 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-3">개발 실행력</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  Next.js/Python 기반으로 실무에서 바로 사용하는 내부 도구를 빠르게 구현합니다.
+          <FadeInUp delay={0.08}>
+            <div className="mt-12 grid gap-4 sm:grid-cols-3">
+              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
+                <Code className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-900">개발 실행력</h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                  Next.js/Python 기반으로 실무에서 바로 쓰는 내부 도구를 빠르게 구현합니다.
                 </p>
               </Card>
-              <Card className="p-8 bg-white/90">
-                <Building2 className="w-10 h-10 text-emerald-700 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-3">현장 전문성</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  병원 시설·안전·운영 프로세스를 이해해 현실적인 개선 우선순위를 설계합니다.
+              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
+                <Building2 className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-900">현장 전문성</h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                  병원 시설·안전·운영 프로세스를 이해해 현실적인 개선 순서를 잡습니다.
                 </p>
               </Card>
-              <Card className="p-8 bg-white/90">
-                <BarChart3 className="w-10 h-10 text-orange-600 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900 mb-3">데이터 기반 개선</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  대시보드/리포트 자동화로 의사결정 속도와 운영 가시성을 함께 높입니다.
+              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
+                <BarChart3 className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-900">데이터 기반</h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                  대시보드·리포트로 의사결정과 운영 가시성을 높입니다.
                 </p>
               </Card>
             </div>
           </FadeInUp>
 
-          <FadeInUp delay={0.2}>
-            <div className="text-center flex flex-wrap justify-center gap-3">
+          <FadeInUp delay={0.12}>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href={routes.about}>
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg bg-white/90">
-                  소개 자세히 보기 <ArrowRight className="ml-2 inline" size={20} />
+                <Button variant="outline" size="md">
+                  소개
                 </Button>
               </Link>
               <Link href={routes.experience}>
-                <Button variant="secondary" size="lg" className="px-8 py-4 text-lg">
-                  관련 경력 확인하기
+                <Button variant="secondary" size="md">
+                  경력
                 </Button>
               </Link>
             </div>
@@ -78,46 +71,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* KPI Section */}
-      <section className="relative py-32 overflow-hidden">
-        <PageBackground imageSrc="/globe.svg" overlayClassName="bg-white/85" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="border-b border-zinc-200/80 bg-zinc-50 py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8 lg:max-w-5xl">
           <FadeInUp>
-            <div className="text-center mb-14">
-              <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700 ring-1 ring-gray-200 mb-6">
-                신뢰 지표
-              </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
-                숫자로 보는 역량
-              </h2>
-              <p className="text-lg md:text-xl text-gray-700">
-                운영 경험과 기술 실행력을 함께 갖춘 하이브리드 프로필
-              </p>
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-xl font-semibold tracking-tight text-zinc-900 md:text-2xl">요약</h2>
+              <p className="mt-3 text-sm text-zinc-500">운영 경험과 기술 실행</p>
             </div>
           </FadeInUp>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {[
-              { label: '시설관리 경력', value: '21년', note: '의료기관 포함 현장 운영 경험' },
-              { label: '자격·면허', value: '7개', note: '안전·기술·운전 관련 자격 보유' },
-              { label: '최근 GitHub 프로젝트', value: '6+', note: '실서비스/프로토타입 지속 개발' },
+              { label: '시설관리 경력', value: '21년', note: '의료기관 포함 현장 운영' },
+              { label: '자격·면허', value: '7개', note: '안전·기술·운전' },
+              { label: 'GitHub 프로젝트', value: '6+', note: '프로토타입·실서비스' },
             ].map((item, index) => (
-              <FadeInUp key={item.label} delay={index * 0.08}>
-                <Card className="p-8 bg-white/90">
-                  <p className="text-sm font-semibold text-gray-600 mb-3">{item.label}</p>
-                  <p className="text-4xl font-extrabold text-gray-900 mb-3">{item.value}</p>
-                  <p className="text-gray-600 leading-relaxed">{item.note}</p>
+              <FadeInUp key={item.label} delay={index * 0.06}>
+                <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
+                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{item.label}</p>
+                  <p className="mt-2 text-3xl font-semibold tabular-nums text-zinc-900">{item.value}</p>
+                  <p className="mt-2 text-sm text-zinc-600">{item.note}</p>
                 </Card>
               </FadeInUp>
             ))}
           </div>
 
-          <FadeInUp delay={0.3}>
-            <div className="text-center mt-12">
+          <FadeInUp delay={0.2}>
+            <div className="mt-10 text-center">
               <Link href={routes.skills}>
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg bg-white/90">
-                  스킬 전체 보기 <ArrowRight className="ml-2 inline" size={20} />
+                <Button variant="outline" size="md">
+                  스킬 전체 <ArrowRight className="h-4 w-4" aria-hidden />
                 </Button>
               </Link>
             </div>
@@ -125,89 +108,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Project Summary */}
-      <section className="relative py-32 overflow-hidden">
-        <PageBackground imageSrc="/next.svg" overlayClassName="bg-white/85" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="border-b border-zinc-200/80 bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8 lg:max-w-5xl">
           <FadeInUp>
-            <div className="text-center mb-14">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
-                대표 프로젝트 요약
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-xl font-semibold tracking-tight text-zinc-900 md:text-2xl">
+                대표 프로젝트
               </h2>
-              <p className="text-lg text-gray-700">문제-해결-성과 기준으로 핵심만 확인할 수 있습니다.</p>
+              <p className="mt-3 text-sm text-zinc-600">문제 · 해결 · 성과</p>
             </div>
           </FadeInUp>
 
-          <FadeInUp delay={0.1}>
-            <Card className="p-10 max-w-5xl mx-auto bg-white/90">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-3">
-                    {featuredProject.title}
-                  </h3>
-                  <p className="text-lg text-gray-600">{featuredProject.period}</p>
-                </div>
-              </div>
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">{featuredProject.overview}</p>
+          <FadeInUp delay={0.08}>
+            <Card className="mx-auto mt-10 max-w-3xl border-zinc-200/90 bg-white p-6 shadow-none md:p-8">
+              <h3 className="text-lg font-semibold text-zinc-900">{featuredProject.title}</h3>
+              <p className="mt-1 text-sm text-zinc-500">{featuredProject.period}</p>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-600">{featuredProject.overview}</p>
 
-              <div className="grid gap-4 md:grid-cols-3 mb-8">
-                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                  <h4 className="text-sm font-bold text-gray-900 mb-2">문제</h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">{featuredProject.summary.problem}</p>
+              <div className="mt-6 grid gap-3 md:grid-cols-3">
+                <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4">
+                  <p className="text-xs font-medium text-zinc-500">문제</p>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-700">{featuredProject.summary.problem}</p>
                 </div>
-                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                  <h4 className="text-sm font-bold text-gray-900 mb-2">해결</h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">{featuredProject.summary.solution}</p>
+                <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4">
+                  <p className="text-xs font-medium text-zinc-500">해결</p>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-700">{featuredProject.summary.solution}</p>
                 </div>
-                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                  <h4 className="text-sm font-bold text-gray-900 mb-2">성과</h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">{featuredProject.summary.impact}</p>
+                <div className="rounded-lg border border-zinc-200 bg-zinc-50/80 p-4">
+                  <p className="text-xs font-medium text-zinc-500">성과</p>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-700">{featuredProject.summary.impact}</p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {featuredProject.techStack.frontend?.slice(0, 5).map((tech) => (
                   <span
                     key={tech}
-                    className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-base font-medium border border-blue-100"
+                    className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              <Link href={routes.projects}>
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg bg-white/90">
-                  프로젝트 상세 분석 보기 <ArrowRight className="ml-2 inline" size={20} />
-                </Button>
-              </Link>
+
+              <div className="mt-8">
+                <Link href={routes.projects}>
+                  <Button variant="outline" size="md">
+                    상세 보기 <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Button>
+                </Link>
+              </div>
             </Card>
           </FadeInUp>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-32 overflow-hidden">
-        <PageBackground imageSrc="/file.svg" overlayClassName="bg-gray-900/80" />
-
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-zinc-900 py-16 text-zinc-100 md:py-20">
+        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 md:px-8">
           <FadeInUp>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              바로 대화해볼까요?
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-200 mb-10">
-              프로젝트 협업·채용 문의를 간단히 남겨주세요.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
+            <h2 className="text-xl font-semibold md:text-2xl">문의</h2>
+            <p className="mt-3 text-sm text-zinc-400">협업·채용 문의를 남겨 주세요.</p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href={`${routes.contact}#contact-form`}>
-                <Button variant="secondary" size="lg" className="px-8 py-4 text-lg bg-white/90">
-                  <Mail className="mr-2 inline" size={18} />
-                  문의 남기기
+                <Button variant="secondary" size="md" className="border-zinc-600 bg-white text-zinc-900 hover:bg-zinc-100">
+                  <Mail className="h-4 w-4" aria-hidden />
+                  이메일로 문의
                 </Button>
               </Link>
               <Link href={routes.contact}>
-                <Button variant="outline" size="lg" className="px-8 py-4 text-lg border-white text-white hover:bg-white/10">
-                  연락처 전체 보기
+                <Button
+                  variant="outline"
+                  size="md"
+                  className="border-zinc-600 text-zinc-200 hover:bg-zinc-800"
+                >
+                  연락처
                 </Button>
               </Link>
             </div>
