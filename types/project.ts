@@ -5,6 +5,11 @@ export interface Project {
   period: string;
   role: string;
   overview: string;
+  summary: {
+    problem: string;
+    solution: string;
+    impact: string;
+  };
   objectives: string[];
   techStack: {
     frontend?: string[];

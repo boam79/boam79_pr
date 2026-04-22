@@ -5,6 +5,8 @@ import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import FadeInUp from '@/components/ui/FadeInUp';
 import PageBackground from '@/components/ui/PageBackground';
+import Button from '@/components/ui/Button';
+import { ExternalLink, Github } from 'lucide-react';
 
 export default function ProjectsPage() {
   return (
@@ -39,6 +41,21 @@ export default function ProjectsPage() {
 
               <div className="mb-6">
                 <p className="text-gray-700 leading-relaxed">{featuredProject.overview}</p>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-3 mb-8">
+                <div className="rounded-xl border border-rose-100 bg-rose-50/70 p-4">
+                  <p className="text-sm font-semibold text-rose-700 mb-2">문제</p>
+                  <p className="text-sm text-rose-900 leading-relaxed">{featuredProject.summary.problem}</p>
+                </div>
+                <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-4">
+                  <p className="text-sm font-semibold text-blue-700 mb-2">해결</p>
+                  <p className="text-sm text-blue-900 leading-relaxed">{featuredProject.summary.solution}</p>
+                </div>
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 p-4">
+                  <p className="text-sm font-semibold text-emerald-700 mb-2">성과</p>
+                  <p className="text-sm text-emerald-900 leading-relaxed">{featuredProject.summary.impact}</p>
+                </div>
               </div>
 
               <div className="mb-6">
@@ -107,6 +124,25 @@ export default function ProjectsPage() {
                   </ul>
                 </div>
               )}
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                {featuredProject.demo && (
+                  <a href={featuredProject.demo} target="_blank" rel="noopener noreferrer">
+                    <Button variant="primary" className="inline-flex items-center gap-2">
+                      <ExternalLink size={16} />
+                      데모 보기
+                    </Button>
+                  </a>
+                )}
+                {featuredProject.github && (
+                  <a href={featuredProject.github} target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" className="inline-flex items-center gap-2">
+                      <Github size={16} />
+                      GitHub 보기
+                    </Button>
+                  </a>
+                )}
+              </div>
             </Card>
           </FadeInUp>
         </div>
