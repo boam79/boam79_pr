@@ -36,8 +36,8 @@ export default function HeroSection() {
               Boam79
             </h1>
             <h2 className="mb-8 text-2xl font-semibold text-slate-700 md:text-4xl lg:text-5xl">
-              현장 경험과 개발 역량을 연결하는
-              <span className="block text-blue-700">헬스케어 디지털 전환 전문가</span>
+              시설·운영 경험을 바탕으로
+              <span className="block text-blue-700">IT 도입·개발을 실무에 맞게 정리합니다</span>
             </h2>
           </motion.div>
 
@@ -47,9 +47,9 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-slate-700 md:text-2xl"
           >
-            21년 시설관리 실무를 기반으로 병원 운영과 IT를 함께 이해합니다.
+            병원 현장에서의 운영·규정·리스크를 고려해 요구사항을 정리합니다.
             <br />
-            데이터·AI·웹 기술로 의료기관의 개선을 실행 가능한 결과로 만듭니다.
+            화면·데이터·배포까지 실제 사용 가능한 수준으로 구현합니다.
           </motion.p>
 
           <motion.div
