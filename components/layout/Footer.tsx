@@ -4,72 +4,72 @@ import { routes } from '@/lib/constants/routes';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const socialLinks = [
+    {
+      href: 'https://github.com/boam79',
+      label: 'GitHub',
+      icon: Github,
+      className: 'hover:border-slate-500 hover:text-white',
+    },
+    {
+      href: 'https://www.linkedin.com/in/jae-min-park-8b475720a/',
+      label: 'LinkedIn',
+      icon: Linkedin,
+      className: 'hover:border-blue-400 hover:text-blue-200',
+    },
+    {
+      href: 'https://www.threads.net/@jijijijijjijijijijijijij300?hl=ko',
+      label: 'Threads',
+      icon: MessageCircle,
+      className: 'hover:border-slate-500 hover:text-white',
+    },
+  ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="border-t border-white/10 bg-slate-950 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Boam79 포트폴리오</h3>
-            <p className="text-sm">
+            <h3 className="text-lg font-bold text-white">Boam79 포트폴리오</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-400">
               Healthcare Facility × Digital Transformation Specialist
             </p>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">이메일</h4>
-            <div className="space-y-2 text-sm">
-              <Link 
+            <h4 className="font-semibold text-white">빠른 연락</h4>
+            <div className="mt-4 space-y-3 text-sm">
+              <Link
                 href={routes.contact}
-                className="hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-blue-400/70 hover:bg-blue-500/10 hover:text-white"
               >
+                <Mail size={16} />
                 ckadltmfxhrxhrxhr@gmail.com
               </Link>
             </div>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">소셜</h4>
-            <div className="flex space-x-4">
-              <a
-                href="https://github.com/boam79"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="GitHub"
-              >
-                <Github size={24} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/jae-min-park-8b475720a/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a
-                href="https://www.threads.net/@jijijijijjijijijijijijij300?hl=ko"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-                aria-label="Threads"
-              >
-                <MessageCircle size={24} />
-              </a>
-              <Link
-                href={routes.contact}
-                className="hover:text-white transition-colors"
-                aria-label="이메일"
-              >
-                <Mail size={24} />
-              </Link>
+            <h4 className="font-semibold text-white">소셜</h4>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {socialLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition ${item.className}`}
+                  aria-label={item.label}
+                >
+                  <item.icon size={16} />
+                  <span className="text-sm">{item.label}</span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+        <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-slate-500">
           <p>© {currentYear} Boam79. All rights reserved.</p>
         </div>
       </div>

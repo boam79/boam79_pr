@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --primary-blue: #2563eb;
-  --primary-dark: #1e293b;
-  --secondary-teal: #0d9488;
+  --primary-blue: #1d4ed8;
+  --primary-dark: #0f172a;
+  --secondary-teal: #0f766e;
   --secondary-gray: #64748b;
-  --accent-orange: #f97316;
-  --accent-green: #10b981;
-  --bg-light: #f8fafc;
+  --accent-orange: #ea580c;
+  --accent-green: #059669;
+  --bg-light: #f1f5f9;
   --bg-white: #ffffff;
-  --bg-dark: #0f172a;
-  --status-active: #10b981;
-  --status-in-progress: #3b82f6;
-  --status-completed: #64748b;
+  --bg-dark: #020617;
+  --status-active: #059669;
+  --status-in-progress: #2563eb;
+  --status-completed: #475569;
 }
 
 @theme inline {
@@ -29,9 +29,15 @@
 }
 
 body {
-  background: var(--bg-white);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 36%, #f8fafc 100%);
   color: var(--primary-dark);
   font-family: var(--font-inter), 'Pretendard', 'Noto Sans KR', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
 }
 
 /* Apple 스타일 스크롤 애니메이션 */

@@ -8,8 +8,11 @@ interface CardProps {
 }
 
 export default function Card({ children, className = '', hover = false, onClick }: CardProps) {
-  const baseStyles = 'bg-white rounded-xl border border-gray-200 p-6 transition-all duration-300';
-  const hoverStyles = hover ? 'hover:shadow-lg hover:border-blue-500 hover:scale-[1.02]' : '';
+  const baseStyles =
+    'rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm transition-all duration-300';
+  const hoverStyles = hover
+    ? 'cursor-pointer hover:-translate-y-1 hover:shadow-xl hover:border-blue-300'
+    : '';
   
   return (
     <div 
