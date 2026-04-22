@@ -3,19 +3,12 @@
 import Card from '@/components/ui/Card';
 import FadeInUp from '@/components/ui/FadeInUp';
 import { Mail, Github, MessageCircle, Linkedin } from 'lucide-react';
+import PageBackground from '@/components/ui/PageBackground';
 
 export default function ContactPage() {
   return (
     <div className="relative min-h-screen">
-      {/* Background Image */}
-      <div 
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-        }}
-      >
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-      </div>
+      <PageBackground imageSrc="/file.svg" overlayClassName="bg-white/85" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeInUp>

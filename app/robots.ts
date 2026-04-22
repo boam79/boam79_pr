@@ -1,12 +1,15 @@
 import { MetadataRoute } from 'next';
+import { getSiteUrl } from '@/lib/constants/site';
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = getSiteUrl();
+
   return {
     rules: {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://your-domain.com/sitemap.xml', // 실제 도메인으로 변경 필요
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
 

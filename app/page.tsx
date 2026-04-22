@@ -8,6 +8,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import FadeInUp from '@/components/ui/FadeInUp';
 import HeroSection from '@/components/home/HeroSection';
+import PageBackground from '@/components/ui/PageBackground';
 import { ArrowRight, Code, Wrench, Award } from 'lucide-react';
 
 export default function Home() {
@@ -17,15 +18,7 @@ export default function Home() {
 
       {/* About Preview */}
       <section className="relative py-32 overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-          }}
-        >
-          <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-        </div>
+        <PageBackground imageSrc="/window.svg" overlayClassName="bg-white/85" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInUp>
@@ -80,15 +73,7 @@ export default function Home() {
 
       {/* Skills Overview */}
       <section className="relative py-32 overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-          }}
-        >
-          <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-        </div>
+        <PageBackground imageSrc="/globe.svg" overlayClassName="bg-white/85" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInUp>
@@ -149,15 +134,7 @@ export default function Home() {
 
       {/* Featured Project */}
       <section className="relative py-32 overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-          }}
-        >
-          <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-        </div>
+        <PageBackground imageSrc="/next.svg" overlayClassName="bg-white/85" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeInUp>
@@ -201,15 +178,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="relative py-32 overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-          }}
-        >
-          <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm"></div>
-        </div>
+        <PageBackground imageSrc="/file.svg" overlayClassName="bg-gray-900/80" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <FadeInUp>

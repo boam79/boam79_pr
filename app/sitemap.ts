@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
+import { getSiteUrl } from '@/lib/constants/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://your-domain.com'; // 실제 도메인으로 변경 필요
+  const baseUrl = getSiteUrl();
 
   return [
     {

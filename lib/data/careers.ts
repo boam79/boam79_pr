@@ -1,4 +1,5 @@
 import { Career } from '@/types/career';
+import { parseCareerDate } from '@/lib/utils/date';
 
 export const developmentCareers: Career[] = [
   {
@@ -204,8 +205,11 @@ export const facilityCareers: Career[] = [
 // Helper functions
 export function getAllCareers(): Career[] {
   return [...developmentCareers, ...facilityCareers].sort((a, b) => {
-    const aDate = a.period.end === 'present' ? new Date() : new Date(a.period.end);
-    const bDate = b.period.end === 'present' ? new Date() : new Date(b.period.end);
+    const aDate = parseCareerDate(a.period.end);
+    const bDate = parseCareerDate(b.period.end);
+    if (!aDate && !bDate) return 0;
+    if (!aDate) return 1;
+    if (!bDate) return -1;
     return bDate.getTime() - aDate.getTime();
   });
 }

@@ -1,20 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import FadeInUp from '@/components/ui/FadeInUp';
+import PageBackground from '@/components/ui/PageBackground';
 
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen">
-      {/* Background Image */}
-      <div 
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat -z-10"
-        style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)'
-        }}
-      >
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm"></div>
-      </div>
+      <PageBackground imageSrc="/window.svg" overlayClassName="bg-white/85" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeInUp>

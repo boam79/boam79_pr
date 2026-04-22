@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { getSiteUrl } from "@/lib/constants/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: "Boam79 포트폴리오 | Healthcare Facility × IT 융합 전문가",
   description: "21년 시설관리 경력과 AI 기술을 융합한 헬스케어 디지털 전환 전문가. 병원 ERP 구축, 환자 데이터 분석, 의료기관 인증평가 경험 보유.",
   keywords: [
@@ -65,7 +67,7 @@ export default function RootLayout({
     name: 'Boam79',
     jobTitle: 'Healthcare Facility × IT 융합 전문가',
     description: '21년 시설관리 경력과 AI 기술을 융합한 헬스케어 디지털 전환 전문가',
-    url: 'https://your-domain.com', // 실제 도메인으로 변경 필요
+    url: getSiteUrl(),
     sameAs: [
       'https://github.com/boam79',
       'https://www.linkedin.com/in/jae-min-park-8b475720a/',

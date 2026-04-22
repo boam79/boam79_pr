@@ -1,4 +1,5 @@
 import { Career } from '@/types/career';
+import { parseCareerDate } from '@/lib/utils/date';
 
 interface GitHubRepo {
   id: number;
@@ -12,10 +13,54 @@ interface GitHubRepo {
   fork: boolean;
 }
 
+const RECENT_ACTIVITY_DAYS = 30;
+
+export function mapGitHubRepoToCareer(repo: GitHubRepo, nowTimestamp = Date.now()): Career {
+  const startDate = new Date(repo.created_at);
+  const endDate = new Date(repo.updated_at);
+
+  const startStr = `${startDate.getUTCFullYear()}.${String(startDate.getUTCMonth() + 1).padStart(2, '0')}`;
+  const endStr = `${endDate.getUTCFullYear()}.${String(endDate.getUTCMonth() + 1).padStart(2, '0')}`;
+
+  const recentThreshold = nowTimestamp - RECENT_ACTIVITY_DAYS * 24 * 60 * 60 * 1000;
+  const status: Career['status'] = endDate.getTime() >= recentThreshold ? 'in-progress' : 'completed';
+
+  return {
+    id: `github-${repo.id}`,
+    category: 'development',
+    title: repo.name.replace(/[-_]/g, ' '),
+    company: 'Personal Project (GitHub)',
+    period: { start: startStr, end: status === 'in-progress' ? 'present' : endStr },
+    position: 'Developer',
+    status,
+    techStack: repo.language ? [repo.language] : [],
+    github: repo.html_url,
+    demo: repo.homepage || undefined,
+    description: [repo.description || 'No description provided.', 'Automatically fetched from GitHub'],
+  };
+}
+
+function isValidCareerPeriod(career: Career): boolean {
+  const start = parseCareerDate(career.period.start);
+  const end = parseCareerDate(career.period.end);
+  return Boolean(start && end && end.getTime() >= start.getTime());
+}
+
 export async function fetchGitHubRepos(username: string): Promise<Career[]> {
   try {
-    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=100`);
-    
+    const nowTimestamp = Date.now();
+    const token = process.env.GITHUB_TOKEN;
+    const response = await fetch(
+      `https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=100`,
+      {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        next: { revalidate: 60 * 30 },
+      }
+    );
+
     if (!response.ok) {
       console.error('Failed to fetch GitHub repos:', response.statusText);
       return [];
@@ -23,41 +68,10 @@ export async function fetchGitHubRepos(username: string): Promise<Career[]> {
 
     const repos: GitHubRepo[] = await response.json();
 
-    // Filter out forks and map to Career type
     return repos
-      .filter(repo => !repo.fork)
-      .map(repo => {
-        const startDate = new Date(repo.created_at);
-        const endDate = new Date(repo.updated_at);
-        
-        // Format date as YYYY.MM
-        const startStr = `${startDate.getFullYear()}.${String(startDate.getMonth() + 1).padStart(2, '0')}`;
-        
-        // If updated within the last month, consider it "present", otherwise use the update date
-        const oneMonthAgo = new Date();
-        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-        
-        const endStr = endDate > oneMonthAgo 
-          ? 'present' 
-          : `${endDate.getFullYear()}.${String(endDate.getMonth() + 1).padStart(2, '0')}`;
-
-        return {
-          id: `github-${repo.id}`,
-          category: 'development',
-          title: repo.name.replace(/-/g, ' ').replace(/_/g, ' '), // Replace hyphens/underscores with spaces
-          company: 'Personal Project (GitHub)',
-          period: { start: startStr, end: endStr },
-          position: 'Developer',
-          status: 'in-progress', // You might want to derive this from last update time
-          techStack: repo.language ? [repo.language] : [],
-          github: repo.html_url,
-          demo: repo.homepage || undefined,
-          description: [
-            repo.description || 'No description provided.',
-            'Automatically fetched from GitHub'
-          ]
-        };
-      });
+      .filter((repo) => !repo.fork)
+      .map((repo) => mapGitHubRepoToCareer(repo, nowTimestamp))
+      .filter(isValidCareerPeriod);
   } catch (error) {
     console.error('Error fetching GitHub repos:', error);
     return [];
