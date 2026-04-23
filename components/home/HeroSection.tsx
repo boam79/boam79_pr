@@ -9,7 +9,7 @@ export default function HeroSection() {
   return (
     <section className="relative border-b border-zinc-200/80 bg-zinc-50">
       <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-24 md:px-8 lg:max-w-4xl lg:py-28">
-        <p className="mb-4 text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="mb-4 text-xs font-medium uppercase tracking-widest text-blue-600">
           의료 시설 · IT
         </p>
 
@@ -19,7 +19,7 @@ export default function HeroSection() {
 
         <h2 className="mt-6 text-lg font-medium leading-snug text-zinc-800 sm:text-xl md:text-2xl md:leading-relaxed">
           시설·운영 경험을 바탕으로
-          <span className="mt-1 block text-zinc-700">
+          <span className="mt-1 block text-blue-700">
             IT 도입·개발을 실무에 맞게 정리합니다
           </span>
         </h2>

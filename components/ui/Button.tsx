@@ -15,18 +15,18 @@ export default function Button({
   ...props 
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafafa] disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafafa] disabled:cursor-not-allowed';
   
   const variants = {
     primary: disabled 
       ? 'bg-zinc-200 text-zinc-400'
-      : 'bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-950',
+      : 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800',
     secondary: disabled
       ? 'bg-zinc-100 text-zinc-400'
-      : 'border border-zinc-300 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50',
+      : 'border border-zinc-300 bg-white text-zinc-900 hover:border-blue-300 hover:text-blue-700',
     outline: disabled
       ? 'border border-zinc-200 text-zinc-400'
-      : 'border border-zinc-300 bg-transparent text-zinc-800 hover:border-zinc-400 hover:bg-zinc-50',
+      : 'border border-blue-200 bg-transparent text-blue-700 hover:border-blue-300 hover:bg-blue-50/40',
   };
   
   const sizes = {
