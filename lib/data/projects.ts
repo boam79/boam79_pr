@@ -68,8 +68,8 @@ export const featuredProject: Project = {
   ],
   // 실제 스크린샷 자산이 준비되면 여기에 경로를 추가하세요 (예: "/projects/patient-tool/dashboard.png").
   images: [],
-  github: "https://github.com/boam79/patient-analysis-tool",
-  demo: "https://patient-tool-demo.vercel.app"
+  github: "https://github.com/boam79/patient_analysis",
+  demo: "https://patientanalysis.vercel.app"
 };
 
 export const projects: Project[] = [

@@ -11,6 +11,8 @@ export const developmentCareers: Career[] = [
     position: "Full-stack Developer",
     status: "in-progress",
     techStack: ["Next.js", "TypeScript", "Python", "Pandas", "PostgreSQL", "Chart.js"],
+    github: "https://github.com/boam79/patient_analysis",
+    demo: "https://patientanalysis.vercel.app",
     description: [
       "병원 환자 데이터를 분석하고 시각화하는 웹 애플리케이션",
       "Python Pandas를 활용한 데이터 처리 및 PostgreSQL 데이터베이스 연동",
@@ -27,7 +29,7 @@ export const developmentCareers: Career[] = [
     position: "Full-stack Developer",
     status: "in-progress",
     techStack: ["TypeScript"],
-    github: "https://github.com/boam79/medical_price_comparison",
+    // GitHub 저장소가 비공개 전환/삭제되어 링크가 깨져 있어 데모 링크만 유지합니다.
     demo: "https://medical-price-comparison.vercel.app",
     description: [
       "의료기관별 의료비를 비교하고 분석할 수 있는 웹 애플리케이션",
