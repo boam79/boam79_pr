@@ -16,8 +16,12 @@ export function calculateDuration(start: string, end: string | 'present'): strin
     return '';
   }
 
-  const years = endDate.getFullYear() - startDate.getFullYear();
-  const months = endDate.getMonth() - startDate.getMonth();
+  // parseCareerDate builds dates via Date.UTC, so the UTC getters must be used
+  // here too. Using the local getters would shift the result by one month in
+  // timezones with a negative UTC offset (e.g. the 1st of the month at UTC
+  // midnight reads back as the last day of the previous month locally).
+  const years = endDate.getUTCFullYear() - startDate.getUTCFullYear();
+  const months = endDate.getUTCMonth() - startDate.getUTCMonth();
 
   const totalMonths = years * 12 + months;
 
