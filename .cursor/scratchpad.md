@@ -255,6 +255,21 @@
 - `ai_meet`의 데모 URL(`ai-meet-beige.vercel.app`)은 GitHub 저장소의 `homepage` 필드와 정확히 일치하지만 현재 배포가 다운되어 404를 반환함. 코드/데이터 자체는 정확하므로 수정하지 않았음 — 배포가 복구되면 자동으로 정상화됨. 필요 시 링크 제거를 요청해 주세요.
 - 저장소 이름 자체의 오탈자(`coin-dashborad`, `noncorverd`)는 GitHub 상의 실제 저장소명이라 우리 코드에서 임의로 고치지 않음(제목은 저장소명을 그대로 가공해 표시).
 
+## [Executor] 사용자 피드백(스크린샷) 반영 — 2026-07-03 (3차)
+
+사용자가 About 페이지와 Experience 페이지 스크린샷을 첨부하며 지적:
+1. "2024년이 아니라 2025년이다" — About 페이지 타임라인의 "카카오임팩트 AI TOP 100 참가" 연도 오류
+2. "저 tab 어쩌고도 수정해줘야지" — Experience 페이지 상단에 노출되던 `?tab=facility` URL 파라미터 안내 문구(개발자용 딥링크 설명이 그대로 방문자에게 노출되던 문제)
+
+### 수정 내용
+
+- `app/about/page.tsx`: 타임라인에서 "카카오임팩트 AI TOP 100 참가"를 2024 → 2025로 수정하고, 연대순 정렬을 유지하기 위해 "환자 데이터 분석 툴 개발 시작"(2024)보다 뒤에 오도록 순서 조정
+- `app/experience/page.tsx`: "GitHub 기반 항목은 API로 불러옵니다. URL에 `?tab=facility` 로 시설만 볼 수 있습니다." 안내 문구를 완전히 제거 (일반 방문자에게 불필요한 구현 세부사항 노출이었음)
+
+### 검증
+
+`npm run lint`, `npx tsc --noEmit`, `npm test`(18/18), `npm run build` 모두 통과.
+
 ## Lessons
 
 - Next.js App Router 사용 중
