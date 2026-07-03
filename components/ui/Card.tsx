@@ -12,7 +12,7 @@ export default function Card({ children, className = '', hover = false, onClick,
   const baseStyles =
     'rounded-lg border border-zinc-200/90 bg-white p-6 transition-[box-shadow,transform] duration-200';
   const hoverStyles = hover
-    ? 'cursor-pointer hover:border-zinc-300 hover:shadow-sm active:scale-[0.99]'
+    ? 'cursor-pointer hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-lg hover:shadow-zinc-900/5 active:translate-y-0 active:scale-[0.99]'
     : '';
   
   return (
