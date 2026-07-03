@@ -1,11 +1,14 @@
 'use client';
 
 import { featuredProject } from '@/lib/data/projects';
+import { developmentCareers } from '@/lib/data/careers';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import FadeInUp from '@/components/ui/FadeInUp';
 import Button from '@/components/ui/Button';
 import { ExternalLink, Github } from 'lucide-react';
+
+const sideProjects = developmentCareers.filter((career) => career.github);
 
 export default function ProjectsPage() {
   return (
@@ -13,7 +16,7 @@ export default function ProjectsPage() {
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-2xl">
         <FadeInUp>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">프로젝트</h1>
-          <p className="mt-2 text-sm text-zinc-600">요약 · 세부</p>
+          <p className="mt-2 text-sm text-zinc-600">대표 프로젝트 · 사이드 프로젝트</p>
         </FadeInUp>
 
         <FadeInUp delay={0.08}>
@@ -121,6 +124,63 @@ export default function ProjectsPage() {
             </div>
           </Card>
         </FadeInUp>
+
+        {sideProjects.length > 0 && (
+          <FadeInUp delay={0.12}>
+            <div className="mt-14">
+              <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">사이드 프로젝트</h2>
+              <p className="mt-2 text-sm text-zinc-600">개인 시간에 만든 실험적 프로젝트들입니다.</p>
+
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {sideProjects.map((project) => (
+                  <Card key={project.id} className="flex flex-col p-5 shadow-none">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-sm font-semibold text-zinc-900">{project.title}</h3>
+                      {project.status && (
+                        <Badge variant={project.status}>
+                          {project.status === 'in-progress' ? '진행' : '완료'}
+                        </Badge>
+                      )}
+                    </div>
+                    {project.description?.[0] && (
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-600">{project.description[0]}</p>
+                    )}
+                    {project.techStack && project.techStack.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {project.techStack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs font-medium text-zinc-700"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.demo && (
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                          <Button variant="outline" size="sm" className="inline-flex items-center gap-1.5">
+                            <ExternalLink className="h-3.5 w-3.5" />
+                            데모
+                          </Button>
+                        </a>
+                      )}
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Button variant="secondary" size="sm" className="inline-flex items-center gap-1.5">
+                            <Github className="h-3.5 w-3.5" />
+                            GitHub
+                          </Button>
+                        </a>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </FadeInUp>
+        )}
       </div>
     </div>
   );

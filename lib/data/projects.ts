@@ -66,11 +66,8 @@ export const featuredProject: Project = {
     "DuckDB WASM을 활용한 클라이언트 사이드 분석",
     "레거시 시스템과의 데이터 통합"
   ],
-  images: [
-    "/projects/patient-tool/dashboard.png",
-    "/projects/patient-tool/analytics.png",
-    "/projects/patient-tool/mobile.png"
-  ],
+  // 실제 스크린샷 자산이 준비되면 여기에 경로를 추가하세요 (예: "/projects/patient-tool/dashboard.png").
+  images: [],
   github: "https://github.com/boam79/patient-analysis-tool",
   demo: "https://patient-tool-demo.vercel.app"
 };
