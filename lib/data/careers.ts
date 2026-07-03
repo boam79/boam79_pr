@@ -7,7 +7,7 @@ export const developmentCareers: Career[] = [
     category: "development",
     title: "환자 데이터 분석 툴",
     company: "개인 프로젝트",
-    period: { start: "2024.08", end: "present" },
+    period: { start: "2025.08", end: "present" },
     position: "Full-stack Developer",
     status: "in-progress",
     techStack: ["Next.js", "TypeScript", "Python", "Pandas", "PostgreSQL", "Chart.js"],

@@ -4,7 +4,7 @@ export const featuredProject: Project = {
   id: "project-001",
   title: "환자 데이터 분석 툴",
   status: "in-progress",
-  period: "2024.08 ~ 현재",
+  period: "2025.08 ~ 현재",
   role: "Full-stack Developer",
   overview: "병원 환자 데이터를 분석하여 운영 효율화 및 의사결정 지원을 위한 탭형 대시보드 개발 (PDR v4.2)",
   summary: {
