@@ -30,22 +30,28 @@ export default function Home() {
 
           <FadeInUp delay={0.08}>
             <div className="mt-12 grid gap-4 sm:grid-cols-3">
-              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
-                <Code className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+              <Card hover className="border-l-4 border-l-blue-500 hover:border-l-blue-500 bg-white p-6 shadow-none">
+                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                  <Code className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+                </span>
                 <h3 className="text-sm font-semibold text-zinc-900">개발 실행력</h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600">
                   Next.js/Python 기반으로 실무에서 바로 쓰는 내부 도구를 빠르게 구현합니다.
                 </p>
               </Card>
-              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
-                <Building2 className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+              <Card hover className="border-l-4 border-l-teal-500 hover:border-l-teal-500 bg-white p-6 shadow-none">
+                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-600">
+                  <Building2 className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+                </span>
                 <h3 className="text-sm font-semibold text-zinc-900">현장 전문성</h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600">
                   병원 시설·안전·운영 프로세스를 이해해 현실적인 개선 순서를 잡습니다.
                 </p>
               </Card>
-              <Card className="border-zinc-200/90 bg-white p-6 shadow-none">
-                <BarChart3 className="mb-3 h-8 w-8 text-zinc-700" strokeWidth={1.5} />
+              <Card hover className="border-l-4 border-l-amber-500 hover:border-l-amber-500 bg-white p-6 shadow-none">
+                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                  <BarChart3 className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+                </span>
                 <h3 className="text-sm font-semibold text-zinc-900">데이터 기반</h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600">
                   대시보드·리포트로 의사결정과 운영 가시성을 높입니다.
