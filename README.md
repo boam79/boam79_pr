@@ -10,6 +10,15 @@ npm install
 ```
 
 
+### 환경 변수 설정 (선택)
+
+Contact 페이지의 문의 폼을 사용하려면 [Resend](https://resend.com)에서 API 키를 발급받아 `.env.local`에 설정하세요. 설정하지 않아도 사이트는 정상 동작하며, 폼 제출 시 안내 메시지가 표시됩니다.
+
+```bash
+RESEND_API_KEY=re_your_api_key
+CONTACT_FROM_EMAIL="Portfolio Contact <onboarding@resend.dev>"
+```
+
 ### 개발 서버 실행
 
 ```bash
@@ -32,10 +41,14 @@ npm run start
 ### 주요 기능
 
 - ✅ 반응형 디자인 (모바일, 태블릿, 데스크탑)
-- ✅ SEO 최적화 (메타데이터, OpenGraph, JSON-LD)
+- ✅ SEO 최적화 (메타데이터, 동적 OpenGraph 이미지, JSON-LD 구조화 데이터)
 - ✅ 접근성 개선 (키보드 네비게이션, ARIA 레이블)
 - ✅ 이미지 최적화 (WebP, AVIF 지원)
 - ✅ 애니메이션 (Framer Motion)
+- ✅ 문의 폼 (Resend 기반 이메일 전송, 스팸 방지 honeypot 적용)
+- ✅ 커스텀 404 / 에러 페이지
+- ✅ Vercel Analytics · Speed Insights 연동
+- ✅ GitHub Actions CI (lint · test · build 자동 검증)
 
 ### 프로젝트 구조
 

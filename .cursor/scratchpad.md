@@ -202,27 +202,36 @@
 11. **영문 버전 검토**: `next-intl` 또는 경로 기반(`/en`) 다국어 구조 도입 여부 결정
 12. **이력서 PDF 다운로드**: `public/resume.pdf` + Header/About에 다운로드 버튼
 
-### Project Status Board (신규 제안 항목 — 전부 대기 중, 실행 전 사용자 확인 필요)
+### Project Status Board
 
-- [ ] P0-1. 존재하지 않는 프로젝트 이미지 경로 정리
-- [ ] P0-2. 커스텀 404/에러 페이지 추가
-- [ ] P0-3. Contact 채널 방식 결정 및 개선
-- [ ] P1-4. 동적 OG 이미지 생성
-- [ ] P1-5. JSON-LD 구조화 데이터 확장
-- [ ] P1-6. Vercel Analytics/Speed Insights 도입
-- [ ] P1-7. GitHub Actions CI 파이프라인 구축
-- [ ] P2-8. 프로젝트 페이지에 GitHub 사이드 프로젝트 섹션 추가
-- [ ] P2-9. 테스트 커버리지 확장 (컴포넌트/라우트)
-- [ ] P2-10. 다크모드 지원
-- [ ] P2-11. 다국어(영문) 지원 검토
-- [ ] P2-12. 이력서 PDF 다운로드 기능
+- [x] P0-1. 존재하지 않는 프로젝트 이미지 경로 정리 (`lib/data/projects.ts`의 `images`를 빈 배열로 정리, 주석으로 추가 방법 안내)
+- [x] P0-2. 커스텀 404/에러 페이지 추가 (`app/not-found.tsx`, `app/error.tsx`, `app/global-error.tsx`)
+- [x] P0-3. Contact 채널 개선 — **서버 사이드 폼(Resend API) 재도입**으로 결정. `app/api/contact/route.ts` + `components/contact/ContactForm.tsx`, honeypot 스팸 방지, `RESEND_API_KEY` 미설정 시에도 안내 메시지와 함께 안전하게 동작(503 + mailto/소셜 백업 유지)
+- [x] P1-4. 동적 OG 이미지 생성 (`app/opengraph-image.tsx`, `next/og` `ImageResponse`, 정적 프리렌더 확인됨)
+- [x] P1-5. JSON-LD 구조화 데이터 확장 (`app/layout.tsx`에 `alumniOf`, `worksFor`, `hasCredential` 추가, 자격증 데이터 기반 자동 생성)
+- [x] P1-6. Vercel Analytics/Speed Insights 도입 (`@vercel/analytics`, `@vercel/speed-insights` 패키지 추가, 루트 레이아웃에 삽입)
+- [x] P1-7. GitHub Actions CI 파이프라인 구축 (`.github/workflows/ci.yml`: lint → test → build)
+- [x] P2-8. 프로젝트 페이지에 GitHub 사이드 프로젝트 섹션 추가 (`developmentCareers` 중 `github` 링크가 있는 항목을 카드로 노출)
+- [x] P2-9. 신규 기능 테스트 추가 (`tests/contact-route.test.ts`: 필수값 검증, 이메일 형식 검증, 허니팟, 미설정 시 503 응답 검증)
+- [x] 부가: `npm audit` 취약점 점검 및 안전 수정 적용, `next`/`eslint-config-next`를 16.0.7 → 16.2.10으로 패치 업데이트(다수 high severity 이슈 해결). 남은 2건은 `next`가 내부 번들링한 `postcss` 관련으로, 해결하려면 `next`를 9.x대로 다운그레이드해야 해서 보류(사실상 무해한 잔여 항목).
+- [ ] P2-10. 다크모드 지원 — 미착수
+- [ ] P2-11. 다국어(영문) 지원 검토 — 미착수
+- [ ] P2-12. 이력서 PDF 다운로드 기능 — 미착수 (실제 이력서 파일 필요)
+
+### Current Status / Progress Tracking (2026-07-03, Executor)
+
+**완료**: P0 전체, P1 전체, P2-8, P2-9. `npm run lint`, `npm test`(11/11 통과), `npm run build` 모두 성공 확인. 프로덕션 서버 기동 후 홈/404/연락/프로젝트/OG 이미지 라우트 스모크 테스트(curl)로 상태 코드 확인 완료. `/api/contact`에 대해 필수값 누락, 잘못된 이메일, 허니팟 트리거, 미설정 시 503 응답까지 수동 curl 검증 완료.
+
+**보류(사용자 액션 필요)**:
+1. Contact 폼을 실제로 이메일 전송까지 동작시키려면 [Resend](https://resend.com)에서 API 키를 발급받아 Cursor Dashboard(Cloud Agents > Secrets)에 `RESEND_API_KEY`로 등록해야 함. 발신 도메인을 인증했다면 `CONTACT_FROM_EMAIL`도 함께 설정 권장. 키가 없어도 사이트는 정상 동작하며 폼 제출 시 "아직 설정되지 않았습니다" 안내와 함께 mailto/소셜 링크로 유도됨.
+2. P2-10~12(다크모드, 다국어, 이력서 PDF)는 범위가 크거나 실제 파일(이력서 PDF) 제공이 필요해 이번 턴에서는 보류. 필요 시 후속 요청으로 진행 가능.
+3. 프로필 사진, 프로젝트 스크린샷 등 실제 이미지 자산은 여전히 미보유 상태 — 확보되면 `public/`에 배치 후 `lib/data/projects.ts`의 `images` 배열과 About/Header에 반영 가능.
 
 ### Executor's Feedback or Assistance Requests
 
-- 이 턴에서는 "제안"만 요청받았으므로 코드 구현은 진행하지 않음.
-- P0-3(Contact 채널)은 방향에 따라 구현 범위가 크게 달라지므로(서버 폼 재도입 vs. 경량 개선) 사용자 결정이 선행되어야 함.
-- 프로젝트 스크린샷/프로필 사진 등 실제 이미지 자산은 사용자가 보유한 파일을 제공해야 반영 가능함.
-- 다음 실행 시 사용자가 우선순위(P0/P1/P2 중 착수할 항목)를 지정하면 Executor 모드로 전환해 하나씩 순차 구현 예정.
+- 사용자가 "진행해"라고만 지시하여, Contact 채널 방향은 Executor가 P0/P1 제안서에 기재했던 옵션 중 **서버 사이드 폼(Resend)** 을 기본값으로 선택해 구현함. mailto 백업은 그대로 유지되므로 위험은 낮음.
+- P2-10(다크모드)/P2-11(다국어)/P2-12(이력서 PDF)는 각각 디자인 시스템 전반 수정, 라우팅 구조 변경, 실제 이력서 콘텐츠가 필요한 더 큰 작업이라 이번 실행 범위에서 제외함. 착수 여부를 알려주시면 이어서 진행함.
+- `npm audit`에서 발견된 next 관련 잔여 2건(postcss 관련, 내부 번들링)은 next 자체를 9.x로 다운그레이드해야 해결되는 항목이라 실질적 위험도가 낮다고 판단해 보류함. 필요 시 Planner 검토 요청.
 
 ## Lessons
 
