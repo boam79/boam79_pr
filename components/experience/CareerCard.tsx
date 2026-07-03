@@ -3,11 +3,24 @@ import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import { formatDate } from '@/lib/utils/formatDate';
 import { calculateDuration } from '@/lib/utils/calculateDuration';
-import { MapPin, Calendar, Github, ExternalLink } from 'lucide-react';
+import { MapPin, Calendar, Github, ExternalLink, Code2, Building2 } from 'lucide-react';
 
 interface CareerCardProps {
   career: Career;
 }
+
+const categoryStyles = {
+  development: {
+    border: 'border-l-blue-500 hover:border-l-blue-500',
+    iconBg: 'bg-blue-50 text-blue-600',
+    icon: Code2,
+  },
+  facility: {
+    border: 'border-l-teal-500 hover:border-l-teal-500',
+    iconBg: 'bg-teal-50 text-teal-600',
+    icon: Building2,
+  },
+} as const;
 
 export default function CareerCard({ career }: CareerCardProps) {
   const statusLabels = {
@@ -21,6 +34,8 @@ export default function CareerCard({ career }: CareerCardProps) {
   // 개발 경력이고 demo URL이 있는 경우에만 클릭 가능하게
   const isClickable = career.category === 'development' && career.demo;
 
+  const { border, iconBg, icon: CategoryIcon } = categoryStyles[career.category];
+
   const handleClick = () => {
     if (isClickable && career.demo) {
       window.open(career.demo, '_blank', 'noopener,noreferrer');
@@ -30,19 +45,26 @@ export default function CareerCard({ career }: CareerCardProps) {
   return (
     <Card 
       hover 
-      className={`relative ${isClickable ? 'cursor-pointer' : ''}`}
+      className={`relative border-l-4 ${border} ${isClickable ? 'cursor-pointer' : ''}`}
       onClick={handleClick}
     >
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-start justify-between mb-3">
-            <div>
-              <h3 className="text-lg font-semibold text-zinc-900 flex items-center gap-2">
-                {career.title}
-                {isClickable && <ExternalLink size={16} className="text-zinc-400" aria-hidden />}
-              </h3>
-              <p className="mt-1 text-sm text-zinc-600">{career.company}</p>
-              <p className="text-sm text-zinc-500">{career.position}</p>
+            <div className="flex items-start gap-3">
+              <span
+                className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${iconBg}`}
+              >
+                <CategoryIcon size={16} aria-hidden />
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-zinc-900 flex items-center gap-2">
+                  {career.title}
+                  {isClickable && <ExternalLink size={16} className="text-zinc-400" aria-hidden />}
+                </h3>
+                <p className="mt-1 text-sm text-zinc-600">{career.company}</p>
+                <p className="text-sm text-zinc-500">{career.position}</p>
+              </div>
             </div>
             {career.status && (
               <Badge variant={career.status}>
