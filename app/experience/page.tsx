@@ -90,13 +90,6 @@ function ExperienceContent() {
           </div>
         </FadeInUp>
 
-        <FadeInUp delay={0.05}>
-          <p className="mb-8 text-xs leading-relaxed text-zinc-500">
-            GitHub 기반 항목은 API로 불러옵니다. URL에 <code className="rounded bg-zinc-200/80 px-1.5 py-0.5 text-zinc-800">?tab=facility</code> 로
-            시설만 볼 수 있습니다.
-          </p>
-        </FadeInUp>
-
         <FadeInUp delay={0.1}>
           <div className="mb-10 flex w-full max-w-md rounded-lg border border-zinc-200 bg-zinc-100/80 p-1">
             <button
