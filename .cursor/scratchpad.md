@@ -233,6 +233,28 @@
 - P2-10(다크모드)/P2-11(다국어)/P2-12(이력서 PDF)는 각각 디자인 시스템 전반 수정, 라우팅 구조 변경, 실제 이력서 콘텐츠가 필요한 더 큰 작업이라 이번 실행 범위에서 제외함. 착수 여부를 알려주시면 이어서 진행함.
 - `npm audit`에서 발견된 next 관련 잔여 2건(postcss 관련, 내부 번들링)은 next 자체를 9.x로 다운그레이드해야 해결되는 항목이라 실질적 위험도가 낮다고 판단해 보류함. 필요 시 Planner 검토 요청.
 
+## [Executor] 버그/오탈자 점검 및 수정 — 2026-07-03 (2차)
+
+사용자 요청: "오타나 오탈자나 버그등을 찾아서 수정하고 main으로 커밋 하고 푸쉬해". 전체 코드베이스를 재검토하고 실제 GitHub API를 호출해 데이터 정합성까지 검증함.
+
+### 발견 및 수정한 버그
+
+1. **대표 프로젝트 링크 깨짐**: `lib/data/projects.ts`의 `featuredProject.github`가 `patient-analysis-tool`(존재하지 않는 저장소, GitHub API 404 확인)을 가리키고 있었음. 실제 저장소명은 `patient_analysis`이며, 배포 도메인도 `patient-tool-demo.vercel.app`(404)이 아닌 `patientanalysis.vercel.app`(정상 응답, 실제 서비스 확인)이었음 → 두 URL 모두 수정. `lib/data/careers.ts`의 `dev-001`(같은 프로젝트, 경력 탭에 노출)에도 동일한 `github`/`demo`를 추가하여 GitHub API 연동 시 중복 항목이 생기지 않도록 함.
+2. **깨진 GitHub 링크**: `lib/data/careers.ts`의 `dev-002`(의료비 비교 시스템)가 가리키는 `medical_price_comparison` 저장소가 GitHub API 조회 결과 404(비공개 전환 또는 삭제 추정). 정확한 대체 URL을 확인할 수 없어 깨진 `github` 링크는 제거하고, 정상 응답하는 `demo` 링크만 유지.
+3. **포트폴리오가 자기 자신을 프로젝트로 노출**: `lib/github.ts`의 `fetchGitHubRepos`가 GitHub API로 가져온 모든 공개 저장소를 그대로 노출해, 이 포트폴리오 저장소 자체(`boam79_pr`)가 Experience 페이지의 "개발 경력"에 프로젝트처럼 나타나고 있었음 → `EXCLUDED_REPO_NAMES` 필터를 추가해 제외.
+4. **날짜 계산 시간대 버그**: `lib/utils/calculateDuration.ts`가 `parseCareerDate`(UTC 기준 생성)로 만든 날짜를 로컬 타임존 getter(`getFullYear`/`getMonth`)로 읽고 있었음. 이 함수는 클라이언트(`CareerCard`, `'use client'`)에서 실행되므로 방문자의 로컬 타임존에 따라 결과가 달라질 수 있는 잠재 버그. UTC getter로 통일해 방문자 타임존과 무관하게 항상 동일한 결과가 나오도록 수정. 실제로 버그를 재현하는 회귀 테스트(`tests/calculate-duration.test.ts`)로 수정 전/후 동작 차이를 확인함.
+
+### 검증
+
+- `npm run lint`, `npx tsc --noEmit`, `npm test`(18/18 통과, 신규 회귀 테스트 포함), `npm run build` 모두 통과
+- 프로덕션 서버를 직접 기동해 `/api/github-careers` 응답을 확인 — `boam79_pr`가 더 이상 노출되지 않고, `patient_analysis`가 정상적으로 포함됨을 확인
+- 실제 GitHub REST API(`api.github.com`)와 각 데모 URL에 curl로 직접 요청해 존재 여부를 교차 검증 (텍스트 검토만으로는 알 수 없는 깨진 링크를 데이터 기반으로 발견)
+
+### 참고 (수정하지 않고 남겨둔 항목)
+
+- `ai_meet`의 데모 URL(`ai-meet-beige.vercel.app`)은 GitHub 저장소의 `homepage` 필드와 정확히 일치하지만 현재 배포가 다운되어 404를 반환함. 코드/데이터 자체는 정확하므로 수정하지 않았음 — 배포가 복구되면 자동으로 정상화됨. 필요 시 링크 제거를 요청해 주세요.
+- 저장소 이름 자체의 오탈자(`coin-dashborad`, `noncorverd`)는 GitHub 상의 실제 저장소명이라 우리 코드에서 임의로 고치지 않음(제목은 저장소명을 그대로 가공해 표시).
+
 ## Lessons
 
 - Next.js App Router 사용 중
