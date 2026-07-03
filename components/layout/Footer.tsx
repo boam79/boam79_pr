@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Github, Mail, MessageCircle, Linkedin } from 'lucide-react';
 import { routes } from '@/lib/constants/routes';
+import { CONTACT_EMAIL } from '@/lib/constants/site';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -29,7 +30,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-3 py-2 text-zinc-800 transition hover:border-zinc-300"
               >
                 <Mail size={16} />
-                ckadltmfxhrxhrxhr@gmail.com
+                {CONTACT_EMAIL}
               </Link>
             </div>
           </div>

@@ -1,5 +1,7 @@
 const DEFAULT_SITE_URL = 'https://boam79.vercel.app';
 
+export const CONTACT_EMAIL = 'ckadltmfxhrxhrxhr@gmail.com';
+
 function normalizeSiteUrl(url: string): string {
   return url.endsWith('/') ? url.slice(0, -1) : url;
 }

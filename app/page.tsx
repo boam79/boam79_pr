@@ -172,7 +172,7 @@ export default function Home() {
               <Link href={`${routes.contact}#contact-form`}>
                 <Button variant="secondary" size="md" className="border-zinc-600 bg-white text-zinc-900 hover:bg-zinc-100">
                   <Mail className="h-4 w-4" aria-hidden />
-                  이메일로 문의
+                  문의하기
                 </Button>
               </Link>
               <Link href={routes.contact}>

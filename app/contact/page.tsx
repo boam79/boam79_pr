@@ -2,6 +2,8 @@
 
 import Card from '@/components/ui/Card';
 import FadeInUp from '@/components/ui/FadeInUp';
+import ContactForm from '@/components/contact/ContactForm';
+import { CONTACT_EMAIL } from '@/lib/constants/site';
 import { Mail, Github, MessageCircle, Linkedin } from 'lucide-react';
 
 const social = [
@@ -16,24 +18,34 @@ export default function ContactPage() {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 md:px-8">
         <FadeInUp>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">연락</h1>
-          <p className="mt-2 text-sm text-zinc-600">이메일 · 소셜</p>
+          <p className="mt-2 text-sm text-zinc-600">이메일 · 문의 폼 · 소셜</p>
         </FadeInUp>
 
         <FadeInUp delay={0.08}>
           <Card id="contact-primary" className="mt-10 scroll-mt-24 p-6 shadow-none">
             <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">이메일</h2>
             <a
-              href="mailto:ckadltmfxhrxhrxhr@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-500"
             >
               <Mail className="h-4 w-4 text-zinc-500" aria-hidden />
-              ckadltmfxhrxhrxhr@gmail.com
+              {CONTACT_EMAIL}
             </a>
           </Card>
         </FadeInUp>
 
         <FadeInUp delay={0.12}>
-          <div id="contact-form" className="mt-8 scroll-mt-24">
+          <Card id="contact-form" className="mt-8 scroll-mt-24 p-6 shadow-none">
+            <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">문의하기</h2>
+            <p className="mt-2 text-sm text-zinc-600">아래 양식을 작성해 주시면 이메일로 답변드립니다.</p>
+            <div className="mt-5">
+              <ContactForm />
+            </div>
+          </Card>
+        </FadeInUp>
+
+        <FadeInUp delay={0.16}>
+          <div className="mt-8">
             <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">소셜</h2>
             <p className="mt-2 text-sm text-zinc-600">프로필·저장소는 아래 링크에서 확인할 수 있습니다.</p>
             <ul className="mt-4 flex flex-wrap gap-2">
