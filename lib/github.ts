@@ -15,6 +15,10 @@ interface GitHubRepo {
 
 const RECENT_ACTIVITY_DAYS = 30;
 
+// This portfolio site's own repository should never show up as one of "my
+// projects" on its own Experience page.
+const EXCLUDED_REPO_NAMES = new Set(['boam79_pr']);
+
 export function mapGitHubRepoToCareer(repo: GitHubRepo, nowTimestamp = Date.now()): Career {
   const startDate = new Date(repo.created_at);
   const endDate = new Date(repo.updated_at);
@@ -69,7 +73,7 @@ export async function fetchGitHubRepos(username: string): Promise<Career[]> {
     const repos: GitHubRepo[] = await response.json();
 
     return repos
-      .filter((repo) => !repo.fork)
+      .filter((repo) => !repo.fork && !EXCLUDED_REPO_NAMES.has(repo.name.toLowerCase()))
       .map((repo) => mapGitHubRepoToCareer(repo, nowTimestamp))
       .filter(isValidCareerPeriod);
   } catch (error) {
