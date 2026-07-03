@@ -270,6 +270,22 @@
 
 `npm run lint`, `npx tsc --noEmit`, `npm test`(18/18), `npm run build` 모두 통과.
 
+## [Executor] 추가 연도 수정 — 2026-07-03 (4차)
+
+사용자: "환자 데이터 분석툴도 2025년이다 다시해". About 타임라인뿐 아니라 실제 프로젝트 시작일(`period.start`)로 쓰이는 원본 데이터까지 함께 수정.
+
+### 수정 내용
+
+- `app/about/page.tsx`: "환자 데이터 분석 툴 개발 시작" 연도를 2024 → 2025로 수정
+- `lib/data/careers.ts` (`dev-001`): `period.start`를 "2024.08" → "2025.08"로 수정 (Experience 페이지 카드의 기간 표시·기간 계산에 사용되는 원본 데이터)
+- `lib/data/projects.ts` (`featuredProject`): `period`를 "2024.08 ~ 현재" → "2025.08 ~ 현재"로 수정 (Home/Projects 페이지에 노출)
+- 참고: GitHub API로 조회한 `patient_analysis` 저장소의 실제 `created_at`은 2025-11-16이지만, 사용자가 지정한 시작월(08)을 그대로 유지하고 연도만 수정함(로컬 개발 시작일과 원격 저장소 생성일이 다를 수 있음).
+- `tests/date-utils.test.ts`의 `'2024.08'`은 날짜 파싱 유틸리티 자체를 위한 범용 테스트 픽스처이며 이 프로젝트의 실제 연도와 무관하므로 변경하지 않음.
+
+### 검증
+
+`npm run lint`, `npx tsc --noEmit`, `npm test`(18/18), `npm run build` 모두 통과.
+
 ## Lessons
 
 - Next.js App Router 사용 중
