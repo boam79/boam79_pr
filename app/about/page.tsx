@@ -62,8 +62,8 @@ export default function AboutPage() {
                   { year: 2008, event: '컴퓨터공학 학위 취득' },
                   { year: 2019, event: '헬스케어 분야 전환 (새빛안과병원)' },
                   { year: 2023, event: '병원 IT 인프라 구축 (ERP, 네트워크)' },
-                  { year: 2024, event: '카카오임팩트 AI TOP 100 참가' },
                   { year: 2024, event: '환자 데이터 분석 툴 개발 시작' },
+                  { year: 2025, event: '카카오임팩트 AI TOP 100 참가' },
                 ].map((m) => (
                   <li key={`${m.year}-${m.event}`} className="flex gap-4 text-sm text-zinc-700">
                     <span className="w-14 shrink-0 font-medium tabular-nums text-zinc-500">{m.year}</span>
