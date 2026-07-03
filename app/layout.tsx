@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getSiteUrl } from "@/lib/constants/site";
+import { certifications } from "@/lib/data/skills";
+import { facilityCareers } from "@/lib/data/careers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,6 +65,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentPosition = facilityCareers.find((career) => career.status === 'active');
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -83,6 +89,29 @@ export default function RootLayout({
       'Python',
       '의료가스 관리',
     ],
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: '한양사이버대학교',
+      department: '컴퓨터공학과',
+    },
+    ...(currentPosition
+      ? {
+          worksFor: {
+            '@type': 'Organization',
+            name: currentPosition.company,
+          },
+        }
+      : {}),
+    hasCredential: certifications.map((cert) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name: cert.name,
+      credentialCategory: cert.category,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: cert.issuer,
+      },
+      dateCreated: cert.date,
+    })),
   };
 
   return (
@@ -100,6 +129,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
