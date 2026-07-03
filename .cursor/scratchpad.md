@@ -145,6 +145,85 @@
 3. 로컬 테스트 실행: `npm run dev`
 4. Vercel 배포 준비 및 배포
 
+---
+
+> **참고 (2026-07-03 갱신)**: 위 Phase 1~4 기록은 과거 버전 기준입니다. 이후 커밋에서 EmailJS 문의 폼 및 관리자 페이지 기능이 제거되고(`4a76f9d`), Contact 페이지는 `mailto` 링크 + 소셜 링크 구조로 단순화되었습니다. 또한 UI가 zinc 팔레트 기반 에디토리얼 레이아웃으로 전면 리팩토링되었고(`d3520f2`, `4da683f`), Experience 페이지에는 GitHub API 연동(`/api/github-careers`)이 추가되었습니다. 아래는 현재 코드 상태를 기준으로 한 신규 고도화 제안입니다.
+
+## [Planner] 고도화(Advancement) 제안 — 2026-07-03
+
+### Background and Motivation
+
+사용자가 "고도화 제안 해줘"를 요청함. 현재 사이트는 핵심 페이지(홈/소개/경력/스킬/프로젝트/연락)가 모두 구현되어 있고 SEO 메타데이터, 접근성 기본기, 반응형 레이아웃이 갖춰진 **완성된 MVP** 상태. 다음 단계는 신뢰도(콘텐츠 실증), 전환율(문의 채널), 가시성(SEO/분석), 안정성(테스트/CI)을 끌어올리는 고도화 작업.
+
+### Key Challenges and Analysis (현재 코드 기준 진단)
+
+| 영역 | 현황 | 문제점 |
+|---|---|---|
+| 콘텐츠 자산 | `public/`에 Next.js 기본 SVG만 존재 | 프로필 사진, 프로젝트 스크린샷 없음. `lib/data/projects.ts`가 `/projects/patient-tool/*.png` 3장을 참조하지만 실제 파일이 없어 깨진 이미지 링크(단, 현재 `ProjectsPage`가 `images` 필드를 렌더링하지 않아 화면에 드러나진 않음) |
+| 프로젝트 다양성 | `projects.ts`에 대표 프로젝트 1건만 존재 | 포트폴리오로서 프로젝트 다양성 부족, GitHub 연동 데이터가 경력(Experience) 탭에만 반영되고 Projects 페이지엔 미반영 |
+| 문의(Contact) | `mailto:` 링크 + 소셜 링크만 존재 (`app/contact/page.tsx`) | 과거 EmailJS 폼이 있었으나 삭제됨(`4a76f9d`). 메일 클라이언트 미설정 환경에서 전환 저하, 문의 이력 추적 불가 |
+| 에러 처리 | `app/**/not-found.tsx`, `app/**/error.tsx` 없음 | 404/에러 시 Next.js 기본 화면 노출, 브랜드 일관성 저하 |
+| SEO 심화 | 기본 메타데이터/JSON-LD(Person)/sitemap/robots 존재 | OG 이미지 없음(동적 생성 미구현), 구조화 데이터에 경력/자격증(WorkExperience, EducationalOccupationalCredential) 미포함 |
+| 분석/모니터링 | 없음 | 방문자 수, 유입 경로, Core Web Vitals 실측 데이터 없음 → 개선 우선순위 판단 근거 부족 |
+| 테스트/CI | `tests/`에 유틸 함수 테스트 2개 파일만 존재, `.github/workflows` 없음 | 컴포넌트/페이지/라우트 테스트 부재, PR마다 수동으로 `npm run lint`/`test`/`build` 실행해야 함(자동 검증 없음) |
+| GitHub API 연동 | `lib/github.ts` — 실패 시 빈 배열 반환, 30분 캐시 | 레이트리밋/네트워크 장애 시 사용자에게 재시도 UI 없음, `techStack`이 `language` 1개만 반영(README 기반 기술 스택 추출 안 함) |
+| 다국어 | 없음 (전체 한국어) | 해외 채용 담당자·글로벌 협업 기회 배제 |
+| 다크모드 | 없음 | 최신 포트폴리오 사이트 기대 수준 대비 부족 |
+
+### High-level Task Breakdown (우선순위별)
+
+#### P0 — 신뢰도·전환에 직접 영향 (가장 먼저 처리 권장)
+1. **콘텐츠 자산 정합성 확보**
+   - `projects.ts`의 `images` 배열을 실제 존재하는 파일로 교체하거나, 스크린샷 미보유 시 필드 제거/옵션 처리
+   - 성공 기준: 존재하지 않는 이미지 경로를 참조하는 데이터 0건
+2. **커스텀 404 / 에러 페이지 추가**
+   - `app/not-found.tsx`, `app/error.tsx` 작성 (기존 zinc 톤 디자인 시스템 재사용)
+   - 성공 기준: 존재하지 않는 경로 접근 시 브랜드 일관된 404 화면 노출, 의도적 throw 시 error 화면 노출
+3. **Contact 채널 재검토**
+   - 옵션 A: 서버 사이드 폼(Resend API + `app/api/contact/route.ts`, 스팸 방지용 honeypot) 재도입
+   - 옵션 B: 현행 mailto 유지 + "복사하기" 버튼 및 응답 소요 시간 안내 문구 추가로 최소 개선
+   - 성공 기준: 사용자가 두 옵션 중 하나를 선택 → 선택된 방식으로 문의 제출/연결 테스트 완료
+
+#### P1 — 가시성·성장
+4. **동적 OG 이미지 생성** (`@vercel/og` 또는 `next/og` `ImageResponse` 활용, `app/opengraph-image.tsx`)
+   - 성공 기준: 소셜 공유 시 카드형 미리보기 이미지 노출 (Twitter Card Validator 등으로 확인)
+5. **구조화 데이터(JSON-LD) 확장**
+   - `Person` 스키마에 `hasCredential`(자격증), `alumniOf`(학력), `worksFor` 등 추가
+   - 성공 기준: Google Rich Results Test 통과, 경고 없음
+6. **Vercel Analytics + Speed Insights 도입** (`@vercel/analytics`, `@vercel/speed-insights` 패키지, `app/layout.tsx`에 컴포넌트 삽입)
+   - 성공 기준: 배포 후 Vercel 대시보드에서 실사용 트래픽/CWV 데이터 수집 확인
+7. **CI 파이프라인 구축** (`.github/workflows/ci.yml`: `npm ci` → `npm run lint` → `npm test` → `npm run build`)
+   - 성공 기준: PR 생성 시 자동으로 3단계 검증 실행, 실패 시 머지 차단(브랜치 보호 규칙은 사용자가 GitHub 설정에서 별도 활성화 필요)
+
+#### P2 — 확장/차별화
+8. **프로젝트 페이지 다양화**: GitHub 연동 데이터를 Projects 페이지에도 카드 형태로 노출(경력 탭과 별개로 "사이드 프로젝트" 섹션 신설)
+9. **테스트 커버리지 확장**: React Testing Library로 `Header`, `ExperiencePage` 탭 전환, `/api/github-careers` 라우트 테스트 추가
+10. **다크모드 지원**: Tailwind 4 `dark:` variant + 시스템 설정 감지
+11. **영문 버전 검토**: `next-intl` 또는 경로 기반(`/en`) 다국어 구조 도입 여부 결정
+12. **이력서 PDF 다운로드**: `public/resume.pdf` + Header/About에 다운로드 버튼
+
+### Project Status Board (신규 제안 항목 — 전부 대기 중, 실행 전 사용자 확인 필요)
+
+- [ ] P0-1. 존재하지 않는 프로젝트 이미지 경로 정리
+- [ ] P0-2. 커스텀 404/에러 페이지 추가
+- [ ] P0-3. Contact 채널 방식 결정 및 개선
+- [ ] P1-4. 동적 OG 이미지 생성
+- [ ] P1-5. JSON-LD 구조화 데이터 확장
+- [ ] P1-6. Vercel Analytics/Speed Insights 도입
+- [ ] P1-7. GitHub Actions CI 파이프라인 구축
+- [ ] P2-8. 프로젝트 페이지에 GitHub 사이드 프로젝트 섹션 추가
+- [ ] P2-9. 테스트 커버리지 확장 (컴포넌트/라우트)
+- [ ] P2-10. 다크모드 지원
+- [ ] P2-11. 다국어(영문) 지원 검토
+- [ ] P2-12. 이력서 PDF 다운로드 기능
+
+### Executor's Feedback or Assistance Requests
+
+- 이 턴에서는 "제안"만 요청받았으므로 코드 구현은 진행하지 않음.
+- P0-3(Contact 채널)은 방향에 따라 구현 범위가 크게 달라지므로(서버 폼 재도입 vs. 경량 개선) 사용자 결정이 선행되어야 함.
+- 프로젝트 스크린샷/프로필 사진 등 실제 이미지 자산은 사용자가 보유한 파일을 제공해야 반영 가능함.
+- 다음 실행 시 사용자가 우선순위(P0/P1/P2 중 착수할 항목)를 지정하면 Executor 모드로 전환해 하나씩 순차 구현 예정.
+
 ## Lessons
 
 - Next.js App Router 사용 중
