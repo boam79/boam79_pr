@@ -299,6 +299,7 @@
   - `calculateDuration` 함수 중복 제거 및 날짜 파싱 로직 개선 (모든 점을 하이픈으로 치환)
   - `OptimizedImage` 컴포넌트에 fill prop 지원 추가 및 width/height 검증 추가
   - Import 경로 수정 (calculateDuration을 별도 파일에서 import)
+- UI 고도화: Inter 대신 IBM Plex Sans KR + Syne, 액센트는 teal 단일화. 개발 경력은 Featured/컴팩트 분리. npm audit --force로 next 다운그레이드하지 않음.
 
 ---
 
