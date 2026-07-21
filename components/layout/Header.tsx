@@ -23,10 +23,10 @@ export default function Header() {
 
   const linkClassName = (href: string) =>
     [
-      'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2',
+      'px-3 py-2 text-sm font-medium transition-colors',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
       pathname === href
-        ? 'bg-blue-50 text-blue-700'
+        ? 'bg-teal-50 text-teal-800'
         : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900',
     ].join(' ');
 
@@ -74,7 +74,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           <Link
             href={routes.home}
-            className="text-lg font-semibold tracking-tight text-zinc-900 transition-colors hover:text-blue-700"
+            className="font-display text-lg font-semibold tracking-tight text-zinc-900 transition-colors hover:text-teal-800"
           >
             Boam79
           </Link>
@@ -96,7 +96,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             ref={menuButtonRef}
-            className="rounded-md p-2 text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 md:hidden"
+            className="p-2 text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={isMenuOpen}

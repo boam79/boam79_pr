@@ -1,34 +1,24 @@
 export const colors = {
   primary: {
-    blue: '#2563eb',
-    dark: '#1e293b',
+    blue: '#0f766e',
+    dark: '#18181b',
   },
   secondary: {
-    teal: '#0d9488',
-    gray: '#64748b',
+    teal: '#0f766e',
+    gray: '#71717a',
   },
   accent: {
-    orange: '#f97316',
-    green: '#10b981',
+    orange: '#0f766e',
+    green: '#0d9488',
   },
   background: {
-    light: '#f8fafc',
+    light: '#f4f7f6',
     white: '#ffffff',
-    dark: '#0f172a',
+    dark: '#09090b',
   },
   status: {
-    active: '#10b981',
-    inProgress: '#3b82f6',
-    completed: '#64748b',
+    active: '#0f766e',
+    inProgress: '#0f766e',
+    completed: '#52525b',
   },
 };
-
-export const routes = {
-  home: '/',
-  about: '/about',
-  experience: '/experience',
-  skills: '/skills',
-  projects: '/projects',
-  contact: '/contact',
-};
-

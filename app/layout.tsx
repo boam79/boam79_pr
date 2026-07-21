@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans_KR, Syne } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,9 +10,16 @@ import { getSiteUrl } from "@/lib/constants/site";
 import { certifications } from "@/lib/data/skills";
 import { facilityCareers } from "@/lib/data/careers";
 
-const inter = Inter({
+const bodyFont = IBM_Plex_Sans_KR({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+});
+
+const displayFont = Syne({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -116,7 +123,7 @@ export default function RootLayout({
 
   return (
     <html lang="ko">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${bodyFont.variable} ${displayFont.variable} font-sans antialiased`}>
         <Script
           id="person-schema"
           type="application/ld+json"

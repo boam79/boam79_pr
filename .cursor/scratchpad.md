@@ -300,3 +300,136 @@
   - `OptimizedImage` 컴포넌트에 fill prop 지원 추가 및 width/height 검증 추가
   - Import 경로 수정 (calculateDuration을 별도 파일에서 import)
 
+---
+
+## [Planner] 고도화 제안 재작성 — 프런트 디자인 · 개발 경력 UI/UX (2026-07-21)
+
+### Background and Motivation
+
+사용자 요청: **"고도화 제안 다시해 / 프런트 디자인 및 개발 경력 ui 및 ux"**
+
+이전 고도화(P0~P2: Contact/OG/CI/Analytics 등)는 대부분 완료됨. 이번 제안은 **포트폴리오 자체의 프론트엔드 디자인 품질**과 **개발 경력을 어떻게 보여주느냐(Experience·Projects UX)** 에만 초점을 맞춤.  
+채용·협업 담당자가 30초 안에 "이 사람은 UI를 설계하고 구현할 수 있는가"를 판단할 수 있게 만드는 것이 목표.
+
+### Key Challenges and Analysis (현재 UI/UX 진단)
+
+| # | 영역 | 현황 | 문제 |
+|---|---|---|---|
+| 1 | **타이포** | `Inter` + Pretendard fallback (`app/layout.tsx`, `globals.css`) | 기본 산세리프에 가까워 브랜드·디자인 역량이 약하게 보임 |
+| 2 | **Hero 구성** | 브랜드 + 헤드라인 + 설명 + **통계 3칸** + CTA 2개 + 우측 일러스트 | 첫 화면이 정보 과다. 시설 21년 통계가 개발 UI 역량보다 먼저 읽힘 |
+| 3 | **시각 앵커** | `HeroIllustration` 사이드 패널, 배경은 flat `#fafafa` / zinc | 제품·화면 스크린샷이 없어 "프론트 디자이너/개발자" 인상보다 "텍스트 이력서" 인상 |
+| 4 | **카드 남용** | Home/About/Experience/Projects 전반이 `Card` 보더·라운드 박스 | 섹션마다 카드가 반복되어 평평하고, 상호작용이 없는 정보도 카드로 포장됨 |
+| 5 | **개발 경력 정보구조** | Experience `개발` 탭 = 정적 프로젝트 + GitHub API 항목을 **동일 CareerCard**로 나열 | 대표작과 사이드/자동수집 항목의 위계가 없음. "전부 비슷한 개인 프로젝트"로 보임 |
+| 6 | **CareerCard UX** | 카드 전체 `onClick` → demo 오픈 + 내부에도 링크 | 중첩 클릭, 키보드/스크린리더에 불리. GitHub vs Demo 우선순위가 불명확 |
+| 7 | **콘텐츠 톤** | 개발 항목 description에 "커서 AI 개발툴" 문구 반복 | 도구 언급이 성과·UI 결정·사용자 가치를 가림 |
+| 8 | **케이스 스터디 깊이** | Projects는 문제/해결/성과 텍스트만, 스크린샷·인터랙션·디자인 결정 없음 | 프론트 디자인 경력을 "보여주지" 못하고 "설명만" 함 |
+| 9 | **탭 UX** | `개발` / `시설관리` 세그먼트만 존재 | 건수·역할(FE/풀스택) 필터 없음. 개발 탭 진입 시 긴 리스트만 보임 |
+| 10 | **모션** | FadeInUp + 탭 전환 opacity | 존재감은 있으나 스크롤 타임라인·호버 프리뷰 등 "의도적 2~3개" 수준으로 정제 필요 |
+
+**한 줄 진단**: 기능적으로는 MVP 완성. 그러나 **개발 경력이 "카드 리스트"로만 존재**하고, **사이트 자체가 프론트 디자인 샘플로 기능하지 못함**.
+
+### 디자인 방향 (제안 원칙)
+
+1. **포트폴리오 = 작품**: 이 사이트 UI 자체가 프론트 디자인·구현 능력을 증명해야 함.
+2. **개발 경력 = 케이스 우선**: 대표 1~2개(환자 분석 툴 등)를 깊게, 나머지는 압축 그리드.
+3. **2-Track은 유지하되 진입 순서 재설계**: 기본 랜딩은 "구현·화면"이 먼저 읽히고, 시설 21년은 신뢰 근거로 뒤에 배치.
+4. **카드 최소화**: 클릭·링크가 있는 곳만 카드/호버. 나머지 텍스트·타임라인·디바이더.
+5. **표현 폰트**: Inter 대신 한글 가독 + 디스플레이 대비가 있는 조합(예: Pretendard/SUIT + 디스플레이 1종). 보라/크림/브로드시트 클리셰 회피. 현행 zinc 에디토리얼을 **의료·현장 신뢰감(쿨 중립 + 단일 액센트)** 으로 다듬는 방향 권장.
+
+### High-level Task Breakdown
+
+#### P0 — 개발 경력 UI/UX (정보구조·카드 재설계) ※ 추천 1순위
+
+**T1. Experience `개발` 탭 계층화**
+- 상단: **Featured** (1~2개, 큰 레이아웃: 제목·한 줄 가치·스택·Demo/GitHub CTA)
+- 하단: **More builds** 컴팩트 그리드/리스트 (GitHub 동기화 항목 포함)
+- 시설 탭은 현행 타임라인형 유지 가능 (도메인 신뢰)
+- 성공 기준: 개발 탭에서 대표작이 첫 스크롤에 카드 나열보다 먼저 눈에 띔. 자동 GitHub 항목이 Featured와 동일 크기로 섞이지 않음.
+
+**T2. CareerCard → 역할 분리**
+- `FeaturedCareer` / `CompactCareerRow` / `FacilityCareerItem` 로 분리하거나 variant 도입
+- 카드 전체 onClick 제거 → Demo·GitHub를 명시적 링크로만
+- 성공 기준: 중첩 클릭 없음, 키보드 Tab으로 Demo/GitHub 각각 포커스 가능
+
+**T3. 개발 탭 보조 UX**
+- 탭에 건수 뱃지(`개발 6` / `시설 5`)
+- GitHub 동기화 문구를 "개발자 로그"에서 **"최근 공개 저장소 반영"** 수준의 짧은 상태만 유지, 또는 Featured 아래로 축소
+- (선택) 스택 칩 필터: Next.js / TypeScript 등
+- 성공 기준: 모바일에서 탭·리스트 스캔이 10초 내 가능
+
+**T4. 개발 카피 정리 (데이터)**
+- `careers.ts` description에서 "커서 AI…" 반복 제거
+- 각 항목을 **사용자 문제 1줄 + 구현 포인트 1줄**로 재작성
+- 성공 기준: 동일 문구 복붙 0건, 항목마다 차별화된 한 줄 요약
+
+#### P1 — 프론트 디자인 (사이트 자체를 작품으로)
+
+**T5. Hero 재구성 (첫 뷰포트 예산 준수)**
+- 유지: 브랜드(Boam79) + 헤드라인 1 + 지지 문장 1 + CTA 그룹
+- 제거/이동: 통계 3칸(21년·7개·AI TOP100) → About 또는 Home 하단 "근거" 섹션
+- 시각: 추상 일러스트 대신 **대표 화면 풀블리드/엣지 비주얼**(스크린샷 없으면 UI mock 프레임이라도). 사이드 패널 inset 지양
+- 성공 기준: nav 제거 후에도 브랜드가 hero 주인공. 첫 화면에 통계·카드 없음
+
+**T6. 타이포·색 토큰 정리**
+- Inter 제거 → 표현력 있는 한글 본문 + 디스플레이 폰트
+- CSS 변수로 배경/액센트 1세트 정의 (현행 blue/teal/amber 3색 분산 축소)
+- 성공 기준: `layout.tsx`에 Inter 없음, globals 토큰과 실제 컴포넌트 클래스 일치
+
+**T7. Home 섹션 다이어트**
+- "요약" 통계 카드 3칸과 "개발 실행력/현장/데이터" 카드가 **같은 이야기를 두 번** → 하나로 통합
+- 대표 프로젝트 미리보기는 **스크린샷 또는 UI 프레임** 중심으로
+- 성공 기준: Home 스크롤 섹션 수 감소, 각 섹션 목적 1개
+
+**T8. 의도적 모션 2~3개로 정제**
+- 예: (1) Hero 텍스트/비주얼 staggered entrance (2) Experience 탭 crossfade (3) Featured 호버 시 soft lift 또는 이미지 parallax
+- 과한 per-card cascade 축소
+- 성공 기준: prefers-reduced-motion 존중, 장식용 모션만 남지 않음
+
+#### P2 — 케이스 스터디·증거물 (디자인 경력 증명)
+
+**T9. 대표 프로젝트 케이스 레이아웃**
+- Projects 상세: Context → UI 결정 → 구현 → 결과 흐름
+- 스크린샷 슬롯(`public/projects/...`) + 없을 때 skeleton/placeholder 정책
+- 성공 기준: 환자 분석 툴 페이지에서 UI 흐름을 텍스트만으로 끝내지 않음(이미지 또는 명확한 placeholder)
+
+**T10. 미니 인터랙션 데모 (선택)**
+- 포트폴리오 안에 작은 인터랙티브 샘플(필터·차트 토글 등) 1개 — "설명"이 아니라 "체험"
+- 성공 기준: Experience/Projects에서 Demo 링크 외에 인페이지 인터랙션 1개 이상
+
+**T11. (보류 유지) 다크모드 / 영문 / 이력서 PDF**
+- 이전 P2-10~12. 이번 UI 고도화와 병행 가능하나, T1~T8 이후 권장
+
+### Project Status Board (신규 — UI/UX 고도화)
+
+- [x] T1. Experience 개발 탭 Featured / More builds 계층화
+- [x] T2. CareerCard 클릭 UX 분리 (전체 onClick 제거, variant)
+- [x] T3. 탭 건수·GitHub 상태 문구 정리
+- [x] T4. 개발 경력 카피 재작성 (커서 AI 반복 제거)
+- [x] T5. Hero 재구성 (통계 이동, 비주얼 강화)
+- [x] T6. 폰트·컬러 토큰 정리 (Inter→IBM Plex Sans KR + Syne, teal 단일 액센트)
+- [x] T7. Home 섹션 통합·다이어트
+- [x] T8. 모션 정제 (Hero stagger, FadeInUp, prefers-reduced-motion)
+- [x] T9. 대표 프로젝트 케이스 스터디 레이아웃 (Context → UI decisions → Build)
+- [x] T10. 인페이지 미니 인터랙션 (Experience/Projects 스택 칩 필터)
+- [ ] T11. (보류) 다크모드 / 다국어 / 이력서 PDF
+
+### [Executor] UI/UX 고도화 실행 — 2026-07-21
+
+사용자: "전부 executor로 진행 하고 main으로 커밋 후 푸쉬해" → C안(T1~T10) 일괄 실행.
+
+**구현 요약**
+- `FeaturedCareer` / `CompactCareerRow` / 시설용 `CareerCard` 분리, 카드 전체 onClick 제거
+- `splitCareers` 유틸 + 테스트 (23 tests)
+- Hero: 통계 제거·풀블리드 대시보드 비주얼, Home 섹션 통합
+- Projects: 케이스 스터디 + 스크린샷 슬롯 + 사이드 스택 필터
+- 폰트/컬러/버튼/헤더 액센트 teal로 통일
+
+**검증**: `npm test` 23/23, `npm run lint`, `tsc`, `npm run build` 통과. `npm audit`: brace-expansion은 `audit fix` 적용 시도, next 내부 postcss는 --force 다운그레이드 필요해 보류(기존 Lessons와 동일).
+
+### Executor's Feedback or Assistance Requests
+
+- T1~T10 구현 완료. main 커밋·푸시 진행.
+- 수동 확인 권장: `/`, `/experience`(개발 탭 Featured·스택 필터), `/projects`(케이스 스터디).
+- 실제 스크린샷을 `public/projects/`에 넣으면 Projects/Home 슬롯에 자동 반영 가능(`images` 배열).
+- T11(다크모드/다국어/이력서)는 미착수 — 필요 시 후속 요청.
+

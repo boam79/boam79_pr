@@ -40,7 +40,7 @@ export default function OpengraphImage() {
               fontWeight: 700,
               lineHeight: 1.2,
               maxWidth: 900,
-              color: '#60a5fa',
+              color: '#5eead4',
             }}
           >
             융합 전문가

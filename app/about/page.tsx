@@ -8,7 +8,7 @@ export default function AboutPage() {
     <div className="min-h-screen border-t border-zinc-200/80 bg-[#fafafa]">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-3xl">
         <FadeInUp>
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">소개</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">소개</h1>
         </FadeInUp>
 
         <div className="mt-10 space-y-12">

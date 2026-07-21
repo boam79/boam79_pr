@@ -10,6 +10,8 @@ export interface Project {
     solution: string;
     impact: string;
   };
+  /** UI/UX 결정 포인트 (케이스 스터디) */
+  designDecisions?: { title: string; detail: string }[];
   objectives: string[];
   techStack: {
     frontend?: string[];
@@ -24,4 +26,3 @@ export interface Project {
   github?: string;
   demo?: string;
 }
-
