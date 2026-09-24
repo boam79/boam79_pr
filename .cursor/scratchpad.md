@@ -549,7 +549,7 @@
 
 - [x] 토큰·대비 테스트
 - [x] 컴포넌트/페이지 색 적용
-- [ ] 프로덕션 확인
+- [x] 프로덕션 확인 (https://boam79pr.vercel.app, commit 71ce036 READY)
 
 ## [Executor] 색 대비 적용
 
