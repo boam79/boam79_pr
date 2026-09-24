@@ -46,4 +46,15 @@ describe('github visuals for home bento', () => {
     expect(patient?.demo).toBeUndefined();
     expect(patient?.highlights).toEqual(['재방문 분석', '공간 분석', '질병 분석', '수술 분석']);
   });
+
+  it('Boardroom(hem)은 대표작에서 사이트 링크를 만들지 않는다', () => {
+    const boardroom = githubVisuals.find((visual) => visual.repo === 'hem');
+    expect(boardroom?.demo).toBeUndefined();
+    expect(JSON.stringify(boardroom)).not.toMatch(/boardroom-six-delta/i);
+
+    const featured = splitDevelopmentCareers(developmentCareers).featured.find(
+      (career) => career.id === 'dev-hem'
+    );
+    expect(featured?.demo).toBeUndefined();
+  });
 });

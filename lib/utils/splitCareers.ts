@@ -1,5 +1,6 @@
 import type { Career } from '@/types/career';
 import { parseCareerDate } from '@/lib/utils/date';
+import { omitsLiveSiteLink } from '@/lib/utils/liveSite';
 
 /**
  * 개발 경력을 Featured / More builds 로 나눕니다.
@@ -95,7 +96,9 @@ export function mergeGitHubCareers(
     return {
       ...staticCareer,
       lastActivityAt: match.lastActivityAt ?? staticCareer.lastActivityAt,
-      demo: staticCareer.demo || match.demo,
+      demo: omitsLiveSiteLink(staticCareer.github || staticCareer.repoName)
+        ? undefined
+        : staticCareer.demo || match.demo,
     };
   });
 

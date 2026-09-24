@@ -2,6 +2,7 @@ import { Career } from '@/types/career';
 import { parseCareerDate } from '@/lib/utils/date';
 import { getGitHubRepoBrief } from '@/lib/data/github-repo-briefs';
 import { extractReadmeBrief } from '@/lib/utils/readmeBrief';
+import { omitsLiveSiteLink } from '@/lib/utils/liveSite';
 import { compareCareerRecency } from '@/lib/utils/splitCareers';
 import type { GitHubCareersPayload } from '@/types/github';
 
@@ -134,7 +135,7 @@ export function mapGitHubRepoToCareer(
     summary,
     techStack: uniqueStack([repo.language, ...tags]),
     github: repo.html_url,
-    demo: repo.homepage || undefined,
+    demo: omitsLiveSiteLink(repo.name) ? undefined : repo.homepage || undefined,
     repoName: repo.name,
     githubStars: repo.stargazers_count ?? 0,
     description: [summary, SYNC_NOTE],

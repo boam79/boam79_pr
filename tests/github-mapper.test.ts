@@ -48,6 +48,27 @@ describe('mapGitHubRepoToCareer', () => {
     expect(career.lastActivityAt).toBe('2026-01-10T00:00:00.000Z');
   });
 
+  it('does not attach a live site link for Boardroom (hem)', () => {
+    const career = mapGitHubRepoToCareer(
+      {
+        id: 4,
+        name: 'hem',
+        description: null,
+        html_url: 'https://github.com/boam79/hem',
+        language: 'TypeScript',
+        created_at: '2026-08-01T00:00:00.000Z',
+        updated_at: '2026-09-14T00:00:00.000Z',
+        pushed_at: '2026-09-14T00:00:00.000Z',
+        homepage: 'https://boardroom-six-delta.vercel.app',
+        fork: false,
+      },
+      Date.parse('2026-09-24T00:00:00.000Z')
+    );
+
+    expect(career.demo).toBeUndefined();
+    expect(career.repoName).toBe('hem');
+  });
+
   it('maps stale repository activity to completed career', () => {
     const now = new Date('2026-01-15T00:00:00.000Z');
     const career = mapGitHubRepoToCareer(

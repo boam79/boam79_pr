@@ -187,4 +187,25 @@ describe('mergeGitHubCareers', () => {
       '2026-04-12T11:09:04.000Z'
     );
   });
+
+  it('does not fill a Boardroom live site URL from GitHub homepage', () => {
+    const staticCareers = [
+      base({
+        id: 'dev-hem',
+        title: 'Boardroom (hem)',
+        github: 'https://github.com/boam79/hem',
+      }),
+    ];
+    const githubCareers = [
+      base({
+        id: 'github-hem',
+        title: 'Boardroom (hem)',
+        github: 'https://github.com/boam79/hem',
+        demo: 'https://boardroom-six-delta.vercel.app',
+      }),
+    ];
+
+    const merged = mergeGitHubCareers(staticCareers, githubCareers);
+    expect(merged[0].demo).toBeUndefined();
+  });
 });

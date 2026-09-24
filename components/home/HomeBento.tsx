@@ -24,7 +24,7 @@ function VisualTile({
   return (
     <article className={tileClass}>
       {visual.image ? (
-        <div className="relative aspect-[16/10] bg-surface">
+        <div className="relative h-36 overflow-hidden bg-surface sm:h-40 lg:h-44">
           <Image
             src={visual.image}
             alt={`${visual.title} 실제 화면`}
@@ -35,11 +35,11 @@ function VisualTile({
           />
         </div>
       ) : (
-        <div className="grid flex-1 grid-cols-2 gap-2 bg-surface p-4">
+        <div className="grid grid-cols-2 gap-2 bg-surface p-3">
           {visual.highlights.map((item) => (
             <p
               key={item}
-              className="flex items-center justify-center rounded-xl border border-line bg-white px-2 py-4 text-center text-sm font-medium text-ink"
+              className="flex items-center justify-center rounded-xl border border-line bg-white px-2 py-3 text-center text-sm font-medium text-ink"
             >
               {item}
             </p>

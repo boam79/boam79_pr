@@ -618,4 +618,11 @@
 - `patientanalysis.vercel.app` 404라 벤토에서 사이트 링크 제거
 - GitHub 타일: 공개 원본 저장소 수(포트폴리오 제외) + 최신 3 + 스타 상위 3
 
+## [Executor] 보드룸 사이트 링크 제거 · 대표작 이미지 축소 — 2026-09-24
+
+사용자: 대표작에서 Boardroom 사이트 링크를 만들지 말 것. 대표작 소개 이미지가 너무 큼.
+
+- hem `demo` 제거 (홈 벤토·경력 Featured). GitHub homepage가 다시 채워지지 않게 mapper/merge도 막음.
+- 홈 벤토 소개 이미지 높이 `aspect-[16/10]` → `h-36 sm:h-40 lg:h-44`.
+
 

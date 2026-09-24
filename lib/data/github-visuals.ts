@@ -34,7 +34,6 @@ export const githubVisuals: GitHubVisual[] = [
     title: 'Boardroom (hem)',
     summary: '병원 경영 지표로 AI 3인이 임원 역할 토론하는 경영회의 시뮬레이터',
     github: 'https://github.com/boam79/hem',
-    demo: 'https://boardroom-six-delta.vercel.app',
     image: '/github-visuals/hem-boardroom-ui.jpg',
     imageCredit:
       'github.com/boam79/hem 배포 홈. CFO·마케터·의료진 캐릭터는 저장소 디자인 에셋',

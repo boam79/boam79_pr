@@ -35,7 +35,6 @@ export const developmentCareers: Career[] = [
     summary: '병원 경영 지표를 넣으면 AI 3인이 임원 역할로 토론하는 경영회의 시뮬레이터',
     techStack: ['Next.js', 'TypeScript', 'AI'],
     github: 'https://github.com/boam79/hem',
-    demo: 'https://boardroom-six-delta.vercel.app',
     description: [
       '재무이사·마케팅실장·진료원장이 같은 안건을 두 라운드 토론합니다.',
       '사람 사회자가 비교 그리드를 보며 메모를 남길 수 있습니다.',
