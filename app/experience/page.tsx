@@ -1,7 +1,7 @@
 'use client';
 
-import { Suspense, useMemo, useState, useTransition } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { developmentCareers, facilityCareers } from '@/lib/data/careers';
 import CareerCard from '@/components/experience/CareerCard';
 import FeaturedCareerGrid from '@/components/experience/FeaturedCareerGrid';
@@ -15,16 +15,23 @@ import {
   collectStackChips,
   mergeGitHubCareers,
 } from '@/lib/utils/splitCareers';
+import {
+  experienceTabHref,
+  parseExperienceTab,
+  readExperienceTabFromSearch,
+  type CareerTab,
+} from '@/lib/utils/experienceTab';
 import { useGitHubCareers } from '@/lib/hooks/useGitHubCareers';
 import { Loader2 } from 'lucide-react';
 
-type CareerTab = 'development' | 'facility';
-
 function ExperienceContent() {
-  const pathname = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const activeTab: CareerTab = searchParams.get('tab') === 'facility' ? 'facility' : 'development';
+  const urlTab = parseExperienceTab(searchParams.get('tab'));
+  const [tabOverride, setTabOverride] = useState<CareerTab | null>(null);
+  if (tabOverride !== null && tabOverride === urlTab) {
+    setTabOverride(null);
+  }
+  const activeTab = tabOverride ?? urlTab;
   const {
     careers: githubCareers,
     syncedAt,
@@ -34,11 +41,19 @@ function ExperienceContent() {
   const [stackFilter, setStackFilter] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  useEffect(() => {
+    const onPopState = () => {
+      setTabOverride(readExperienceTabFromSearch(window.location.search));
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
   const handleTabChange = (tab: CareerTab) => {
+    if (tab === activeTab) return;
     setStackFilter(null);
-    const next = new URLSearchParams(searchParams.toString());
-    next.set('tab', tab);
-    router.replace(`${pathname}?${next.toString()}`);
+    setTabOverride(tab);
+    window.history.replaceState(window.history.state, '', experienceTabHref(tab, searchParams));
   };
 
   const mergedDevelopmentCareers = useMemo(
@@ -78,42 +93,48 @@ function ExperienceContent() {
           </div>
         </FadeInUp>
 
-        <FadeInUp delay={0.08}>
-          <div
-            className="mb-8 flex w-full max-w-md border border-zinc-200 bg-zinc-100/80 p-1"
-            role="tablist"
-            aria-label="경력 유형"
+        <div
+          className="relative z-20 mb-8 flex w-full max-w-md border border-zinc-200 bg-zinc-100/80 p-1"
+          role="tablist"
+          aria-label="경력 유형"
+        >
+          <a
+            href={experienceTabHref('development', searchParams)}
+            role="tab"
+            aria-selected={activeTab === 'development'}
+            onClick={(event) => {
+              if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              handleTabChange('development');
+            }}
+            className={`flex-1 cursor-pointer px-4 py-2.5 text-center text-sm font-medium transition-colors ${
+              activeTab === 'development'
+                ? 'bg-white text-zinc-900 shadow-sm'
+                : 'text-zinc-600 hover:text-zinc-900'
+            }`}
           >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === 'development'}
-              onClick={() => handleTabChange('development')}
-              className={`flex-1 px-4 py-2.5 text-sm font-medium transition-colors ${
-                activeTab === 'development'
-                  ? 'bg-white text-zinc-900 shadow-sm'
-                  : 'text-zinc-600 hover:text-zinc-900'
-              }`}
-            >
-              개발
-              <span className="ml-1.5 tabular-nums text-zinc-400">{developmentCount}</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === 'facility'}
-              onClick={() => handleTabChange('facility')}
-              className={`flex-1 px-4 py-2.5 text-sm font-medium transition-colors ${
-                activeTab === 'facility'
-                  ? 'bg-white text-zinc-900 shadow-sm'
-                  : 'text-zinc-600 hover:text-zinc-900'
-              }`}
-            >
-              시설관리
-              <span className="ml-1.5 tabular-nums text-zinc-400">{facilityCount}</span>
-            </button>
-          </div>
-        </FadeInUp>
+            개발
+            <span className="ml-1.5 tabular-nums text-zinc-400">{developmentCount}</span>
+          </a>
+          <a
+            href={experienceTabHref('facility', searchParams)}
+            role="tab"
+            aria-selected={activeTab === 'facility'}
+            onClick={(event) => {
+              if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              handleTabChange('facility');
+            }}
+            className={`flex-1 cursor-pointer px-4 py-2.5 text-center text-sm font-medium transition-colors ${
+              activeTab === 'facility'
+                ? 'bg-white text-zinc-900 shadow-sm'
+                : 'text-zinc-600 hover:text-zinc-900'
+            }`}
+          >
+            시설관리
+            <span className="ml-1.5 tabular-nums text-zinc-400">{facilityCount}</span>
+          </a>
+        </div>
 
         <AnimatePresence mode="wait">
           <motion.div

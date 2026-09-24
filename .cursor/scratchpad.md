@@ -508,4 +508,12 @@
 - 비급여 비교의 실제 저장소명은 `noncorverd`.
 - GitHub 목록 `sort=pushed`가 코드 최신성 기준으로 `updated`보다 정확함.
 
+### [Executor] 개발 탭 클릭 불가 — 2026-09-24
+
+사용자: 시설관리 화면에서 `개발 23` 버튼이 클릭되지 않음 (`/experience?tab=facility`).
+
+원인: 탭이 `router.replace`로 쿼리만 바꿔서, 하이드레이션 전·Next 클라이언트 라우터가 검색어 전환을 삼키면 반응이 없음. 버튼에 onClick만 있어 JS 전에는 이동도 안 됨.
+
+수정: 탭을 `<a href>`로 바꾸고, 클릭 시 로컬 state로 즉시 전환 + `history.replaceState`로 주소 갱신. JS 전에는 일반 링크로 이동.
+
 
