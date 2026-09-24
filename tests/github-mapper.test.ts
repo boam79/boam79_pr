@@ -32,6 +32,7 @@ describe('mapGitHubRepoToCareer', () => {
         pushed_at: '2026-01-10T00:00:00.000Z',
         homepage: 'https://demo.example.com',
         fork: false,
+        stargazers_count: 26,
       },
       now.getTime()
     );
@@ -42,6 +43,8 @@ describe('mapGitHubRepoToCareer', () => {
     expect(career.summary).toBe('repo description');
     expect(career.company).toBe('GitHub 공개 저장소');
     expect(career.techStack).toEqual(['TypeScript']);
+    expect(career.repoName).toBe('my_sample_repo');
+    expect(career.githubStars).toBe(26);
     expect(career.lastActivityAt).toBe('2026-01-10T00:00:00.000Z');
   });
 

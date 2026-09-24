@@ -563,4 +563,59 @@
 - 라이트 본문의 `text-zinc-400`은 AA 실패. 다크 위 `text-zinc-400`은 유지해도 됨. 전역 remap 금지.
 - 참고 팔레트는 고대비 잉크 + 액센트 1색. 틸은 버튼/링크만.
 
+## [Planner] 프론트 디자인 제안 5안 — 2026-09-24
+
+### Background and Motivation
+
+사용자: 검색을 거쳐 최종 디자인 5개를 이미지로 보여 달라. 코드 적용은 번호 선택 후.
+
+### 검색에서 뽑은 공통점
+
+- 2026 포트폴리오: Swiss 에디토리얼, 다크모드(네이비+액센트), 텍스처/페이퍼, 벤토 그리드, 브랜드 컬러 1색 (Envato, Codrops Bernadou, Bentofolio)
+- 엔지니어 PR: Brittany Chiang 네이비+#64ffda, Lee Robinson/Rauno 흰 바탕·문서형, 이소림 등 한국 FE는 정보 밀도 높음
+- 헬스케어: HUH&HOW 심장길 — 단계 번호, 절제된 카피, 신뢰 톤
+
+### 5안 (목업: /opt/cursor/artifacts/assets/design-0N-*.png)
+
+1. Swiss Editorial — 현행 진화. 흰 바탕, 틸 1색, 번호 리스트
+2. Navy Mint — Chiang식 다크, 제품 창 오버랩
+3. Clinical Paper — 따뜻한 지, 세리프 헤드, 대시보드 프레임
+4. Product Bento — Linear/Apple식 타일, 대표작을 제품처럼
+5. Hangul Magazine — 대형 한글, 브로드시트 그리드 (목업 헤드라인 오타 옷긴다→옮긴다)
+
+구현은 사용자가 번호를 고른 뒤 Executor.
+
+## [Planner] Product Bento (4번) — 실제 GitHub 화면 — 2026-09-24
+
+### Background and Motivation
+
+사용자: 4번 Product Bento가 가장 좋아 보이지만, 목업 이미지는 실제 GitHub 리포와 다르다. 반드시 공개 리포와 각 리포 이미지·배포 홈을 참고해 구현할 것.
+
+### Key Challenges and Analysis
+
+- 목업의 가짜 칸반, 99.2% KPI, 스톡 인물, 청담서울병원은 실제 저장소에 없음.
+- companyflow: 배포 홈 `companyflow-opal.vercel.app` 200. 히어로 사진은 `public/home/origin.jpg`.
+- hem: 배포 홈 `boardroom-six-delta.vercel.app` 200. 캐릭터 UI는 저장소 디자인 에셋과 동일 구성.
+- patient_analysis: 저장소에 png/jpg 없음(`public/`는 CSV만). `patientanalysis.vercel.app`은 DEPLOYMENT_NOT_FOUND → 스크린샷·사이트 링크를 만들지 않음.
+- 스킬/스타/저장소 수는 실제 `skills.ts`와 GitHub API.
+
+### High-level Task Breakdown
+
+1. 실제 리포·배포 화면만 `public/github-visuals`에 두고 벤토 데이터로 연결
+2. 홈 Hero+대표작 그리드를 Product Bento로 교체
+3. 테스트 후 커밋/PR, main 반영, 프로덕션 HTTPS 확인
+
+### Project Status Board
+
+- [x] GitHub 리포·README·배포 화면 수집
+- [x] 홈 벤토 구현 (가짜 화면 금지)
+- [ ] 테스트·배포·프로덕션 확인
+
+## [Executor] Product Bento — 실제 GitHub 화면
+
+- 브랜치: `cursor/product-bento-github-e4dd`
+- 홈 화면: CompanyFlow 배포 홈, Boardroom 배포 홈, 환자 분석은 README 4축만
+- `patientanalysis.vercel.app` 404라 벤토에서 사이트 링크 제거
+- GitHub 타일: 공개 원본 저장소 수(포트폴리오 제외) + 최신 3 + 스타 상위 3
+
 

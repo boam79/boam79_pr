@@ -21,6 +21,7 @@ interface GitHubRepo {
   homepage: string | null;
   fork: boolean;
   topics?: string[];
+  stargazers_count?: number;
 }
 
 const RECENT_ACTIVITY_DAYS = 30;
@@ -134,6 +135,8 @@ export function mapGitHubRepoToCareer(
     techStack: uniqueStack([repo.language, ...tags]),
     github: repo.html_url,
     demo: repo.homepage || undefined,
+    repoName: repo.name,
+    githubStars: repo.stargazers_count ?? 0,
     description: [summary, SYNC_NOTE],
     lastActivityAt: repo.pushed_at || repo.updated_at,
   };

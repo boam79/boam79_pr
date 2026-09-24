@@ -24,6 +24,9 @@ export interface Career {
   endReason?: string;
   github?: string;
   demo?: string;
+  /** GitHub 저장소 이름 (owner 제외) */
+  repoName?: string;
+  githubStars?: number;
   /** GitHub pushed_at 등 실제 최근 활동 시각 (ISO). 최신 리포 정렬에 사용 */
   lastActivityAt?: string;
 }

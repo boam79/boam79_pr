@@ -3,6 +3,7 @@ import { pageContainerClass, readingContainerClass } from '@/lib/constants/layou
 import { skillCategories } from '@/lib/data/skills';
 import { splitDevelopmentCareers } from '@/lib/utils/splitCareers';
 import { developmentCareers } from '@/lib/data/careers';
+import { githubVisuals } from '@/lib/data/github-visuals';
 
 describe('layout containers', () => {
   it('본문과 헤더가 같은 최대 너비를 쓴다', () => {
@@ -23,6 +24,22 @@ describe('home featured works', () => {
       'dev-companyflow',
       'dev-hem',
       'dev-001',
+    ]);
+  });
+
+  it('홈 벤토도 같은 대표작을 GitHub 화면으로 보여 준다', () => {
+    expect(githubVisuals.map((visual) => visual.careerId)).toEqual([
+      'dev-companyflow',
+      'dev-hem',
+      'dev-001',
+    ]);
+  });
+
+  it('홈 스킬 타일은 실제 개발 스킬 레벨을 쓴다', () => {
+    expect(skillCategories[0]?.skills.slice(0, 3).map((skill) => [skill.name, skill.level])).toEqual([
+      ['Next.js', 4],
+      ['TypeScript', 4],
+      ['Python', 3],
     ]);
   });
 });

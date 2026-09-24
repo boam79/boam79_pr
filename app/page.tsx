@@ -2,20 +2,15 @@
 
 import { routes } from '@/lib/constants/routes';
 import { pageContainerClass } from '@/lib/constants/layout';
-import { developmentCareers } from '@/lib/data/careers';
-import { splitDevelopmentCareers } from '@/lib/utils/splitCareers';
 import Button from '@/components/ui/Button';
 import FadeInUp from '@/components/ui/FadeInUp';
-import FeaturedCareerGrid from '@/components/experience/FeaturedCareerGrid';
-import HeroSection from '@/components/home/HeroSection';
-import { ArrowRight, Mail } from 'lucide-react';
+import HomeBento from '@/components/home/HomeBento';
+import { Mail } from 'lucide-react';
 
 export default function Home() {
-  const featured = splitDevelopmentCareers(developmentCareers).featured;
-
   return (
     <div className="bg-page">
-      <HeroSection />
+      <HomeBento />
 
       <section className="border-b border-line bg-white py-16 md:py-20">
         <div className={pageContainerClass}>
@@ -40,30 +35,6 @@ export default function Home() {
               <Button href={`${routes.experience}?tab=facility`} variant="secondary" size="md">
                 시설 경력
               </Button>
-            </div>
-          </FadeInUp>
-        </div>
-      </section>
-
-      <section className="border-b border-line bg-page py-16 md:py-20">
-        <div className={pageContainerClass}>
-          <FadeInUp>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <h2 className="font-display text-2xl font-semibold tracking-tight text-ink md:text-3xl">
-                  대표작
-                </h2>
-                <p className="mt-2 text-sm text-ink-secondary">CompanyFlow, Boardroom, 환자 데이터 분석</p>
-              </div>
-              <Button href={routes.experience} variant="outline" size="sm">
-                경력에서 보기 <ArrowRight className="h-4 w-4" aria-hidden />
-              </Button>
-            </div>
-          </FadeInUp>
-
-          <FadeInUp delay={0.08}>
-            <div className="mt-10">
-              <FeaturedCareerGrid careers={featured} />
             </div>
           </FadeInUp>
         </div>
