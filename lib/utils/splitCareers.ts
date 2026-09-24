@@ -15,8 +15,10 @@ export function splitDevelopmentCareers(
       .map((c) => c.id)
   );
 
-  // featured 플래그 항목을 원본 배열 순서 유지
-  const featured = careers.filter((c) => featuredSet.has(c.id));
+  // featured 플래그 항목을 featuredRank(왼쪽부터) 순으로
+  const featured = careers
+    .filter((c) => featuredSet.has(c.id))
+    .sort((a, b) => (a.featuredRank ?? 99) - (b.featuredRank ?? 99));
   const now = Date.now();
   const rest = careers
     .filter((c) => !featuredSet.has(c.id))

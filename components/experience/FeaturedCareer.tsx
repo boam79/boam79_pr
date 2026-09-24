@@ -6,6 +6,7 @@ import { Calendar, Github, ExternalLink } from 'lucide-react';
 
 interface FeaturedCareerProps {
   career: Career;
+  index?: number;
 }
 
 const statusLabels = {
@@ -14,92 +15,89 @@ const statusLabels = {
   'in-progress': '진행중',
 } as const;
 
-export default function FeaturedCareer({ career }: FeaturedCareerProps) {
+export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProps) {
   const duration = career.duration || calculateDuration(career.period.start, career.period.end);
+  const lead = career.summary || career.description?.[0];
+  const points = (career.description ?? []).filter((line) => line !== lead);
+  const rank = String(index + 1).padStart(2, '0');
 
   return (
-    <article className="relative overflow-hidden border-b border-zinc-200 pb-10 last:border-b-0 last:pb-0">
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-teal-600/40 to-transparent"
-        aria-hidden
-      />
-
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-700">Featured</p>
-          <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-zinc-900 md:text-3xl">
-            {career.title}
-          </h3>
-          <p className="mt-1 text-sm text-zinc-500">
-            {career.company} · {career.position}
-          </p>
-        </div>
+    <article className="flex h-full min-h-[28rem] w-[min(26rem,88vw)] shrink-0 snap-start flex-col border border-zinc-200 border-l-[3px] border-l-teal-700 bg-white p-8 lg:w-full lg:min-w-0 lg:p-9">
+      <div className="flex items-start justify-between gap-3">
+        <p className="font-display text-sm font-semibold tabular-nums tracking-[0.18em] text-teal-800">
+          {rank}
+        </p>
         {career.status && (
           <Badge variant={career.status}>{statusLabels[career.status]}</Badge>
         )}
       </div>
 
-      {(career.summary || career.description?.[0]) && (
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-700">
-          {career.summary || career.description?.[0]}
-        </p>
+      <h3 className="mt-5 font-display text-[1.7rem] font-semibold leading-snug tracking-tight text-zinc-900 md:text-[1.85rem]">
+        {career.title}
+      </h3>
+      <p className="mt-2 text-sm leading-6 text-zinc-500">
+        {career.company} · {career.position}
+      </p>
+
+      {lead && (
+        <p className="mt-6 text-[1.125rem] leading-8 text-zinc-800">{lead}</p>
       )}
 
-      <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-        <span className="inline-flex items-center gap-1.5">
-          <Calendar size={14} aria-hidden />
-          {formatDate(career.period.start)} ~ {formatDate(career.period.end)}
-          {duration ? ` · ${duration}` : ''}
-        </span>
-      </div>
-
-      {career.description && career.description.length > 1 && (
-        <ul className="mt-5 space-y-2">
-          {career.description.slice(1).map((desc) => (
-            <li key={desc} className="flex gap-2 text-sm leading-relaxed text-zinc-600">
-              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-teal-600" aria-hidden />
+      {points.length > 0 && (
+        <ul className="mt-5 space-y-3">
+          {points.map((desc) => (
+            <li key={desc} className="flex gap-3 text-base leading-7 text-zinc-600">
+              <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-700" aria-hidden />
               <span>{desc}</span>
             </li>
           ))}
         </ul>
       )}
 
-      {career.techStack && career.techStack.length > 0 && (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {career.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="border border-zinc-200 bg-zinc-50/80 px-2.5 py-1 text-xs font-medium text-zinc-700"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      )}
+      <div className="mt-auto pt-6">
+        <p className="inline-flex items-center gap-1.5 text-sm text-zinc-500">
+          <Calendar size={15} aria-hidden />
+          {formatDate(career.period.start)} ~ {formatDate(career.period.end)}
+          {duration ? ` · ${duration}` : ''}
+        </p>
 
-      <div className="mt-6 flex flex-wrap gap-4">
-        {career.demo && (
-          <a
-            href={career.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-teal-800 underline decoration-teal-300 underline-offset-4 hover:decoration-teal-600"
-          >
-            <ExternalLink size={16} aria-hidden />
-            사이트 보기
-          </a>
+        {career.techStack && career.techStack.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {career.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         )}
-        {career.github && (
-          <a
-            href={career.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-zinc-900"
-          >
-            <Github size={16} aria-hidden />
-            GitHub
-          </a>
-        )}
+
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-zinc-100 pt-4">
+          {career.demo && (
+            <a
+              href={career.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-base font-medium text-teal-800 underline decoration-teal-300 underline-offset-4 hover:decoration-teal-600"
+            >
+              <ExternalLink size={17} aria-hidden />
+              사이트 보기
+            </a>
+          )}
+          {career.github && (
+            <a
+              href={career.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-base text-zinc-600 hover:text-zinc-900"
+            >
+              <Github size={17} aria-hidden />
+              GitHub
+            </a>
+          )}
+        </div>
       </div>
     </article>
   );

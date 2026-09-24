@@ -493,6 +493,14 @@
 
 수정: `lastActivityAt`(pushed_at)으로 More builds를 정렬. 라이브 API 기준 순서: CompanyFlow → DocuLens Local → Boardroom(hem) → QR 자산관리. `public-data-api-finder`는 2026-04 푸시라 아래로 내려감.
 
+### [Executor] 대표작 교체 + 가로 배열 — 2026-09-24
+
+사용자: 대표작에서 의료비 비교 시스템 제외, CompanyFlow와 Boardroom(hem) 추가, 대표작도 가로 배열하되 가독성을 올릴 것.
+
+- 대표작 순서: CompanyFlow → Boardroom (hem) → 환자 데이터 분석 툴 (`featuredRank` 1·2·3)
+- 의료비 비교 시스템(`dev-002`)은 GitHub 최신 순 그리드에만 남김
+- 모바일: 넓은 카드 가로 스냅, lg+: 3열. 제목·본문 글자 크기와 행간을 GitHub 카드보다 키움
+
 ## Lessons
 
 - `boam79` 공개 저장소 GitHub description은 2026-09 기준 전부 null. 소개는 README 분석 카탈로그로 보완.

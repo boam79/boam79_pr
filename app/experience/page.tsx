@@ -4,7 +4,7 @@ import { Suspense, useMemo, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { developmentCareers, facilityCareers } from '@/lib/data/careers';
 import CareerCard from '@/components/experience/CareerCard';
-import FeaturedCareer from '@/components/experience/FeaturedCareer';
+import FeaturedCareerGrid from '@/components/experience/FeaturedCareerGrid';
 import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
 import GitHubRepoGrid from '@/components/github/GitHubRepoGrid';
 import FadeInUp from '@/components/ui/FadeInUp';
@@ -174,10 +174,16 @@ function ExperienceContent() {
                 </div>
 
                 {featured.length > 0 && (
-                  <section className="mb-14 max-w-3xl space-y-12" aria-label="대표 개발 경력">
-                    {featured.map((career) => (
-                      <FeaturedCareer key={career.id} career={career} />
-                    ))}
+                  <section className="mb-20" aria-label="대표작">
+                    <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-900">
+                      대표작
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-base leading-7 text-zinc-600">
+                      CompanyFlow, Boardroom, 환자 데이터 분석. 큰 화면에서는 한 줄에, 휴대폰에서는 옆으로 밀어 봅니다.
+                    </p>
+                    <div className="mt-8">
+                      <FeaturedCareerGrid careers={featured} />
+                    </div>
                   </section>
                 )}
 

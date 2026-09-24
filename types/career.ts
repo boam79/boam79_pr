@@ -11,6 +11,8 @@ export interface Career {
   status?: 'active' | 'completed' | 'in-progress';
   /** 개발 탭 Featured 영역에 우선 노출 */
   featured?: boolean;
+  /** Featured 가로 배열 순서. 작을수록 왼쪽 */
+  featuredRank?: number;
   location?: string;
   duration?: string;
   /** 한 줄 가치 요약 (Featured/컴팩트 공통) */

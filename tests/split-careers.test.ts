@@ -5,6 +5,7 @@ import {
   collectStackChips,
   mergeGitHubCareers,
 } from '@/lib/utils/splitCareers';
+import { developmentCareers } from '@/lib/data/careers';
 import type { Career } from '@/types/career';
 
 const base = (overrides: Partial<Career> & Pick<Career, 'id' | 'title'>): Career => ({
@@ -25,6 +26,18 @@ describe('splitDevelopmentCareers', () => {
     const { featured, rest } = splitDevelopmentCareers(careers);
     expect(featured.map((c) => c.id)).toEqual(['a', 'c']);
     expect(rest.map((c) => c.id)).toEqual(['b']);
+  });
+
+  it('featuredRank가 작을수록 왼쪽에 둔다', () => {
+    const careers = [
+      base({ id: 'patient', title: '환자', featured: true, featuredRank: 3 }),
+      base({ id: 'flow', title: 'CompanyFlow', featured: true, featuredRank: 1 }),
+      base({ id: 'hem', title: 'Boardroom', featured: true, featuredRank: 2 }),
+      base({ id: 'price', title: '의료비' }),
+    ];
+    const { featured, rest } = splitDevelopmentCareers(careers);
+    expect(featured.map((c) => c.id)).toEqual(['flow', 'hem', 'patient']);
+    expect(rest.map((c) => c.id)).toEqual(['price']);
   });
 
   it('More builds는 최근 푸시 순으로 정렬한다', () => {
@@ -54,6 +67,17 @@ describe('splitDevelopmentCareers', () => {
     const { featured, rest } = splitDevelopmentCareers(careers);
     expect(featured.map((c) => c.id)).toEqual(['featured']);
     expect(rest.map((c) => c.id)).toEqual(['companyflow', 'hem', 'finder']);
+  });
+
+  it('정적 개발 경력에서 의료비를 빼고 CompanyFlow와 Boardroom을 대표작으로 둔다', () => {
+    const { featured, rest } = splitDevelopmentCareers(developmentCareers);
+    expect(featured.map((c) => c.id)).toEqual([
+      'dev-companyflow',
+      'dev-hem',
+      'dev-001',
+    ]);
+    expect(featured.some((c) => c.id === 'dev-002')).toBe(false);
+    expect(rest.some((c) => c.id === 'dev-002')).toBe(true);
   });
 
   it('featuredIds로 보완한다', () => {
