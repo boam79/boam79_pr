@@ -83,7 +83,7 @@ function ExperienceContent() {
   const facilityCount = facilityCareers.length;
 
   return (
-    <div className="min-h-screen border-t border-zinc-200/80 bg-[var(--bg-page)]">
+    <div className="min-h-screen border-t border-line bg-page">
       <div className={`${pageContainerClass} py-16 lg:py-20`}>
         <FadeInUp>
           <PageHeader
@@ -93,7 +93,7 @@ function ExperienceContent() {
         </FadeInUp>
 
         <div
-          className="relative z-20 mb-8 flex w-full max-w-md border border-zinc-200 bg-zinc-100/80 p-1"
+          className="relative z-20 mb-8 flex w-full max-w-md border border-line bg-surface p-1"
           role="tablist"
           aria-label="경력 유형"
         >
@@ -109,12 +109,12 @@ function ExperienceContent() {
             }}
             className={`flex-1 cursor-pointer px-4 py-2.5 text-center text-sm font-medium transition-colors ${
               activeTab === 'development'
-                ? 'bg-white text-zinc-900 shadow-sm'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-white text-ink shadow-sm'
+                : 'text-ink-secondary hover:text-ink'
             }`}
           >
             개발
-            <span className="ml-1.5 tabular-nums text-zinc-400">{developmentCount}개</span>
+            <span className="ml-1.5 tabular-nums text-ink-muted">{developmentCount}개</span>
           </a>
           <a
             href={experienceTabHref('facility', searchParams)}
@@ -128,12 +128,12 @@ function ExperienceContent() {
             }}
             className={`flex-1 cursor-pointer px-4 py-2.5 text-center text-sm font-medium transition-colors ${
               activeTab === 'facility'
-                ? 'bg-white text-zinc-900 shadow-sm'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-white text-ink shadow-sm'
+                : 'text-ink-secondary hover:text-ink'
             }`}
           >
             시설관리
-            <span className="ml-1.5 tabular-nums text-zinc-400">{facilityCount}개</span>
+            <span className="ml-1.5 tabular-nums text-ink-muted">{facilityCount}개</span>
           </a>
         </div>
 
@@ -167,10 +167,10 @@ function ExperienceContent() {
 
                 {featured.length > 0 && (
                   <section className="mb-20" aria-label="대표작">
-                    <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-900">
+                    <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
                       대표작
                     </h2>
-                    <p className="mt-2 max-w-2xl text-base leading-7 text-zinc-600">
+                    <p className="mt-2 max-w-2xl text-base leading-7 text-ink-secondary">
                       CompanyFlow, Boardroom, 환자 데이터 분석. 큰 화면에서는 한 줄에, 휴대폰에서는 옆으로 밀어 봅니다.
                     </p>
                     <div className="mt-8">
@@ -181,10 +181,10 @@ function ExperienceContent() {
 
                 {rest.length > 0 && (
                   <section aria-label="GitHub 최신 순">
-                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+                    <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">
                       GitHub 최신 순
                     </h2>
-                    <p className="mt-2 text-sm text-zinc-600">
+                    <p className="mt-2 text-sm text-ink-secondary">
                       최신 푸시가 왼쪽부터 가로로 이어집니다.
                     </p>
                     <div className="mt-6">
@@ -198,7 +198,7 @@ function ExperienceContent() {
                 )}
 
                 {featured.length === 0 && rest.length === 0 && (
-                  <p className="text-sm text-zinc-500">해당 스택의 항목이 없습니다.</p>
+                  <p className="text-sm text-ink-muted">해당 스택의 항목이 없습니다.</p>
                 )}
               </div>
             ) : (
@@ -217,13 +217,13 @@ function ExperienceContent() {
 
 function ExperiencePageFallback() {
   return (
-    <div className="flex min-h-screen items-center justify-center border-t border-zinc-200/80 bg-[var(--bg-page)] px-4">
+    <div className="flex min-h-screen items-center justify-center border-t border-line bg-page px-4">
       <div
-        className="flex items-center gap-2 border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-600"
+        className="flex items-center gap-2 border border-line bg-white px-4 py-3 text-sm text-ink-secondary"
         role="status"
         aria-live="polite"
       >
-        <Loader2 className="h-4 w-4 animate-spin text-zinc-500" />
+        <Loader2 className="h-4 w-4 animate-spin text-ink-muted" />
         불러오는 중
       </div>
     </div>

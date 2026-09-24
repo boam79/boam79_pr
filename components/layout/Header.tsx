@@ -31,17 +31,17 @@ export default function Header() {
     if (isCta) {
       return [
         'px-3 py-2 text-sm font-medium transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
         active
-          ? 'border border-teal-700 bg-teal-700 text-white'
-          : 'border border-zinc-200 text-zinc-800 hover:border-teal-600 hover:text-teal-800',
+          ? 'border border-accent bg-accent text-white'
+          : 'border border-line text-ink-body hover:border-accent hover:text-accent-ink',
       ].join(' ');
     }
 
     return [
       'px-3 py-2 text-sm font-medium transition-colors',
-      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
-      active ? 'text-teal-800 underline decoration-teal-500/80 decoration-2 underline-offset-8' : 'text-zinc-600 hover:text-zinc-900',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2',
+      active ? 'text-accent-ink underline decoration-accent/80 decoration-2 underline-offset-8' : 'text-ink-secondary hover:text-ink',
     ].join(' ');
   };
 
@@ -100,14 +100,14 @@ export default function Header() {
   return (
     <header
       className={`sticky top-0 z-50 border-b bg-white/90 backdrop-blur-sm ${
-        elevated ? 'border-zinc-200 shadow-sm shadow-zinc-900/5' : 'border-zinc-200/80'
+        elevated ? 'border-line shadow-sm shadow-zinc-900/5' : 'border-line'
       }`}
     >
       <nav className={pageContainerClass} aria-label="주요">
         <div className="flex h-16 items-center justify-between">
           <Link
             href={routes.home}
-            className="font-display text-lg font-semibold tracking-tight text-zinc-900 transition-colors hover:text-teal-800"
+            className="font-display text-lg font-semibold tracking-tight text-ink transition-colors hover:text-accent-ink"
           >
             Boam79
           </Link>
@@ -127,7 +127,7 @@ export default function Header() {
 
           <button
             ref={menuButtonRef}
-            className="p-2 text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 md:hidden"
+            className="p-2 text-ink-secondary transition-colors hover:bg-surface hover:text-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
             aria-expanded={isMenuOpen}
@@ -141,7 +141,7 @@ export default function Header() {
           <div
             id="mobile-menu"
             ref={mobileMenuRef}
-            className="border-t border-zinc-200 pb-4 pt-3 md:hidden"
+            className="border-t border-line pb-4 pt-3 md:hidden"
             role="menu"
           >
             <div className="flex flex-col gap-1">
@@ -150,7 +150,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={`${linkClassName(item.href, item.label === '연락')} justify-start ${
-                    isActive(item.href) && item.label !== '연락' ? 'border-l-2 border-l-teal-700 pl-2.5' : ''
+                    isActive(item.href) && item.label !== '연락' ? 'border-l-2 border-l-accent pl-2.5' : ''
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                   role="menuitem"

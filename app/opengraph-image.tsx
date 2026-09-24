@@ -21,7 +21,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: 32, color: '#a1a1aa', letterSpacing: 2 }}>BOAM79</div>
+          <div style={{ fontSize: 32, color: '#d4d4d8', letterSpacing: 2 }}>BOAM79</div>
           <div
             style={{
               marginTop: 24,

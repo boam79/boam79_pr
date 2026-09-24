@@ -72,7 +72,7 @@ export default function ContactForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <label htmlFor="name" className="text-xs font-medium uppercase tracking-wide text-ink-muted">
             이름 <span className="text-red-500">*</span>
           </label>
           <input
@@ -81,12 +81,12 @@ export default function ContactForm() {
             type="text"
             required
             maxLength={200}
-            className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-placeholder focus:border-accent focus:ring-2 focus:ring-accent/20"
             placeholder="홍길동"
           />
         </div>
         <div>
-          <label htmlFor="email" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+          <label htmlFor="email" className="text-xs font-medium uppercase tracking-wide text-ink-muted">
             이메일 <span className="text-red-500">*</span>
           </label>
           <input
@@ -95,14 +95,14 @@ export default function ContactForm() {
             type="email"
             required
             maxLength={200}
-            className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+            className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-placeholder focus:border-accent focus:ring-2 focus:ring-accent/20"
             placeholder="you@example.com"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="company" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+        <label htmlFor="company" className="text-xs font-medium uppercase tracking-wide text-ink-muted">
           회사/소속 (선택)
         </label>
         <input
@@ -110,13 +110,13 @@ export default function ContactForm() {
           name="company"
           type="text"
           maxLength={200}
-          className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+          className="mt-1.5 w-full border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-placeholder focus:border-accent focus:ring-2 focus:ring-accent/20"
           placeholder="회사명"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+        <label htmlFor="message" className="text-xs font-medium uppercase tracking-wide text-ink-muted">
           메시지 <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -125,7 +125,7 @@ export default function ContactForm() {
           required
           rows={5}
           maxLength={2000}
-          className="mt-1.5 w-full resize-y border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+          className="mt-1.5 w-full resize-y border border-line bg-white px-3 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-ink-placeholder focus:border-accent focus:ring-2 focus:ring-accent/20"
           placeholder="문의 내용을 남겨 주세요."
         />
       </div>

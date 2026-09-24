@@ -53,7 +53,7 @@ export default function FeaturedCareerGrid({ careers }: FeaturedCareerGridProps)
               aria-label={`${index + 1}번째 대표작, ${career.title}`}
               aria-current={index === active ? 'true' : undefined}
               className={`h-2 w-2 rounded-full transition-colors ${
-                index === active ? 'bg-teal-700' : 'bg-zinc-300 hover:bg-zinc-400'
+                index === active ? 'bg-accent' : 'bg-ink-muted hover:bg-ink-secondary'
               }`}
               onClick={() => scrollTo(index)}
             />

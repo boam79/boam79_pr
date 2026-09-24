@@ -20,10 +20,10 @@ function TechPills({ label, items }: { label: string; items?: string[] }) {
   if (!items?.length) return null;
   return (
     <div>
-      <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</p>
+      <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">{label}</p>
       <div className="mt-2 flex flex-wrap gap-2">
         {items.map((tech) => (
-          <span key={tech} className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700">
+          <span key={tech} className="border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink-secondary">
             {tech}
           </span>
         ))}
@@ -54,7 +54,7 @@ export default function ProjectsPage() {
   );
 
   return (
-    <div className="min-h-screen border-t border-zinc-200/80 bg-[var(--bg-page)]">
+    <div className="min-h-screen border-t border-line bg-page">
       <div className={`${pageContainerClass} py-16 lg:py-20`}>
         <FadeInUp>
           <PageHeader
@@ -66,8 +66,8 @@ export default function ProjectsPage() {
         {featured.length > 0 && (
           <FadeInUp delay={0.05}>
             <section className="mb-20" aria-label="대표작">
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-zinc-900">대표작</h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">대표작</h2>
+              <p className="mt-2 text-sm leading-6 text-ink-secondary">
                 CompanyFlow, Boardroom, 환자 데이터 분석.
               </p>
               <div className="mt-8">
@@ -78,24 +78,24 @@ export default function ProjectsPage() {
         )}
 
         <FadeInUp delay={0.08}>
-          <article className="max-w-3xl border-t border-zinc-200 pt-10">
+          <article className="max-w-3xl border-t border-line pt-10">
             <div className="mb-4 flex flex-wrap items-center gap-2">
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-700">Case study</p>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">Case study</p>
               <Badge variant={featuredProject.status}>
                 {featuredProject.status === 'in-progress' ? '진행' : '완료'}
               </Badge>
             </div>
 
-            <h2 className="font-display text-2xl font-semibold text-zinc-900 md:text-3xl">
+            <h2 className="font-display text-2xl font-semibold text-ink md:text-3xl">
               {featuredProject.title}
             </h2>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-ink-muted">
               {featuredProject.period} · {featuredProject.role}
             </p>
-            <p className="mt-4 text-base leading-7 text-zinc-700">{featuredProject.overview}</p>
+            <p className="mt-4 text-base leading-7 text-ink-secondary">{featuredProject.overview}</p>
 
             <section className="mt-12" aria-labelledby="context-heading">
-              <h3 id="context-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+              <h3 id="context-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">
                 1. Context
               </h3>
               <dl className="mt-4 space-y-5">
@@ -106,9 +106,9 @@ export default function ProjectsPage() {
                     ['성과', featuredProject.summary.impact],
                   ] as const
                 ).map(([label, text]) => (
-                  <div key={label} className="border-l-2 border-teal-700/70 pl-4">
-                    <dt className="text-sm font-semibold text-zinc-900">{label}</dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-zinc-600">{text}</dd>
+                  <div key={label} className="border-l-2 border-accent/70 pl-4">
+                    <dt className="text-sm font-semibold text-ink">{label}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-ink-secondary">{text}</dd>
                   </div>
                 ))}
               </dl>
@@ -116,18 +116,18 @@ export default function ProjectsPage() {
 
             {featuredProject.designDecisions && featuredProject.designDecisions.length > 0 && (
               <section className="mt-12" aria-labelledby="ui-heading">
-                <h3 id="ui-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+                <h3 id="ui-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">
                   2. UI decisions
                 </h3>
                 <ol className="mt-4 space-y-6">
                   {featuredProject.designDecisions.map((d, index) => (
                     <li key={d.title} className="grid gap-1 sm:grid-cols-[2rem_1fr]">
-                      <span className="font-display text-lg font-semibold tabular-nums text-teal-700">
+                      <span className="font-display text-lg font-semibold tabular-nums text-accent">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                       <div>
-                        <p className="text-sm font-semibold text-zinc-900">{d.title}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-zinc-600">{d.detail}</p>
+                        <p className="text-sm font-semibold text-ink">{d.title}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-ink-secondary">{d.detail}</p>
                       </div>
                     </li>
                   ))}
@@ -136,13 +136,13 @@ export default function ProjectsPage() {
             )}
 
             <section className="mt-12" aria-labelledby="build-heading">
-              <h3 id="build-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
+              <h3 id="build-heading" className="text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">
                 3. Build
               </h3>
               <ul className="mt-4 space-y-2">
                 {featuredProject.features.slice(0, 6).map((feature) => (
-                  <li key={feature} className="flex gap-3 text-sm leading-6 text-zinc-700">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-700" aria-hidden />
+                  <li key={feature} className="flex gap-3 text-sm leading-6 text-ink-secondary">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -185,9 +185,9 @@ export default function ProjectsPage() {
 
         {sideProjects.length > 0 && (
           <FadeInUp delay={0.1}>
-            <div className="mt-16 border-t border-zinc-200 pt-10">
-              <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">GitHub 최신 순</h2>
-              <p className="mt-2 text-sm text-zinc-600">대표작을 뺀 나머지 공개 저장소입니다.</p>
+            <div className="mt-16 border-t border-line pt-10">
+              <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-ink-muted">GitHub 최신 순</h2>
+              <p className="mt-2 text-sm text-ink-secondary">대표작을 뺀 나머지 공개 저장소입니다.</p>
               <div className="mt-3">
                 <GitHubSyncStatus
                   isLoading={isLoading}
@@ -212,7 +212,7 @@ export default function ProjectsPage() {
                     label="GitHub 최신 사이드 빌드"
                   />
                 ) : (
-                  <p className="py-6 text-sm text-zinc-500">해당 스택의 프로젝트가 없습니다.</p>
+                  <p className="py-6 text-sm text-ink-muted">해당 스택의 프로젝트가 없습니다.</p>
                 )}
               </div>
             </div>

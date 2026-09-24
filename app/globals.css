@@ -1,24 +1,50 @@
 @import "tailwindcss";
 
 :root {
+  --ink: #18181b;
+  --ink-body: #27272a;
+  --ink-secondary: #3f3f46;
+  --ink-muted: #52525b;
+  --ink-placeholder: #71717a;
+  --line: #d4d4d8;
+  --line-subtle: #e4e4e7;
+  --bg-page: #ffffff;
+  --bg-surface: #f4f4f5;
+  --bg-light: #f4f4f5;
+  --bg-white: #ffffff;
+  --bg-dark: #09090b;
+  --footer: #09090b;
+  --on-dark: #fafafa;
+  --on-dark-muted: #d4d4d8;
   --primary-blue: #0f766e;
   --primary-dark: #18181b;
   --secondary-teal: #0f766e;
-  --secondary-gray: #71717a;
+  --secondary-gray: #52525b;
   --accent-orange: #0f766e;
-  --accent-green: #0d9488;
-  --bg-light: #f4f7f6;
-  --bg-white: #ffffff;
-  --bg-dark: #09090b;
-  --bg-page: #fafafa;
+  --accent-green: #115e59;
   --status-active: #0f766e;
   --status-in-progress: #0f766e;
   --status-completed: #52525b;
   --accent: #0f766e;
+  --accent-ink: #115e59;
   --accent-soft: #ccfbf1;
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-ink-body: var(--ink-body);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-placeholder: var(--ink-placeholder);
+  --color-line: var(--line);
+  --color-line-subtle: var(--line-subtle);
+  --color-page: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-footer: var(--footer);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-primary-blue: var(--primary-blue);
   --color-primary-dark: var(--primary-dark);
   --color-secondary-teal: var(--secondary-teal);
@@ -38,7 +64,7 @@ html {
 
 body {
   background: var(--bg-page);
-  color: #18181b;
+  color: var(--ink);
   font-family: var(--font-body), 'Apple SD Gothic Neo', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -49,7 +75,8 @@ body {
 }
 
 ::selection {
-  background: rgba(15, 118, 110, 0.18);
+  background: rgba(15, 118, 110, 0.22);
+  color: var(--ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -83,7 +110,7 @@ body {
 
 .github-repo-scroller {
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d8 transparent;
+  scrollbar-color: var(--line) transparent;
 }
 
 .github-repo-scroller::-webkit-scrollbar {
@@ -91,5 +118,5 @@ body {
 }
 
 .github-repo-scroller::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: var(--line);
 }

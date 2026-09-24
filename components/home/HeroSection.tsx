@@ -32,9 +32,9 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-zinc-200/80">
+    <section className="relative overflow-hidden border-b border-line">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(15,118,110,0.12),transparent_50%),radial-gradient(ellipse_at_90%_20%,rgba(24,24,27,0.06),transparent_45%),linear-gradient(180deg,#f4f7f6_0%,#fafafa_55%,#fafafa_100%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(15,118,110,0.08),transparent_50%),radial-gradient(ellipse_at_90%_20%,rgba(24,24,27,0.04),transparent_45%),linear-gradient(180deg,#f4f4f5_0%,#ffffff_55%,#ffffff_100%)]"
         aria-hidden
       />
 
@@ -43,29 +43,29 @@ export default function HeroSection() {
           <motion.div variants={container} initial="hidden" animate="show">
             <motion.p
               variants={item}
-              className="mb-5 text-xs font-medium uppercase tracking-[0.22em] text-teal-800"
+              className="mb-5 text-xs font-medium uppercase tracking-[0.22em] text-accent-ink"
             >
               Healthcare × Frontend
             </motion.p>
 
             <motion.h1
               variants={item}
-              className="font-display text-5xl font-semibold tracking-tight text-zinc-900 sm:text-6xl md:text-7xl"
+              className="font-display text-5xl font-semibold tracking-tight text-ink sm:text-6xl md:text-7xl"
             >
               Boam79
             </motion.h1>
 
             <motion.p
               variants={item}
-              className="mt-6 text-lg font-medium leading-snug text-zinc-800 sm:text-xl md:text-2xl md:leading-relaxed"
+              className="mt-6 text-lg font-medium leading-snug text-ink-body sm:text-xl md:text-2xl md:leading-relaxed"
             >
               현장 요구를 화면과 데이터로 정리하는
-              <span className="mt-1 block text-teal-800">프론트엔드 · 풀스택 구현</span>
+              <span className="mt-1 block text-accent-ink">프론트엔드 · 풀스택 구현</span>
             </motion.p>
 
             <motion.p
               variants={item}
-              className="mt-6 max-w-lg text-base leading-relaxed text-zinc-600 md:text-lg"
+              className="mt-6 max-w-lg text-base leading-relaxed text-ink-secondary md:text-lg"
             >
               병원 운영 맥락을 아는 개발로, 대시보드·도구를 실제 쓸 수 있는 수준까지 만듭니다.
               코드는 Cursor 등 AI와 함께 설계하고 구현합니다.
@@ -93,24 +93,24 @@ export default function HeroSection() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="hidden border-t border-zinc-200 pt-6 lg:block"
+            className="hidden border-t border-line pt-6 lg:block"
             aria-label="대표작"
           >
             {featuredNames.map((work) => (
               <motion.li
                 key={work.rank}
                 variants={item}
-                className="flex items-baseline justify-between gap-4 border-b border-zinc-200 py-4"
+                className="flex items-baseline justify-between gap-4 border-b border-line py-4"
               >
                 <div>
-                  <p className="font-display text-sm font-semibold tabular-nums tracking-[0.16em] text-teal-800">
+                  <p className="font-display text-sm font-semibold tabular-nums tracking-[0.16em] text-accent-ink">
                     {work.rank}
                   </p>
-                  <p className="mt-1 font-display text-xl font-semibold tracking-tight text-zinc-900">
+                  <p className="mt-1 font-display text-xl font-semibold tracking-tight text-ink">
                     {work.title}
                   </p>
                 </div>
-                <p className="max-w-[11rem] text-right text-sm leading-6 text-zinc-500">{work.note}</p>
+                <p className="max-w-[11rem] text-right text-sm leading-6 text-ink-muted">{work.note}</p>
               </motion.li>
             ))}
           </motion.ol>

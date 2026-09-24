@@ -25,7 +25,7 @@ export default function GitHubSyncStatus({
 }: GitHubSyncStatusProps) {
   if (isLoading) {
     return (
-      <p className="flex items-center gap-2 text-xs text-zinc-500" role="status">
+      <p className="flex items-center gap-2 text-xs text-ink-muted" role="status">
         <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
         GitHub 최신 공개 저장소 동기화 중
       </p>
@@ -44,7 +44,7 @@ export default function GitHubSyncStatus({
   const when = syncedAt ? formatSyncedAt(syncedAt) : null;
 
   return (
-    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500">
+    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-muted">
       <Github className="h-3.5 w-3.5 shrink-0" aria-hidden />
       <span>
         GitHub 최신 푸시 순으로 반영

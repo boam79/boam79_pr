@@ -11,13 +11,13 @@ export default function StackFilter({ chips, value, onChange, label }: StackFilt
   const chipClass = (active: boolean) =>
     `border px-3 py-1.5 text-xs font-medium transition-colors ${
       active
-        ? 'border-teal-700 bg-teal-700 text-white'
-        : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-900'
+        ? 'border-accent bg-accent text-white'
+        : 'border-line bg-white text-ink-secondary hover:border-ink-muted hover:text-ink'
     }`;
 
   return (
     <div role="group" aria-label={label}>
-      <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">스택으로 보기</p>
+      <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink-muted">스택으로 보기</p>
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={() => onChange(null)} className={chipClass(value === null)}>
           전체

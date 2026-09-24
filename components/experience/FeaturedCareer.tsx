@@ -22,9 +22,9 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
   const rank = String(index + 1).padStart(2, '0');
 
   return (
-    <article className="flex h-full min-h-[28rem] w-[min(26rem,88vw)] shrink-0 snap-start flex-col border border-zinc-200 border-l-[3px] border-l-teal-700 bg-white p-8 transition-colors hover:border-zinc-300 hover:bg-zinc-50/40 lg:w-full lg:min-w-0 lg:p-9">
+    <article className="flex h-full min-h-[28rem] w-[min(26rem,88vw)] shrink-0 snap-start flex-col border border-line border-l-[3px] border-l-accent bg-white p-8 transition-colors hover:border-ink-muted hover:bg-surface/70 lg:w-full lg:min-w-0 lg:p-9">
       <div className="flex items-start justify-between gap-3">
-        <p className="font-display text-sm font-semibold tabular-nums tracking-[0.18em] text-teal-800">
+        <p className="font-display text-sm font-semibold tabular-nums tracking-[0.18em] text-accent-ink">
           {rank}
         </p>
         {career.status && (
@@ -32,22 +32,22 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
         )}
       </div>
 
-      <h3 className="mt-5 font-display text-[1.7rem] font-semibold leading-snug tracking-tight text-zinc-900 md:text-[1.85rem]">
+      <h3 className="mt-5 font-display text-[1.7rem] font-semibold leading-snug tracking-tight text-ink md:text-[1.85rem]">
         {career.title}
       </h3>
-      <p className="mt-2 text-sm leading-6 text-zinc-500">
+      <p className="mt-2 text-sm leading-6 text-ink-muted">
         {career.company} · {career.position}
       </p>
 
       {lead && (
-        <p className="mt-6 text-[1.125rem] leading-8 text-zinc-800">{lead}</p>
+        <p className="mt-6 text-[1.125rem] leading-8 text-ink-body">{lead}</p>
       )}
 
       {points.length > 0 && (
         <ul className="mt-5 space-y-3">
           {points.map((desc) => (
-            <li key={desc} className="flex gap-3 text-base leading-7 text-zinc-600">
-              <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-700" aria-hidden />
+            <li key={desc} className="flex gap-3 text-base leading-7 text-ink-secondary">
+              <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
               <span>{desc}</span>
             </li>
           ))}
@@ -55,7 +55,7 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
       )}
 
       <div className="mt-auto pt-6">
-        <p className="inline-flex items-center gap-1.5 text-sm text-zinc-500">
+        <p className="inline-flex items-center gap-1.5 text-sm text-ink-muted">
           <Calendar size={15} aria-hidden />
           {formatDate(career.period.start)} ~ {formatDate(career.period.end)}
           {duration ? ` · ${duration}` : ''}
@@ -66,7 +66,7 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
             {career.techStack.map((tech) => (
               <span
                 key={tech}
-                className="border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-700"
+                className="border border-line bg-surface px-2.5 py-1 text-xs font-medium text-ink-secondary"
               >
                 {tech}
               </span>
@@ -74,13 +74,13 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
           </div>
         )}
 
-        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-zinc-100 pt-4">
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line-subtle pt-4">
           {career.demo && (
             <a
               href={career.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-base font-medium text-teal-800 underline decoration-teal-300 underline-offset-4 hover:decoration-teal-600"
+              className="inline-flex items-center gap-2 text-base font-medium text-accent-ink underline decoration-teal-300 underline-offset-4 hover:decoration-accent"
             >
               <ExternalLink size={17} aria-hidden />
               사이트 보기
@@ -91,7 +91,7 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
               href={career.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-base text-zinc-600 hover:text-zinc-900"
+              className="inline-flex items-center gap-2 text-base text-ink-secondary hover:text-ink"
             >
               <Github size={17} aria-hidden />
               GitHub

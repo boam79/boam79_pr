@@ -23,18 +23,18 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-page)] disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center gap-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-page disabled:cursor-not-allowed';
 
   const variants = {
     primary: disabled
-      ? 'bg-zinc-200 text-zinc-400'
-      : 'bg-teal-700 text-white hover:bg-teal-800 active:bg-teal-900',
+      ? 'bg-zinc-200 text-ink-muted'
+      : 'bg-accent text-white hover:bg-accent-ink active:bg-teal-900',
     secondary: disabled
-      ? 'bg-zinc-100 text-zinc-400'
-      : 'border border-zinc-300 bg-white text-zinc-900 hover:border-teal-600 hover:text-teal-800',
+      ? 'bg-surface text-ink-muted'
+      : 'border border-line bg-white text-ink hover:border-accent hover:text-accent-ink',
     outline: disabled
-      ? 'border border-zinc-200 text-zinc-400'
-      : 'border border-teal-200 bg-transparent text-teal-800 hover:border-teal-400 hover:bg-teal-50/50',
+      ? 'border border-line text-ink-muted'
+      : 'border border-accent bg-transparent text-accent-ink hover:border-accent-ink hover:bg-teal-50/60',
   };
 
   const sizes = {

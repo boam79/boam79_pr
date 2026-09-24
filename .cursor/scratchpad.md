@@ -527,4 +527,40 @@
 
 수정: 탭을 `<a href>`로 바꾸고, 클릭 시 로컬 state로 즉시 전환 + `history.replaceState`로 주소 갱신. JS 전에는 일반 링크로 이동.
 
+## [Planner] 색 대비·가독성 — 2026-09-24
+
+### Background and Motivation
+
+사용자: 프런트 색이 너무 가독성이 떨어진다. 단계적으로 생각하고 다른 PR(개인 포트폴리오) 사이트를 참고해 수정.
+
+### Key Challenges and Analysis
+
+- 밝은 페이지(`#fafafa`)에 `text-zinc-400`/`500`을 쓰면 11px 날짜·탭 건수·섹션 라벨이 WCAG AA(4.5:1)를 넘지 못함.
+- `zinc-400`을 전역으로 바꾸면 안 됨. 홈 하단 다크 CTA(`bg-zinc-900`)에서는 같은 토큰이 오히려 맞음.
+- 참고: Lee Robinson — 흰 바탕 + 거의 검정 본문 + 액센트 1색. Brittany Chiang — 단일 액센트(그린/틸). 다크 모드를 새로 만들지 않고, 라이트 본문을 진하게 + 푸터/문의를 다크로 북엔드.
+
+### High-level Task Breakdown
+
+1. 시맨틱 잉크 토큰(`ink` / `ink-secondary` / `ink-muted` / `on-dark-muted`)과 대비 테스트
+2. 라이트 페이지의 옅은 회색·보더를 토큰으로 교체. 다크 섹션은 `on-dark-muted`
+3. 테스트 후 프로덕션 HTTPS에서 확인
+
+### Project Status Board
+
+- [x] 토큰·대비 테스트
+- [x] 컴포넌트/페이지 색 적용
+- [ ] 프로덕션 확인
+
+## [Executor] 색 대비 적용
+
+- `lib/constants/colors.ts` + `lib/utils/contrast.ts` + `tests/color-contrast.test.ts`
+- `globals.css`에 Tailwind 시맨틱 컬러 등록. 페이지 배경 `#ffffff`, 캡션 `#52525b`
+- 푸터를 `bg-footer` 다크로 바꿔 캡션 가독성 확보
+- `npm test` 48, lint, tsc 통과
+
+### Lessons
+
+- 라이트 본문의 `text-zinc-400`은 AA 실패. 다크 위 `text-zinc-400`은 유지해도 됨. 전역 remap 금지.
+- 참고 팔레트는 고대비 잉크 + 액센트 1색. 틸은 버튼/링크만.
+
 
