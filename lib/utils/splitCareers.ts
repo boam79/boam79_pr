@@ -1,5 +1,5 @@
 import type { Career } from '@/types/career';
-import { compareCareerEndDates } from '@/lib/utils/date';
+import { parseCareerDate } from '@/lib/utils/date';
 
 /**
  * 개발 경력을 Featured / More builds 로 나눕니다.
@@ -17,7 +17,9 @@ export function splitDevelopmentCareers(
 
   // featured 플래그 항목을 원본 배열 순서 유지
   const featured = careers.filter((c) => featuredSet.has(c.id));
-  const rest = careers.filter((c) => !featuredSet.has(c.id));
+  const rest = careers
+    .filter((c) => !featuredSet.has(c.id))
+    .sort(compareCareerRecency);
 
   return { featured, rest };
 }
@@ -61,6 +63,20 @@ function isSameGitHubCareer(staticCareer: Career, githubCareer: Career): boolean
   return normalizeTitle(staticCareer.title) === normalizeTitle(githubCareer.title);
 }
 
+export function careerActivityTimestamp(career: Career, now = Date.now()): number {
+  if (career.lastActivityAt) {
+    const parsed = Date.parse(career.lastActivityAt);
+    if (!Number.isNaN(parsed)) return parsed;
+  }
+
+  return parseCareerDate(career.period.end, new Date(now))?.getTime() ?? 0;
+}
+
+/** 최근 활동이 있는 항목이 앞에 옵니다. */
+export function compareCareerRecency(a: Career, b: Career): number {
+  return careerActivityTimestamp(b) - careerActivityTimestamp(a);
+}
+
 /** 정적 경력과 GitHub에서 가져온 최신 공개 저장소를 합칩니다. */
 export function mergeGitHubCareers(
   staticCareers: Career[],
@@ -70,7 +86,15 @@ export function mergeGitHubCareers(
     (repo) => !staticCareers.some((staticCareer) => isSameGitHubCareer(staticCareer, repo))
   );
 
-  return [...staticCareers, ...extras].sort((a, b) =>
-    compareCareerEndDates(a.period.end, b.period.end)
-  );
+  const enrichedStatic = staticCareers.map((staticCareer) => {
+    const match = githubCareers.find((repo) => isSameGitHubCareer(staticCareer, repo));
+    if (!match) return staticCareer;
+    return {
+      ...staticCareer,
+      lastActivityAt: match.lastActivityAt ?? staticCareer.lastActivityAt,
+      demo: staticCareer.demo || match.demo,
+    };
+  });
+
+  return [...enrichedStatic, ...extras].sort(compareCareerRecency);
 }

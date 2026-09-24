@@ -184,7 +184,7 @@ function ExperienceContent() {
                 {rest.length > 0 && (
                   <section aria-label="기타 빌드">
                     <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-                      More builds
+                      GitHub 최신 순
                     </h2>
                     <div className="mt-2 border-t border-zinc-200">
                       {rest.map((career) => (

@@ -42,6 +42,7 @@ describe('mapGitHubRepoToCareer', () => {
     expect(career.summary).toBe('repo description');
     expect(career.company).toBe('GitHub 공개 저장소');
     expect(career.techStack).toEqual(['TypeScript']);
+    expect(career.lastActivityAt).toBe('2026-01-10T00:00:00.000Z');
   });
 
   it('maps stale repository activity to completed career', () => {

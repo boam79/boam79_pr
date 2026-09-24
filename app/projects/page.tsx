@@ -225,10 +225,10 @@ export default function ProjectsPage() {
           <FadeInUp delay={0.1}>
             <div className="mt-16 border-t border-zinc-200 pt-10">
               <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
-                Side builds
+                GitHub 최신 순
               </h2>
               <p className="mt-2 text-sm text-zinc-600">
-                GitHub 공개 저장소를 최신 푸시 순으로 따라가며, README 분석 한 줄 소개를 붙입니다.
+                GitHub 공개 저장소를 최신 푸시 순으로 나열하고, README 분석 한 줄 소개를 붙입니다.
               </p>
               <div className="mt-3">
                 <GitHubSyncStatus

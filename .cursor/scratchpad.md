@@ -480,6 +480,12 @@
 - 프리뷰 SSO를 풀어 주시면 배포 URL에서 소개/경력/프로젝트 화면을 다시 눌러 볼 수 있음.
 - 수동 확인 부탁: PR 머지 후 https://boam79pr.vercel.app 의 `/about`, `/experience`, `/projects`
 
+### [Executor] 최신 푸시 순 정렬 — 2026-09-24
+
+사용자 스크린샷(프로덕션 `/experience`): `No description provided.` + `public data api finder`가 hem보다 위에 있음. 원인은 (1) PR 미머지로 예전 `sort=updated` 코드가 살아 있음 (2) 정적 항목이 GitHub 최신 푸시를 밀어냄.
+
+수정: `lastActivityAt`(pushed_at)으로 More builds를 정렬. 라이브 API 기준 순서: CompanyFlow → DocuLens Local → Boardroom(hem) → QR 자산관리. `public-data-api-finder`는 2026-04 푸시라 아래로 내려감.
+
 ## Lessons
 
 - `boam79` 공개 저장소 GitHub description은 2026-09 기준 전부 null. 소개는 README 분석 카탈로그로 보완.

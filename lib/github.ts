@@ -2,6 +2,7 @@ import { Career } from '@/types/career';
 import { parseCareerDate } from '@/lib/utils/date';
 import { getGitHubRepoBrief } from '@/lib/data/github-repo-briefs';
 import { extractReadmeBrief } from '@/lib/utils/readmeBrief';
+import { compareCareerRecency } from '@/lib/utils/splitCareers';
 import type { GitHubCareersPayload } from '@/types/github';
 
 export const GITHUB_SYNC_REVALIDATE_SECONDS = 60;
@@ -134,6 +135,7 @@ export function mapGitHubRepoToCareer(
     github: repo.html_url,
     demo: repo.homepage || undefined,
     description: [summary, SYNC_NOTE],
+    lastActivityAt: repo.pushed_at || repo.updated_at,
   };
 }
 
@@ -176,7 +178,7 @@ export async function fetchGitHubRepos(username: string): Promise<Career[]> {
       })
     );
 
-    return careers.filter(isValidCareerPeriod);
+    return careers.filter(isValidCareerPeriod).sort(compareCareerRecency);
   } catch (error) {
     console.error('Error fetching GitHub repos:', error);
     return [];
