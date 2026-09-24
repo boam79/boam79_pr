@@ -609,7 +609,7 @@
 
 - [x] GitHub 리포·README·배포 화면 수집
 - [x] 홈 벤토 구현 (가짜 화면 금지)
-- [ ] 테스트·배포·프로덕션 확인
+- [x] 테스트·배포·프로덕션 확인
 
 ## [Executor] Product Bento — 실제 GitHub 화면
 
@@ -617,5 +617,18 @@
 - 홈 화면: CompanyFlow 배포 홈, Boardroom 배포 홈, 환자 분석은 README 4축만
 - `patientanalysis.vercel.app` 404라 벤토에서 사이트 링크 제거
 - GitHub 타일: 공개 원본 저장소 수(포트폴리오 제외) + 최신 3 + 스타 상위 3
+
+**검증 (2026-09-24)**
+- `npm test` 55, lint, tsc, `next build` 통과
+- PR https://github.com/boam79/boam79_pr/pull/8 MERGED, `main` fast-forward
+- 프로덕션 https://boam79pr.vercel.app READY (`04fa6de`)
+- 홈 HTML: CompanyFlow/Boardroom 실제 화면, 재방문·공간·질병·수술 칩, 가짜 99.2/청담서울/칸반 없음
+- API: 공개 23개, 최신 DocuLens Local → CompanyFlow → Boardroom, 스타 43/41/26
+- 소개·경력·프로젝트·스킬·연락 페이지 200. 경력 탭 전환 확인
+- 프리뷰 URL은 Vercel SSO라 프로덕션에서만 브라우저 확인
+
+### Executor's Feedback or Assistance Requests
+
+Product Bento를 실제 GitHub 화면으로 프로덕션에 올렸습니다. https://boam79pr.vercel.app 홈에서 CompanyFlow·Boardroom 스크린샷과 환자 분석 4축이 맞는지 한 번 봐 주세요. `patient_analysis` 배포가 다시 살아나면 사이트 링크를 넣을 수 있습니다.
 
 
