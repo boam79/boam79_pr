@@ -18,7 +18,7 @@ export default function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-zinc-900">Boam79</h3>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              시설·운영 경험과 개발
+              시설·운영 경험과 개발. 공개 프로젝트는 AI와 함께 구현합니다.
             </p>
           </div>
 
@@ -55,8 +55,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-500">
+        <div className="mt-10 border-t border-zinc-200 pt-6 text-center text-xs leading-relaxed text-zinc-500">
           <p>© {currentYear} Boam79. All rights reserved.</p>
+          <p className="mt-2">이 사이트와 GitHub 공개 저장소는 AI 코딩 에이전트와 함께 만들었습니다.</p>
         </div>
       </div>
     </footer>

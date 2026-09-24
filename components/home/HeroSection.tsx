@@ -113,6 +113,7 @@ export default function HeroSection() {
             className="mt-6 max-w-lg text-base leading-relaxed text-zinc-600 md:text-lg"
           >
             병원 운영 맥락을 아는 개발로, 대시보드·도구를 실제 쓸 수 있는 수준까지 만듭니다.
+            코드는 Cursor 등 AI와 함께 설계하고 구현합니다.
           </motion.p>
 
           <motion.div

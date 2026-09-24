@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { getSiteUrl } from "@/lib/constants/site";
+import { getSiteUrl, SITE_TAGLINE, SITE_AI_BUILT } from "@/lib/constants/site";
 import { certifications } from "@/lib/data/skills";
 import { facilityCareers } from "@/lib/data/careers";
 
@@ -24,8 +24,8 @@ const displayFont = Syne({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  title: "Boam79 포트폴리오 | Healthcare Facility × IT 융합 전문가",
-  description: "21년 시설관리 경력과 AI 기술을 융합한 헬스케어 디지털 전환 전문가. 병원 ERP 구축, 환자 데이터 분석, 의료기관 인증평가 경험 보유.",
+  title: "Boam79 포트폴리오 | Healthcare Facility × AI 개발",
+  description: `${SITE_TAGLINE} ${SITE_AI_BUILT}`,
   keywords: [
     "Boam79",
     "포트폴리오",
@@ -36,6 +36,8 @@ export const metadata: Metadata = {
     "ERP 구축",
     "데이터 분석",
     "AI",
+    "AI 개발",
+    "Cursor",
     "Next.js",
     "의료가스 관리",
     "전문병원인증",
@@ -43,16 +45,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Boam79" }],
   creator: "Boam79",
   openGraph: {
-    title: "Boam79 포트폴리오 | Healthcare Facility × IT 융합 전문가",
-    description: "21년 경력의 헬스케어 시설관리 및 IT 전문가",
+    title: "Boam79 포트폴리오 | Healthcare Facility × AI 개발",
+    description: SITE_TAGLINE,
     type: "website",
     locale: "ko_KR",
     siteName: "Boam79 포트폴리오",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Boam79 포트폴리오 | Healthcare Facility × IT 융합 전문가",
-    description: "21년 경력의 헬스케어 시설관리 및 IT 전문가",
+    title: "Boam79 포트폴리오 | Healthcare Facility × AI 개발",
+    description: SITE_TAGLINE,
   },
   robots: {
     index: true,
@@ -78,8 +80,8 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Boam79',
-    jobTitle: 'Healthcare Facility × IT 융합 전문가',
-    description: '21년 시설관리 경력과 AI 기술을 융합한 헬스케어 디지털 전환 전문가',
+    jobTitle: 'Healthcare Facility × AI 개발',
+    description: SITE_TAGLINE,
     url: getSiteUrl(),
     sameAs: [
       'https://github.com/boam79',

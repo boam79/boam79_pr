@@ -2,6 +2,7 @@
 
 import FadeInUp from '@/components/ui/FadeInUp';
 import Card from '@/components/ui/Card';
+import { SITE_AI_BUILT, SITE_DIRECTION } from '@/lib/constants/site';
 
 export default function AboutPage() {
   return (
@@ -26,9 +27,32 @@ export default function AboutPage() {
             </section>
           </FadeInUp>
 
+          <FadeInUp delay={0.08}>
+            <section>
+              <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">개발 방향</h2>
+              <p className="mt-3 text-base leading-relaxed text-zinc-700">{SITE_DIRECTION}</p>
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-zinc-600">
+                <li>병원 운영 데이터·자산·재고를 현장에서 바로 쓰는 도구로 만듭니다.</li>
+                <li>경영 의사결정은 멀티 모델 AI 토론(Boardroom)으로 비교 가능하게 합니다.</li>
+                <li>공공데이터·지원사업·감가상각 같은 총무 실무는 MCP로 자동화합니다.</li>
+              </ul>
+            </section>
+          </FadeInUp>
+
           <FadeInUp delay={0.1}>
             <section>
-              <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">방향</h2>
+              <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">AI로 개발</h2>
+              <p className="mt-3 text-base leading-relaxed text-zinc-700">{SITE_AI_BUILT}</p>
+              <p className="mt-4 text-base leading-relaxed text-zinc-700">
+                현장 문제 정의와 도메인 판단은 사람이 하고, 설계·코드·테스트·배포는 AI와 짧은 주기로
+                반복합니다. GitHub 공개 저장소가 그 작업 기록입니다.
+              </p>
+            </section>
+          </FadeInUp>
+
+          <FadeInUp delay={0.12}>
+            <section>
+              <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">원칙</h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 <Card className="p-4 shadow-none">
                   <h3 className="text-sm font-semibold text-zinc-900">기술과 현장</h3>
@@ -64,6 +88,7 @@ export default function AboutPage() {
                   { year: 2023, event: '병원 IT 인프라 구축 (ERP, 네트워크)' },
                   { year: 2025, event: '환자 데이터 분석 툴 개발 시작' },
                   { year: 2025, event: '카카오임팩트 AI TOP 100 참가' },
+                  { year: 2026, event: 'Boardroom 등 공개 프로젝트를 AI와 함께 구현' },
                 ].map((m) => (
                   <li key={`${m.year}-${m.event}`} className="flex gap-4 text-sm text-zinc-700">
                     <span className="w-14 shrink-0 font-medium tabular-nums text-zinc-500">{m.year}</span>

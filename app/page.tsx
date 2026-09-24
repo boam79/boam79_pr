@@ -23,7 +23,7 @@ export default function Home() {
               <p className="mt-4 text-base leading-relaxed text-zinc-600 md:text-lg">
                 의료기관 운영의 병목을 업무 관점에서 이해하고, 화면·데이터·배포까지 실행 가능한
                 개선으로 연결합니다. 21년 시설·운영 경험과 7개 자격·면허, 카카오임팩트 AI TOP100
-                참여가 그 판단의 근거입니다.
+                참여가 그 판단의 근거입니다. 이 사이트와 공개 저장소는 AI와 함께 개발했습니다.
               </p>
             </div>
           </FadeInUp>

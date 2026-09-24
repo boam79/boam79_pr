@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: '소개 | Boam79 포트폴리오',
-  description: '21년간 헬스케어 시설관리 분야에서 쌓은 실무 경험과 컴퓨터공학 전공 지식을 결합한 디지털 전환 전문가.',
+  description: '21년 헬스케어 시설·운영 경험과 AI 협업 개발. 병원 운영 도구, 경영회의 시뮬레이터, 공공데이터 MCP가 현재 방향입니다.',
   keywords: [
     '박재민',
     '소개',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: '소개 | Boam79 포트폴리오',
-    description: '21년간 헬스케어 시설관리 분야에서 쌓은 실무 경험과 컴퓨터공학 전공 지식을 결합한 디지털 전환 전문가.',
+    description: '21년 헬스케어 시설·운영 경험과 AI 협업 개발. 병원 운영 도구, 경영회의 시뮬레이터, 공공데이터 MCP가 현재 방향입니다.',
     type: 'website',
   },
 };

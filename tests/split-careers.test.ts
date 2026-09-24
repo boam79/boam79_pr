@@ -3,6 +3,7 @@ import {
   splitDevelopmentCareers,
   filterCareersByStack,
   collectStackChips,
+  mergeGitHubCareers,
 } from '@/lib/utils/splitCareers';
 import type { Career } from '@/types/career';
 
@@ -57,5 +58,32 @@ describe('collectStackChips', () => {
       base({ id: 'c', title: 'C', techStack: ['Python'] }),
     ];
     expect(collectStackChips(careers, 2)).toEqual(['TypeScript', 'Next.js']);
+  });
+});
+
+describe('mergeGitHubCareers', () => {
+  it('dedupes by GitHub URL even when titles differ', () => {
+    const staticCareers = [
+      base({
+        id: 'dev-002',
+        title: '의료비 비교 시스템',
+        github: 'https://github.com/boam79/noncorverd',
+      }),
+    ];
+    const githubCareers = [
+      base({
+        id: 'github-1',
+        title: '의료기관 비급여 비교',
+        github: 'https://github.com/boam79/noncorverd',
+      }),
+      base({
+        id: 'github-2',
+        title: 'CompanyFlow',
+        github: 'https://github.com/boam79/companyflow',
+      }),
+    ];
+
+    const merged = mergeGitHubCareers(staticCareers, githubCareers);
+    expect(merged.map((c) => c.id)).toEqual(['dev-002', 'github-2']);
   });
 });

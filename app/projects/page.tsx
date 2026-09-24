@@ -6,10 +6,10 @@ import { developmentCareers } from '@/lib/data/careers';
 import Badge from '@/components/ui/Badge';
 import FadeInUp from '@/components/ui/FadeInUp';
 import Button from '@/components/ui/Button';
+import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
 import { ExternalLink, Github } from 'lucide-react';
-import { filterCareersByStack, collectStackChips } from '@/lib/utils/splitCareers';
-
-const sideProjects = developmentCareers.filter((career) => career.github);
+import { filterCareersByStack, collectStackChips, mergeGitHubCareers } from '@/lib/utils/splitCareers';
+import { useGitHubCareers } from '@/lib/hooks/useGitHubCareers';
 
 function ProjectVisualSlot({ title }: { title: string }) {
   const hasImages = (featuredProject.images?.length ?? 0) > 0;
@@ -65,11 +65,20 @@ function ProjectVisualSlot({ title }: { title: string }) {
 export default function ProjectsPage() {
   const [stackFilter, setStackFilter] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const { careers: githubCareers, syncedAt, isLoading, error } = useGitHubCareers();
 
-  const chips = useMemo(() => collectStackChips(sideProjects, 6), []);
+  const sideProjects = useMemo(() => {
+    const merged = mergeGitHubCareers(
+      developmentCareers.filter((career) => career.github),
+      githubCareers
+    );
+    return merged.filter((career) => career.github);
+  }, [githubCareers]);
+
+  const chips = useMemo(() => collectStackChips(sideProjects, 6), [sideProjects]);
   const filteredSides = useMemo(
     () => filterCareersByStack(sideProjects, stackFilter),
-    [stackFilter]
+    [sideProjects, stackFilter]
   );
 
   return (
@@ -79,7 +88,9 @@ export default function ProjectsPage() {
           <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
             프로젝트
           </h1>
-          <p className="mt-2 text-sm text-zinc-600">케이스 스터디 · 사이드 빌드</p>
+          <p className="mt-2 text-sm text-zinc-600">
+            케이스 스터디 · GitHub 최신 사이드 빌드
+          </p>
         </FadeInUp>
 
         {/* Case study */}
@@ -216,7 +227,17 @@ export default function ProjectsPage() {
               <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
                 Side builds
               </h2>
-              <p className="mt-2 text-sm text-zinc-600">스택으로 걸러 보며 탐색해 보세요.</p>
+              <p className="mt-2 text-sm text-zinc-600">
+                GitHub 공개 저장소를 최신 푸시 순으로 따라가며, README 분석 한 줄 소개를 붙입니다.
+              </p>
+              <div className="mt-3">
+                <GitHubSyncStatus
+                  isLoading={isLoading}
+                  error={error}
+                  syncedAt={syncedAt}
+                  count={githubCareers.length}
+                />
+              </div>
 
               {chips.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="사이드 프로젝트 스택 필터">

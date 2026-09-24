@@ -25,6 +25,7 @@ export const skillCategories: SkillCategory[] = [
   {
     category: "AI & Data",
     skills: [
+      { name: "AI 협업 개발 (Cursor)", level: 4 },
       { name: "Machine Learning", level: 2 },
       { name: "Data Visualization", level: 3 },
       { name: "Healthcare Analytics", level: 3 }

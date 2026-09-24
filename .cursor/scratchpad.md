@@ -434,3 +434,44 @@
 - 실제 스크린샷을 `public/projects/`에 넣으면 Projects/Home 슬롯에 자동 반영 가능(`images` 배열).
 - T11(다크모드/다국어/이력서)는 미착수 — 필요 시 후속 요청.
 
+---
+
+## [Planner] GitHub 최신 동기화 · 리포 소개 · AI 개발 표현 — 2026-09-24
+
+### Background and Motivation
+
+사용자 요청: GitHub를 항상 최신으로 팔로우하고, 공개 리포를 분석해 짧은 설명을 달며, 전체 개발 방향과 **모든 것이 AI로 개발되었다**는 점을 표현할 것.
+
+공개 저장소 24개 중 GitHub About가 전부 비어 있음. 포트폴리오는 30분 캐시로 저장소 목록만 가져오고, 설명이 없으면 영문 `No description provided.` 를 노출하고 있었음.
+
+### Key Challenges and Analysis
+
+- GitHub About 필드는 이 환경의 `gh`가 읽기 전용이라 원격 About를 직접 수정할 수 없음 → README(이 리포)와 사이트 한 줄 소개로 대체.
+- 최신 팔로우는 목록 API `sort=pushed` + 1분 재검증 + 클라이언트 `cache: 'no-store'`가 가장 단순함.
+- 새 저장소는 카탈로그에 없을 수 있음 → README 첫 문단 fallback.
+
+### High-level Task Breakdown
+
+1. GitHub 최신 푸시 동기화 + 빈 설명 시 README/카탈로그 한 줄 소개
+2. README·소개·푸터·히어로에 개발 방향과 AI 협업 개발 사실 명시
+3. 테스트·빌드 후 커밋/PR
+
+### Project Status Board
+
+- [x] 공개 리포 README 분석 및 한 줄 소개 카탈로그
+- [x] GitHub API 최신 푸시 동기화 (경력·프로젝트)
+- [x] 개발 방향 + AI 개발 표현 (README, About, Footer, Hero)
+- [ ] 배포 URL에서 페이지 검증
+
+### Current Status / Progress Tracking (Executor)
+
+구현 중. 성공 기준: 공개 저장소가 최신 푸시 순으로 뜨고, 빈 About 대신 한국어 한 줄이 붙으며, 소개/README에 AI 개발이 드러남.
+
+## Lessons
+
+- `boam79` 공개 저장소 GitHub description은 2026-09 기준 전부 null. 소개는 README 분석 카탈로그로 보완.
+- `prom_hub`는 프로모션 허브가 아니라 AI 프롬프트 마켓플레이스. GitHub README가 원본.
+- 비급여 비교의 실제 저장소명은 `noncorverd`.
+- GitHub 목록 `sort=pushed`가 코드 최신성 기준으로 `updated`보다 정확함.
+
+

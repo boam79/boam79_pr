@@ -1,78 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Boam79 포트폴리오
 
-## Getting Started
+21년 헬스케어 시설·운영 경험을 디지털 도구와 AI 개발로 잇는 개인 포트폴리오입니다.
 
-### 로컬 개발 환경 설정
+이 사이트와 GitHub 공개 프로젝트는 Cursor 등 AI 코딩 에이전트와 함께 기획부터 구현·검증까지 만들었습니다.
 
-1. **의존성 설치**
+- 사이트: [https://boam79pr.vercel.app](https://boam79pr.vercel.app)
+- GitHub: [https://github.com/boam79](https://github.com/boam79)
+
+## 개발 방향
+
+병원·시설 현장에서 반복되는 일을 화면·데이터·AI 도구로 바꿉니다.
+
+1. **병원 운영 도구** — 환자·방문 분석, 비급여 비교, QR 자산, 의원 재고
+2. **의사결정 AI** — Boardroom(hem)처럼 경영 지표를 넣고 멀티 모델이 임원 역할로 토론
+3. **총무·공공 자동화** — 지원사업·공공데이터·감가상각을 MCP와 웹앱으로 연결
+
+공개 저장소 목록은 GitHub API로 **최신 푸시 순**을 따라가며, About가 비어 있는 저장소는 README를 분석해 한 줄 소개를 붙입니다.
+
+## 스택
+
+Next.js App Router, TypeScript, Tailwind CSS, Framer Motion, Vercel.
+
+## 로컬 실행
+
+기능 검증은 배포된 HTTPS URL에서 합니다. 아래는 빌드 확인용입니다.
+
 ```bash
 npm install
+npm test
+npm run build
 ```
 
-
-### 환경 변수 설정 (선택)
-
-Contact 페이지의 문의 폼을 사용하려면 [Resend](https://resend.com)에서 API 키를 발급받아 `.env.local`에 설정하세요. 설정하지 않아도 사이트는 정상 동작하며, 폼 제출 시 안내 메시지가 표시됩니다.
+문의 폼을 쓰려면 [Resend](https://resend.com) API 키를 `.env.local`에 넣습니다. 없어도 사이트는 동작합니다.
 
 ```bash
 RESEND_API_KEY=re_your_api_key
 CONTACT_FROM_EMAIL="Portfolio Contact <onboarding@resend.dev>"
 ```
 
-### 개발 서버 실행
+선택: `GITHUB_TOKEN`이 있으면 공개 저장소 동기화의 GitHub API 한도가 넉넉해집니다.
 
 ```bash
 npm run dev
 ```
 
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
+## GitHub 동기화
 
-### 프로덕션 빌드 테스트
-
-로컬에서 프로덕션 빌드를 테스트하려면:
-
-```bash
-npm run build
-npm run start
-```
-
-빌드가 성공하면 `http://localhost:3000`에서 프로덕션 모드로 실행됩니다.
-
-### 주요 기능
-
-- ✅ 반응형 디자인 (모바일, 태블릿, 데스크탑)
-- ✅ SEO 최적화 (메타데이터, 동적 OpenGraph 이미지, JSON-LD 구조화 데이터)
-- ✅ 접근성 개선 (키보드 네비게이션, ARIA 레이블)
-- ✅ 이미지 최적화 (WebP, AVIF 지원)
-- ✅ 애니메이션 (Framer Motion)
-- ✅ 문의 폼 (Resend 기반 이메일 전송, 스팸 방지 honeypot 적용)
-- ✅ 커스텀 404 / 에러 페이지
-- ✅ Vercel Analytics · Speed Insights 연동
-- ✅ GitHub Actions CI (lint · test · build 자동 검증)
-
-### 프로젝트 구조
-
-```
-app/              # Next.js App Router 페이지
-components/       # React 컴포넌트
-lib/             # 유틸리티 및 데이터
-types/           # TypeScript 타입 정의
-public/          # 정적 파일
-```
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-**배포 시 주의사항**: Vercel에 배포하면 자동으로 최적화되어 배포됩니다.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`/api/github-careers`가 `boam79` 공개 저장소를 약 1분 캐시로 가져옵니다. 경력·프로젝트 페이지는 이 응답을 최신 기준으로 보여 줍니다. 이 포트폴리오 저장소(`boam79_pr`)는 목록에서 제외합니다.

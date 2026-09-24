@@ -1,20 +1,22 @@
 'use client';
 
-import { Suspense, useEffect, useMemo, useState, useTransition } from 'react';
+import { Suspense, useMemo, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { developmentCareers, facilityCareers } from '@/lib/data/careers';
 import CareerCard from '@/components/experience/CareerCard';
 import FeaturedCareer from '@/components/experience/FeaturedCareer';
 import CompactCareerRow from '@/components/experience/CompactCareerRow';
+import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
 import FadeInUp from '@/components/ui/FadeInUp';
 import { motion, AnimatePresence } from 'framer-motion';
-import { compareCareerEndDates } from '@/lib/utils/date';
 import {
   splitDevelopmentCareers,
   filterCareersByStack,
   collectStackChips,
+  mergeGitHubCareers,
 } from '@/lib/utils/splitCareers';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { useGitHubCareers } from '@/lib/hooks/useGitHubCareers';
+import { Loader2 } from 'lucide-react';
 
 type CareerTab = 'development' | 'facility';
 
@@ -22,47 +24,17 @@ function ExperienceContent() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialTab = searchParams.get('tab') === 'facility' ? 'facility' : 'development';
-
-  const [activeTab, setActiveTab] = useState<CareerTab>(initialTab);
-  const [githubCareers, setGithubCareers] = useState<import('@/types/career').Career[]>([]);
-  const [isGithubLoading, setIsGithubLoading] = useState(true);
-  const [githubError, setGithubError] = useState<string | null>(null);
+  const activeTab: CareerTab = searchParams.get('tab') === 'facility' ? 'facility' : 'development';
+  const {
+    careers: githubCareers,
+    syncedAt,
+    isLoading: isGithubLoading,
+    error: githubError,
+  } = useGitHubCareers();
   const [stackFilter, setStackFilter] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    const tabFromUrl = searchParams.get('tab') === 'facility' ? 'facility' : 'development';
-    if (tabFromUrl !== activeTab) {
-      setActiveTab(tabFromUrl);
-    }
-  }, [activeTab, searchParams]);
-
-  useEffect(() => {
-    const loadGithubRepos = async () => {
-      try {
-        setIsGithubLoading(true);
-        setGithubError(null);
-        const response = await fetch('/api/github-careers');
-        if (!response.ok) {
-          throw new Error(`GitHub careers API failed with ${response.status}`);
-        }
-
-        const repos = (await response.json()) as import('@/types/career').Career[];
-        setGithubCareers(repos);
-      } catch (error) {
-        console.error('Failed to load GitHub repos', error);
-        setGithubError('공개 저장소를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
-      } finally {
-        setIsGithubLoading(false);
-      }
-    };
-
-    loadGithubRepos();
-  }, []);
-
   const handleTabChange = (tab: CareerTab) => {
-    setActiveTab(tab);
     setStackFilter(null);
     const next = new URLSearchParams(searchParams.toString());
     next.set('tab', tab);
@@ -70,20 +42,7 @@ function ExperienceContent() {
   };
 
   const mergedDevelopmentCareers = useMemo(
-    () =>
-      [
-        ...developmentCareers,
-        ...githubCareers.filter(
-          (repo) =>
-            !developmentCareers.some(
-              (staticCareer) =>
-                staticCareer.github === repo.github ||
-                (staticCareer.title &&
-                  repo.title &&
-                  staticCareer.title.toLowerCase() === repo.title.toLowerCase())
-            )
-        ),
-      ].sort((a, b) => compareCareerEndDates(a.period.end, b.period.end)),
+    () => mergeGitHubCareers(developmentCareers, githubCareers),
     [githubCareers]
   );
 
@@ -114,7 +73,7 @@ function ExperienceContent() {
               경력
             </h1>
             <p className="mt-2 text-sm text-zinc-600 md:text-base">
-              구현·화면을 먼저, 현장 운영 경험은 이어서
+              구현·화면을 먼저, 현장 운영 경험은 이어서. 공개 저장소는 GitHub 최신 푸시를 따라갑니다.
             </p>
           </div>
         </FadeInUp>
@@ -206,19 +165,12 @@ function ExperienceContent() {
                 )}
 
                 <div className="mb-6 min-h-[1.25rem]">
-                  {isGithubLoading ? (
-                    <p className="flex items-center gap-2 text-xs text-zinc-500" role="status">
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
-                      최근 공개 저장소 반영 중
-                    </p>
-                  ) : githubError ? (
-                    <p className="flex items-start gap-2 text-xs text-amber-800" role="alert">
-                      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-                      {githubError}
-                    </p>
-                  ) : (
-                    <p className="text-xs text-zinc-400">최근 공개 저장소 반영</p>
-                  )}
+                  <GitHubSyncStatus
+                    isLoading={isGithubLoading}
+                    error={githubError}
+                    syncedAt={syncedAt}
+                    count={githubCareers.length}
+                  />
                 </div>
 
                 {featured.length > 0 && (

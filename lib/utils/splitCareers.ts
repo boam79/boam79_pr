@@ -1,4 +1,5 @@
 import type { Career } from '@/types/career';
+import { compareCareerEndDates } from '@/lib/utils/date';
 
 /**
  * 개발 경력을 Featured / More builds 로 나눕니다.
@@ -42,4 +43,34 @@ export function collectStackChips(careers: Career[], limit = 8): string[] {
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .slice(0, limit)
     .map(([name]) => name);
+}
+
+function normalizeTitle(title: string): string {
+  return title.toLowerCase().replace(/[-_\s]+/g, ' ').trim();
+}
+
+function isSameGitHubCareer(staticCareer: Career, githubCareer: Career): boolean {
+  if (staticCareer.github && githubCareer.github && staticCareer.github === githubCareer.github) {
+    return true;
+  }
+
+  if (!staticCareer.title || !githubCareer.title) {
+    return false;
+  }
+
+  return normalizeTitle(staticCareer.title) === normalizeTitle(githubCareer.title);
+}
+
+/** 정적 경력과 GitHub에서 가져온 최신 공개 저장소를 합칩니다. */
+export function mergeGitHubCareers(
+  staticCareers: Career[],
+  githubCareers: Career[]
+): Career[] {
+  const extras = githubCareers.filter(
+    (repo) => !staticCareers.some((staticCareer) => isSameGitHubCareer(staticCareer, repo))
+  );
+
+  return [...staticCareers, ...extras].sort((a, b) =>
+    compareCareerEndDates(a.period.end, b.period.end)
+  );
 }
