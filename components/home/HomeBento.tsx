@@ -12,7 +12,10 @@ import { useGitHubCareers } from '@/lib/hooks/useGitHubCareers';
 import { ArrowRight, Github, Mail, Star } from 'lucide-react';
 
 const tileClass =
-  'flex h-full min-h-[12rem] flex-col overflow-hidden rounded-2xl border border-line bg-white';
+  'flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white';
+
+/** 대표작 스크린샷(1400×875, 1440×900)과 같은 16:10. 칩 영역도 이 칸을 써서 제목이 한 줄에 맞는다. */
+const mediaClass = 'relative aspect-[16/10] shrink-0 overflow-hidden bg-surface';
 
 function VisualTile({
   visual,
@@ -24,22 +27,22 @@ function VisualTile({
   return (
     <article className={tileClass}>
       {visual.image ? (
-        <div className="relative h-36 overflow-hidden bg-surface sm:h-40 lg:h-44">
+        <div className={mediaClass}>
           <Image
             src={visual.image}
             alt={`${visual.title} 실제 화면`}
             fill
             priority={imagePriority}
             className="object-cover object-top"
-            sizes="(min-width: 768px) 66vw, 100vw"
+            sizes="(min-width: 768px) 33vw, 100vw"
           />
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2 bg-surface p-3">
+        <div className={`${mediaClass} grid grid-cols-2 gap-2 p-3`}>
           {visual.highlights.map((item) => (
             <p
               key={item}
-              className="flex items-center justify-center rounded-xl border border-line bg-white px-2 py-3 text-center text-sm font-medium text-ink"
+              className="flex items-center justify-center rounded-xl border border-line bg-white px-2 text-center text-sm font-medium text-ink"
             >
               {item}
             </p>
@@ -94,7 +97,6 @@ export default function HomeBento() {
     .sort((a, b) => (b.githubStars ?? 0) - (a.githubStars ?? 0))
     .slice(0, 3);
   const codingSkills = skillCategories[0]?.skills.slice(0, 3) ?? [];
-  const [companyFlow, boardroom, patient] = githubVisuals;
 
   return (
     <section className="border-b border-line bg-surface py-10 md:py-14" aria-label="대표 작업">
@@ -107,20 +109,24 @@ export default function HomeBento() {
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
-          <article className={`${tileClass} p-6 md:col-span-2 md:p-8`}>
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent-ink">
-              Healthcare × Frontend
-            </p>
-            <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Boam79
-            </h1>
-            <p className="mt-4 text-xl font-medium leading-snug text-ink-body">
-              병원 현장 → 디지털 도구
-            </p>
-            <p className="mt-3 max-w-md text-sm leading-6 text-ink-secondary md:text-base">
-              {SITE_TAGLINE}
-            </p>
-            <div className="mt-auto flex flex-wrap gap-3 pt-8">
+          <article
+            className={`${tileClass} p-6 md:col-span-6 md:flex-row md:items-end md:justify-between md:p-8`}
+          >
+            <div className="max-w-2xl">
+              <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent-ink">
+                Healthcare × Frontend
+              </p>
+              <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+                Boam79
+              </h1>
+              <p className="mt-3 text-xl font-medium leading-snug text-ink-body">
+                병원 현장 → 디지털 도구
+              </p>
+              <p className="mt-3 text-sm leading-6 text-ink-secondary md:text-base">
+                {SITE_TAGLINE}
+              </p>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:shrink-0">
               <Button href={routes.experience} size="md">
                 대표작 보기 <ArrowRight className="h-4 w-4" aria-hidden />
               </Button>
@@ -130,23 +136,11 @@ export default function HomeBento() {
             </div>
           </article>
 
-          {companyFlow ? (
-            <div className="md:col-span-4">
-              <VisualTile visual={companyFlow} imagePriority />
+          {githubVisuals.map((visual, index) => (
+            <div key={visual.repo} className="md:col-span-2">
+              <VisualTile visual={visual} imagePriority={index === 0} />
             </div>
-          ) : null}
-
-          {boardroom ? (
-            <div className="md:col-span-4">
-              <VisualTile visual={boardroom} />
-            </div>
-          ) : null}
-
-          {patient ? (
-            <div className="md:col-span-2">
-              <VisualTile visual={patient} />
-            </div>
-          ) : null}
+          ))}
 
           <article className={`${tileClass} p-5 md:col-span-2`}>
             <p className="flex items-center gap-2 text-sm font-medium text-ink">
