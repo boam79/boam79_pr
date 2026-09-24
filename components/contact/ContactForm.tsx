@@ -50,7 +50,7 @@ export default function ContactForm() {
   if (status === 'success') {
     return (
       <div
-        className="flex items-start gap-3 rounded-lg border border-emerald-200/90 bg-emerald-50/90 px-4 py-4 text-sm text-emerald-950"
+        className="flex items-start gap-3 border border-emerald-200/90 bg-emerald-50/90 px-4 py-4 text-sm text-emerald-950"
         role="status"
       >
         <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" aria-hidden />
@@ -81,7 +81,7 @@ export default function ContactForm() {
             type="text"
             required
             maxLength={200}
-            className="mt-1.5 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30"
+            className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
             placeholder="홍길동"
           />
         </div>
@@ -95,7 +95,7 @@ export default function ContactForm() {
             type="email"
             required
             maxLength={200}
-            className="mt-1.5 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30"
+            className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
             placeholder="you@example.com"
           />
         </div>
@@ -110,7 +110,7 @@ export default function ContactForm() {
           name="company"
           type="text"
           maxLength={200}
-          className="mt-1.5 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30"
+          className="mt-1.5 w-full border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
           placeholder="회사명"
         />
       </div>
@@ -125,14 +125,14 @@ export default function ContactForm() {
           required
           rows={5}
           maxLength={2000}
-          className="mt-1.5 w-full resize-y rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors focus:border-blue-400 focus:ring-2 focus:ring-blue-400/30"
+          className="mt-1.5 w-full resize-y border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
           placeholder="문의 내용을 남겨 주세요."
         />
       </div>
 
       {status === 'error' && errorMessage && (
         <div
-          className="flex items-start gap-2 rounded-lg border border-amber-200/90 bg-amber-50/90 px-4 py-3 text-sm text-amber-950"
+          className="flex items-start gap-2 border border-amber-200/90 bg-amber-50/90 px-4 py-3 text-sm text-amber-950"
           role="alert"
         >
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />

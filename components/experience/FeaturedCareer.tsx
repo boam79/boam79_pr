@@ -22,7 +22,7 @@ export default function FeaturedCareer({ career, index = 0 }: FeaturedCareerProp
   const rank = String(index + 1).padStart(2, '0');
 
   return (
-    <article className="flex h-full min-h-[28rem] w-[min(26rem,88vw)] shrink-0 snap-start flex-col border border-zinc-200 border-l-[3px] border-l-teal-700 bg-white p-8 lg:w-full lg:min-w-0 lg:p-9">
+    <article className="flex h-full min-h-[28rem] w-[min(26rem,88vw)] shrink-0 snap-start flex-col border border-zinc-200 border-l-[3px] border-l-teal-700 bg-white p-8 transition-colors hover:border-zinc-300 hover:bg-zinc-50/40 lg:w-full lg:min-w-0 lg:p-9">
       <div className="flex items-start justify-between gap-3">
         <p className="font-display text-sm font-semibold tabular-nums tracking-[0.18em] text-teal-800">
           {rank}

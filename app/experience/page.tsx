@@ -8,6 +8,9 @@ import FeaturedCareerGrid from '@/components/experience/FeaturedCareerGrid';
 import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
 import GitHubRepoGrid from '@/components/github/GitHubRepoGrid';
 import FadeInUp from '@/components/ui/FadeInUp';
+import PageHeader from '@/components/ui/PageHeader';
+import StackFilter from '@/components/ui/StackFilter';
+import { pageContainerClass } from '@/lib/constants/layout';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   splitDevelopmentCareers,
@@ -81,16 +84,12 @@ function ExperienceContent() {
 
   return (
     <div className="min-h-screen border-t border-zinc-200/80 bg-[var(--bg-page)]">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-6xl lg:py-20">
+      <div className={`${pageContainerClass} py-16 lg:py-20`}>
         <FadeInUp>
-          <div className="mb-12 text-left">
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
-              경력
-            </h1>
-            <p className="mt-2 text-sm text-zinc-600 md:text-base">
-              구현·화면을 먼저, 현장 운영 경험은 이어서. 공개 저장소는 GitHub 최신 푸시를 따라갑니다.
-            </p>
-          </div>
+          <PageHeader
+            title="경력"
+            description="구현·화면을 먼저, 현장 운영 경험은 이어서. 공개 저장소는 GitHub 최신 푸시를 따라갑니다."
+          />
         </FadeInUp>
 
         <div
@@ -102,6 +101,7 @@ function ExperienceContent() {
             href={experienceTabHref('development', searchParams)}
             role="tab"
             aria-selected={activeTab === 'development'}
+            aria-label={`개발 ${developmentCount}개`}
             onClick={(event) => {
               if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               event.preventDefault();
@@ -114,12 +114,13 @@ function ExperienceContent() {
             }`}
           >
             개발
-            <span className="ml-1.5 tabular-nums text-zinc-400">{developmentCount}</span>
+            <span className="ml-1.5 tabular-nums text-zinc-400">{developmentCount}개</span>
           </a>
           <a
             href={experienceTabHref('facility', searchParams)}
             role="tab"
             aria-selected={activeTab === 'facility'}
+            aria-label={`시설관리 ${facilityCount}개`}
             onClick={(event) => {
               if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               event.preventDefault();
@@ -132,7 +133,7 @@ function ExperienceContent() {
             }`}
           >
             시설관리
-            <span className="ml-1.5 tabular-nums text-zinc-400">{facilityCount}</span>
+            <span className="ml-1.5 tabular-nums text-zinc-400">{facilityCount}개</span>
           </a>
         </div>
 
@@ -146,44 +147,14 @@ function ExperienceContent() {
           >
             {activeTab === 'development' ? (
               <div className={isPending ? 'opacity-70 transition-opacity' : ''}>
-                {stackChips.length > 0 && (
-                  <div className="mb-8" role="group" aria-label="기술 스택 필터">
-                    <p className="mb-2 text-xs font-medium uppercase tracking-wide text-zinc-500">
-                      스택으로 보기
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() => startTransition(() => setStackFilter(null))}
-                        className={`border px-3 py-1.5 text-xs font-medium transition-colors ${
-                          stackFilter === null
-                            ? 'border-teal-700 bg-teal-700 text-white'
-                            : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300'
-                        }`}
-                      >
-                        전체
-                      </button>
-                      {stackChips.map((chip) => (
-                        <button
-                          type="button"
-                          key={chip}
-                          onClick={() =>
-                            startTransition(() =>
-                              setStackFilter((prev) => (prev === chip ? null : chip))
-                            )
-                          }
-                          className={`border px-3 py-1.5 text-xs font-medium transition-colors ${
-                            stackFilter === chip
-                              ? 'border-teal-700 bg-teal-700 text-white'
-                              : 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300'
-                          }`}
-                        >
-                          {chip}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <div className="mb-8">
+                  <StackFilter
+                    chips={stackChips}
+                    value={stackFilter}
+                    onChange={(chip) => startTransition(() => setStackFilter(chip))}
+                    label="기술 스택 필터"
+                  />
+                </div>
 
                 <div className="mb-6 min-h-[1.25rem]">
                   <GitHubSyncStatus

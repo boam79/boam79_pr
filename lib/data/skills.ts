@@ -2,7 +2,7 @@ import { SkillCategory, Certification } from '@/types/skill';
 
 export const skillCategories: SkillCategory[] = [
   {
-    category: "Development",
+    category: '개발',
     skills: [
       { name: "Next.js", level: 4, yearsOfExperience: 1 },
       { name: "TypeScript", level: 4, yearsOfExperience: 1 },
@@ -13,7 +13,7 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    category: "Facility Management",
+    category: '시설관리',
     skills: [
       { name: "전기설비 관리", level: 5, yearsOfExperience: 21 },
       { name: "기계설비 관리", level: 5, yearsOfExperience: 21 },
@@ -23,7 +23,7 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    category: "AI & Data",
+    category: 'AI · 데이터',
     skills: [
       { name: "AI 협업 개발 (Cursor)", level: 4 },
       { name: "Machine Learning", level: 2 },

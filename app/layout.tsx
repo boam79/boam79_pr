@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SkipLink from "@/components/ui/SkipLink";
 import { getSiteUrl, SITE_TAGLINE, SITE_AI_BUILT } from "@/lib/constants/site";
 import { certifications } from "@/lib/data/skills";
 import { facilityCareers } from "@/lib/data/careers";
@@ -133,8 +134,9 @@ export default function RootLayout({
             __html: JSON.stringify(jsonLd),
           }}
         />
+        <SkipLink />
         <Header />
-        <main className="min-h-screen">
+        <main id="main-content" tabIndex={-1} className="min-h-screen outline-none">
           {children}
         </main>
         <Footer />

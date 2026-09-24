@@ -2,12 +2,14 @@
 
 import Link from 'next/link';
 import { routes } from '@/lib/constants/routes';
+import { pageContainerClass } from '@/lib/constants/layout';
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [elevated, setElevated] = useState(false);
   const pathname = usePathname();
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -21,14 +23,41 @@ export default function Header() {
     { label: '연락', href: routes.contact },
   ];
 
-  const linkClassName = (href: string) =>
-    [
+  const isActive = (href: string) =>
+    href === routes.home ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+
+  const linkClassName = (href: string, isCta = false) => {
+    const active = isActive(href);
+    if (isCta) {
+      return [
+        'px-3 py-2 text-sm font-medium transition-colors',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
+        active
+          ? 'border border-teal-700 bg-teal-700 text-white'
+          : 'border border-zinc-200 text-zinc-800 hover:border-teal-600 hover:text-teal-800',
+      ].join(' ');
+    }
+
+    return [
       'px-3 py-2 text-sm font-medium transition-colors',
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
-      pathname === href
-        ? 'bg-teal-50 text-teal-800'
-        : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900',
+      active ? 'text-teal-800 underline decoration-teal-500/80 decoration-2 underline-offset-8' : 'text-zinc-600 hover:text-zinc-900',
     ].join(' ');
+  };
+
+  useEffect(() => {
+    const onScroll = () => setElevated(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -69,8 +98,12 @@ export default function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 backdrop-blur-sm">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header
+      className={`sticky top-0 z-50 border-b bg-white/90 backdrop-blur-sm ${
+        elevated ? 'border-zinc-200 shadow-sm shadow-zinc-900/5' : 'border-zinc-200/80'
+      }`}
+    >
+      <nav className={pageContainerClass} aria-label="주요">
         <div className="flex h-16 items-center justify-between">
           <Link
             href={routes.home}
@@ -79,21 +112,19 @@ export default function Header() {
             Boam79
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={linkClassName(item.href)}
-                aria-current={pathname === item.href ? 'page' : undefined}
+                className={linkClassName(item.href, item.label === '연락')}
+                aria-current={isActive(item.href) ? 'page' : undefined}
               >
                 {item.label}
               </Link>
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             ref={menuButtonRef}
             className="p-2 text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 md:hidden"
@@ -106,7 +137,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <div
             id="mobile-menu"
@@ -119,10 +149,12 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`${linkClassName(item.href)} justify-start`}
+                  className={`${linkClassName(item.href, item.label === '연락')} justify-start ${
+                    isActive(item.href) && item.label !== '연락' ? 'border-l-2 border-l-teal-700 pl-2.5' : ''
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                   role="menuitem"
-                  aria-current={pathname === item.href ? 'page' : undefined}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
@@ -134,4 +166,3 @@ export default function Header() {
     </header>
   );
 }
-

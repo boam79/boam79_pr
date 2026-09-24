@@ -10,7 +10,7 @@ export default function CompactCareerRow({ career }: CompactCareerRowProps) {
   const blurb = career.summary || career.description?.[0];
 
   return (
-    <article className="flex h-full min-h-[15.5rem] w-[min(18.75rem,82vw)] shrink-0 snap-start flex-col border border-zinc-200 bg-white p-5 sm:w-full sm:min-w-0">
+    <article className="flex h-full min-h-[15.5rem] w-[min(18.75rem,82vw)] shrink-0 snap-start flex-col border border-zinc-200 bg-white p-5 transition-colors hover:border-zinc-300 hover:bg-zinc-50/50 sm:w-full sm:min-w-0">
       <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-400">
         <span className="tabular-nums">
           {formatDate(career.period.start)} – {formatDate(career.period.end)}
@@ -34,7 +34,7 @@ export default function CompactCareerRow({ career }: CompactCareerRowProps) {
             className="inline-flex items-center gap-1.5 text-sm font-medium text-teal-800 hover:underline"
           >
             <ExternalLink size={14} aria-hidden />
-            Demo
+            사이트
           </a>
         )}
         {career.github && (
@@ -45,7 +45,7 @@ export default function CompactCareerRow({ career }: CompactCareerRowProps) {
             className="inline-flex items-center gap-1.5 text-sm text-zinc-600 hover:text-zinc-900"
           >
             <Github size={14} aria-hidden />
-            Code
+            GitHub
           </a>
         )}
       </div>
