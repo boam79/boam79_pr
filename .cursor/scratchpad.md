@@ -480,6 +480,13 @@
 - 프리뷰 SSO를 풀어 주시면 배포 URL에서 소개/경력/프로젝트 화면을 다시 눌러 볼 수 있음.
 - 수동 확인 부탁: PR 머지 후 https://boam79pr.vercel.app 의 `/about`, `/experience`, `/projects`
 
+### [Executor] GitHub 목록 가로 카드 그리드 — 2026-09-24
+
+사용자: 최신 푸시 순은 유지하되 세로 리스트를 가로 배열로 다시 짤 것.
+- 모바일: 가로 스냅 스크롤
+- sm+: 2열, lg+: 3열 카드 그리드
+- 경력·프로젝트 공통 `GitHubRepoGrid`
+
 ### [Executor] 최신 푸시 순 정렬 — 2026-09-24
 
 사용자 스크린샷(프로덕션 `/experience`): `No description provided.` + `public data api finder`가 hem보다 위에 있음. 원인은 (1) PR 미머지로 예전 `sort=updated` 코드가 살아 있음 (2) 정적 항목이 GitHub 최신 푸시를 밀어냄.

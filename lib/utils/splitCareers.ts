@@ -17,9 +17,10 @@ export function splitDevelopmentCareers(
 
   // featured 플래그 항목을 원본 배열 순서 유지
   const featured = careers.filter((c) => featuredSet.has(c.id));
+  const now = Date.now();
   const rest = careers
     .filter((c) => !featuredSet.has(c.id))
-    .sort(compareCareerRecency);
+    .sort((a, b) => compareCareerRecency(a, b, now));
 
   return { featured, rest };
 }
@@ -73,8 +74,8 @@ export function careerActivityTimestamp(career: Career, now = Date.now()): numbe
 }
 
 /** 최근 활동이 있는 항목이 앞에 옵니다. */
-export function compareCareerRecency(a: Career, b: Career): number {
-  return careerActivityTimestamp(b) - careerActivityTimestamp(a);
+export function compareCareerRecency(a: Career, b: Career, now = Date.now()): number {
+  return careerActivityTimestamp(b, now) - careerActivityTimestamp(a, now);
 }
 
 /** 정적 경력과 GitHub에서 가져온 최신 공개 저장소를 합칩니다. */
@@ -96,5 +97,6 @@ export function mergeGitHubCareers(
     };
   });
 
-  return [...enrichedStatic, ...extras].sort(compareCareerRecency);
+  const now = Date.now();
+  return [...enrichedStatic, ...extras].sort((a, b) => compareCareerRecency(a, b, now));
 }

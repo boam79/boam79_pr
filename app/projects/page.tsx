@@ -7,6 +7,7 @@ import Badge from '@/components/ui/Badge';
 import FadeInUp from '@/components/ui/FadeInUp';
 import Button from '@/components/ui/Button';
 import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
+import GitHubRepoGrid from '@/components/github/GitHubRepoGrid';
 import { ExternalLink, Github } from 'lucide-react';
 import { filterCareersByStack, collectStackChips, mergeGitHubCareers } from '@/lib/utils/splitCareers';
 import { useGitHubCareers } from '@/lib/hooks/useGitHubCareers';
@@ -83,19 +84,21 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen border-t border-zinc-200/80 bg-[var(--bg-page)]">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-3xl">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-6xl">
         <FadeInUp>
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
-            프로젝트
-          </h1>
-          <p className="mt-2 text-sm text-zinc-600">
-            케이스 스터디 · GitHub 최신 사이드 빌드
-          </p>
+          <div className="max-w-3xl">
+            <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+              프로젝트
+            </h1>
+            <p className="mt-2 text-sm text-zinc-600">
+              케이스 스터디 · GitHub 최신 사이드 빌드
+            </p>
+          </div>
         </FadeInUp>
 
         {/* Case study */}
         <FadeInUp delay={0.06}>
-          <article className="mt-12 border-t border-zinc-200 pt-10">
+          <article className="mt-12 max-w-3xl border-t border-zinc-200 pt-10">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <p className="text-xs font-medium uppercase tracking-[0.2em] text-teal-700">
                 Case study
@@ -228,7 +231,7 @@ export default function ProjectsPage() {
                 GitHub 최신 순
               </h2>
               <p className="mt-2 text-sm text-zinc-600">
-                GitHub 공개 저장소를 최신 푸시 순으로 나열하고, README 분석 한 줄 소개를 붙입니다.
+                최신 푸시가 왼쪽부터 가로로 이어집니다.
               </p>
               <div className="mt-3">
                 <GitHubSyncStatus
@@ -273,61 +276,14 @@ export default function ProjectsPage() {
                 </div>
               )}
 
-              <div
-                className={`mt-6 divide-y divide-zinc-200 border-t border-zinc-200 ${
-                  isPending ? 'opacity-70' : ''
-                }`}
-              >
-                {filteredSides.map((project) => (
-                  <div
-                    key={project.id}
-                    className="grid gap-3 py-5 sm:grid-cols-[1fr_auto] sm:items-start"
-                  >
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-sm font-semibold text-zinc-900">{project.title}</h3>
-                        {project.status && (
-                          <Badge variant={project.status}>
-                            {project.status === 'in-progress' ? '진행' : '완료'}
-                          </Badge>
-                        )}
-                      </div>
-                      {(project.summary || project.description?.[0]) && (
-                        <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
-                          {project.summary || project.description?.[0]}
-                        </p>
-                      )}
-                      {project.techStack && project.techStack.length > 0 && (
-                        <p className="mt-2 text-xs text-zinc-500">
-                          {project.techStack.slice(0, 4).join(' · ')}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap gap-2 sm:justify-end">
-                      {project.demo && (
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" size="sm" className="inline-flex items-center gap-1.5">
-                            <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-                            데모
-                          </Button>
-                        </a>
-                      )}
-                      {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Button
-                            variant="secondary"
-                            size="sm"
-                            className="inline-flex items-center gap-1.5"
-                          >
-                            <Github className="h-3.5 w-3.5" aria-hidden />
-                            GitHub
-                          </Button>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                {filteredSides.length === 0 && (
+              <div className="mt-6">
+                {filteredSides.length > 0 ? (
+                  <GitHubRepoGrid
+                    careers={filteredSides}
+                    pending={isPending}
+                    label="GitHub 최신 사이드 빌드"
+                  />
+                ) : (
                   <p className="py-6 text-sm text-zinc-500">해당 스택의 프로젝트가 없습니다.</p>
                 )}
               </div>

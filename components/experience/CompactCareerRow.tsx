@@ -10,25 +10,22 @@ export default function CompactCareerRow({ career }: CompactCareerRowProps) {
   const blurb = career.summary || career.description?.[0];
 
   return (
-    <article className="group grid gap-3 border-b border-zinc-200 py-5 last:border-b-0 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6">
-      <div>
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-base font-semibold text-zinc-900 group-hover:text-teal-800">
-            {career.title}
-          </h3>
-          <span className="text-xs tabular-nums text-zinc-500">
-            {formatDate(career.period.start)} ~ {formatDate(career.period.end)}
-          </span>
-        </div>
-        {blurb && <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">{blurb}</p>}
-        {career.techStack && career.techStack.length > 0 && (
-          <p className="mt-2.5 text-xs text-zinc-500">
-            {career.techStack.slice(0, 4).join(' · ')}
-          </p>
-        )}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-3 sm:justify-end">
+    <article className="flex h-full min-h-[15.5rem] w-[min(18.75rem,82vw)] shrink-0 snap-start flex-col border border-zinc-200 bg-white p-5 sm:w-full sm:min-w-0">
+      <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-400">
+        <span className="tabular-nums">
+          {formatDate(career.period.start)} – {formatDate(career.period.end)}
+        </span>
+      </p>
+      <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-zinc-900">
+        {career.title}
+      </h3>
+      {blurb && (
+        <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-600">{blurb}</p>
+      )}
+      {career.techStack && career.techStack.length > 0 && (
+        <p className="mt-3 text-xs text-zinc-500">{career.techStack.slice(0, 3).join(' · ')}</p>
+      )}
+      <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-zinc-100 pt-3">
         {career.demo && (
           <a
             href={career.demo}

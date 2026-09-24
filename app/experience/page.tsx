@@ -5,8 +5,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { developmentCareers, facilityCareers } from '@/lib/data/careers';
 import CareerCard from '@/components/experience/CareerCard';
 import FeaturedCareer from '@/components/experience/FeaturedCareer';
-import CompactCareerRow from '@/components/experience/CompactCareerRow';
 import GitHubSyncStatus from '@/components/github/GitHubSyncStatus';
+import GitHubRepoGrid from '@/components/github/GitHubRepoGrid';
 import FadeInUp from '@/components/ui/FadeInUp';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -66,7 +66,7 @@ function ExperienceContent() {
 
   return (
     <div className="min-h-screen border-t border-zinc-200/80 bg-[var(--bg-page)]">
-      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-4xl lg:py-20">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:px-8 lg:max-w-6xl lg:py-20">
         <FadeInUp>
           <div className="mb-12 text-left">
             <h1 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
@@ -174,7 +174,7 @@ function ExperienceContent() {
                 </div>
 
                 {featured.length > 0 && (
-                  <section className="mb-14 space-y-12" aria-label="대표 개발 경력">
+                  <section className="mb-14 max-w-3xl space-y-12" aria-label="대표 개발 경력">
                     {featured.map((career) => (
                       <FeaturedCareer key={career.id} career={career} />
                     ))}
@@ -182,14 +182,19 @@ function ExperienceContent() {
                 )}
 
                 {rest.length > 0 && (
-                  <section aria-label="기타 빌드">
+                  <section aria-label="GitHub 최신 순">
                     <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
                       GitHub 최신 순
                     </h2>
-                    <div className="mt-2 border-t border-zinc-200">
-                      {rest.map((career) => (
-                        <CompactCareerRow key={career.id} career={career} />
-                      ))}
+                    <p className="mt-2 text-sm text-zinc-600">
+                      최신 푸시가 왼쪽부터 가로로 이어집니다.
+                    </p>
+                    <div className="mt-6">
+                      <GitHubRepoGrid
+                        careers={rest}
+                        pending={isPending}
+                        label="GitHub 최신 공개 저장소"
+                      />
                     </div>
                   </section>
                 )}
@@ -199,7 +204,7 @@ function ExperienceContent() {
                 )}
               </div>
             ) : (
-              <div className="space-y-8">
+              <div className="max-w-3xl space-y-8">
                 {facilityCareers.map((career) => (
                   <CareerCard key={career.id} career={career} />
                 ))}

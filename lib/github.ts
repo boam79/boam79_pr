@@ -178,7 +178,8 @@ export async function fetchGitHubRepos(username: string): Promise<Career[]> {
       })
     );
 
-    return careers.filter(isValidCareerPeriod).sort(compareCareerRecency);
+    const now = Date.now();
+    return careers.filter(isValidCareerPeriod).sort((a, b) => compareCareerRecency(a, b, now));
   } catch (error) {
     console.error('Error fetching GitHub repos:', error);
     return [];
